@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="us-ascii"?>
+
+<fileSet version="1" anchorPath="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp" xsi:schemaLocation="http://cypress.com/xsd/cypathdictionary cypathdictionary.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://cypress.com/xsd/cypathdictionary">
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter_cfg.h" value="HEADER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter_sysint_cfg.h" value="HEADER;;;;;Pins and Interrupts" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter_sysint_cfg.c" value="SOURCE_C;CortexM0p,CortexM4;;;;Pins and Interrupts" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter_amux.c" value="SOURCE_C;CortexM0p,CortexM4;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter_cfg.c" value="SOURCE_C;CortexM0p;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cymetadata.c" value="SOURCE_C;CortexM0p,CortexM4;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cydevice_trm.h" value="HEADER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cydevicegnu_trm.inc" value="HEADER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cydevicerv_trm.inc" value="HEADER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cydeviceiar_trm.inc" value="HEADER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter.h" value="HEADER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter_gpio.h" value="HEADER;;;;;Pins and Interrupts" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cyfitter_sysint.h" value="HEADER;;;;;Pins and Interrupts" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cydisabledsheets.h" value="HEADER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\BLE.h" value="HEADER;;;;;BLE" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\BLE.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\BLE_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\BLE_config.h" value="HEADER;;;;;BLE" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\BLE_dis_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\BLE_custom_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\UART.c" value="SOURCE_C;CortexM0p,CortexM4;;;;UART" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\UART.h" value="HEADER;;;;;UART" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\PWM.c" value="SOURCE_C;CortexM0p,CortexM4;;;;PWM" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\PWM.h" value="HEADER;;;;;PWM" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\Clock.h" value="HEADER;;;;;Clock" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\AMux_1.c" value="SOURCE_C;CortexM0p,CortexM4;;;;AMux_1" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\AMux_1.h" value="HEADER;;;;;AMux_1" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\WS_DMA.c" value="SOURCE_C;CortexM0p,CortexM4;;;;WS_DMA" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\WS_DMA.h" value="HEADER;;;;;WS_DMA" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\WS_SPI.c" value="SOURCE_C;CortexM0p,CortexM4;;;;WS_SPI" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\WS_SPI.h" value="HEADER;;;;;WS_SPI" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1.c" value="SOURCE_C;CortexM0p,CortexM4;;;;ADC_1" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1.h" value="HEADER;;;;;ADC_1" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1_INT.c" value="SOURCE_C;CortexM0p,CortexM4;;;;ADC_1" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1_INIT.c" value="SOURCE_C;CortexM0p,CortexM4;;;;ADC_1" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1_PM.c" value="SOURCE_C;CortexM0p,CortexM4;;;;ADC_1" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\AMux_2.c" value="SOURCE_C;CortexM0p,CortexM4;;;;AMux_2" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\AMux_2.h" value="HEADER;;;;;AMux_2" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\UART_SCBCLK.h" value="HEADER;;;;;UART_SCBCLK" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\WS_SPI_SCBCLK.h" value="HEADER;;;;;WS_SPI_SCBCLK" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1_intSarClock.h" value="HEADER;;;;;ADC_1_intSarClock" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\project.h" value="OTHER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cycodeshareimport.ld" value="OTHER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cycodeshareexport.ld" value="OTHER;;;;;" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\cycodeshareimport.scat" value="OTHER;;;;;" />
+</fileSet>
