@@ -1,5 +1,5 @@
 -- Project:   M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\Final_project01_20Byte.cyprj
--- Generated: 05/06/2021 13:49:30
+-- Generated: 05/11/2021 14:59:09
 -- PSoC Creator  4.4
 
 ENTITY Final_project01_20Byte IS
@@ -69,6 +69,8 @@ ARCHITECTURE __DEFAULT__ OF Final_project01_20Byte IS
     SIGNAL LED_Advertisement(0)__PA : bit;
     SIGNAL LED_ConnectStatus(0)__PA : bit;
     SIGNAL Net_1 : bit;
+    SIGNAL Net_10_ff11 : bit;
+    ATTRIBUTE global_signal OF Net_10_ff11 : SIGNAL IS true;
     SIGNAL Net_121 : bit;
     SIGNAL Net_122 : bit;
     SIGNAL Net_1275 : bit;
@@ -93,12 +95,16 @@ ARCHITECTURE __DEFAULT__ OF Final_project01_20Byte IS
     SIGNAL Net_2369_8 : bit;
     SIGNAL Net_2369_9 : bit;
     SIGNAL Net_2370 : bit;
+    SIGNAL Net_2404 : bit;
+    SIGNAL Net_2406 : bit;
     SIGNAL Net_241 : bit;
+    SIGNAL Net_2410 : bit;
     SIGNAL Net_246 : bit;
     SIGNAL Net_247 : bit;
+    SIGNAL Net_28 : bit;
     SIGNAL Net_3 : bit;
-    SIGNAL Net_80_ff11 : bit;
-    ATTRIBUTE global_signal OF Net_80_ff11 : SIGNAL IS true;
+    SIGNAL Net_80_ff12 : bit;
+    ATTRIBUTE global_signal OF Net_80_ff12 : SIGNAL IS true;
     SIGNAL Net_87 : bit;
     SIGNAL Net_88 : bit;
     SIGNAL Net_89 : bit;
@@ -109,6 +115,8 @@ ARCHITECTURE __DEFAULT__ OF Final_project01_20Byte IS
     SIGNAL \ADC_1:Net_428_ff49\ : bit;
     ATTRIBUTE global_signal OF \ADC_1:Net_428_ff49\ : SIGNAL IS true;
     SIGNAL \BLE:Net_1\ : bit;
+    SIGNAL \Timer:Net_1\ : bit;
+    SIGNAL \Timer:Net_2\ : bit;
     SIGNAL \UART:Net_161\ : bit;
     SIGNAL \UART:Net_847_ff1\ : bit;
     ATTRIBUTE global_signal OF \UART:Net_847_ff1\ : SIGNAL IS true;
@@ -202,6 +210,8 @@ ARCHITECTURE __DEFAULT__ OF Final_project01_20Byte IS
     ATTRIBUTE Location OF \WS_SPI:SCB_IRQ\ : LABEL IS "[IntrContainer=(0)][IntrId=(47)]";
     ATTRIBUTE Location OF \ADC_1:IRQ\ : LABEL IS "[IntrContainer=(0)][IntrId=(138)]";
     ATTRIBUTE Location OF \ADC_1:SAR\ : LABEL IS "F(SARADC,0)";
+    ATTRIBUTE Location OF \Timer:TCPWM\ : LABEL IS "F(TCPWM,0)";
+    ATTRIBUTE Location OF isrTimer : LABEL IS "[IntrContainer=(0)][IntrId=(90)]";
     COMPONENT BLE
         PORT (
             ext_pa_lna_chip_en_out : OUT std_ulogic;
@@ -655,11 +665,11 @@ BEGIN
             lfclk => ClockBlock_LFClk,
             ff_div_0 => open,
             ff_div_1 => open,
+            ff_div_11 => Net_10_ff11,
             ff_div_49 => \ADC_1:Net_428_ff49\,
-            ff_div_11 => open,
+            ff_div_12 => Net_80_ff12,
             ff_div_5 => \UART:Net_847_ff1\,
             ff_div_6 => \WS_SPI:Net_847_ff0\,
-            ff_div_12 => Net_80_ff11,
             periclk_App => periclk_App);
 
     SRSS:SRSS;
@@ -2067,7 +2077,7 @@ BEGIN
             exact_width => 0,
             width => 16)
         PORT MAP(
-            clock => Net_80_ff11,
+            clock => Net_80_ff12,
             capture => '0',
             count => '1',
             reload => '0',
@@ -2175,5 +2185,33 @@ BEGIN
             tr_sar_in => open,
             clock => \ADC_1:Net_428_ff49\,
             interrupt => \ADC_1:Net_423\);
+
+    \Timer:TCPWM\:TCPWM
+        GENERIC MAP(
+            cy_registers => "",
+            exact_width => 0,
+            width => 16)
+        PORT MAP(
+            clock => Net_10_ff11,
+            capture => '0',
+            count => '1',
+            reload => '0',
+            stop => '0',
+            start => '0',
+            tr_underflow => Net_2410,
+            tr_compare_match => Net_2404,
+            tr_overflow => Net_2406,
+            line_compl => \Timer:Net_1\,
+            line => \Timer:Net_2\,
+            interrupt => Net_28);
+
+    isrTimer:interrupt
+        GENERIC MAP(
+            cy_registers => "",
+            deepsleep_required => 0,
+            int_type => "10")
+        PORT MAP(
+            interrupt => Net_28,
+            clock => ClockBlock_PeriClk);
 
 END __DEFAULT__;

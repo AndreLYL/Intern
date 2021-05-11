@@ -1,5 +1,5 @@
 # Final_project01_20Byte
-# 2021-05-06 11:49:09Z
+# 2021-05-11 12:58:55Z
 
 dont_use_location p4usbcell -1 -1 0
 dont_use_location USB -1 -1 0
@@ -44,3 +44,5 @@ set_location "\WS_SPI:SCB\" SCB -1 -1 6
 set_location "\WS_SPI:SCB_IRQ\" interrupt -1 -1 47
 set_location "\ADC_1:IRQ\" interrupt -1 -1 138
 set_location "\ADC_1:SAR\" SARADC -1 -1 0
+set_location "\Timer:TCPWM\" TCPWM -1 -1 0
+set_location "isrTimer" interrupt -1 -1 90

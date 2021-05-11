@@ -63,6 +63,12 @@
         .intrPriority = WS_DMA_INT__INTC_CORTEXM4_PRIORITY
     };
 
+    /* isrTimer */
+    const cy_stc_sysint_t isrTimer_cfg = {
+        .intrSrc = (IRQn_Type)isrTimer__INTC_NUMBER,
+        .intrPriority = isrTimer__INTC_CORTEXM4_PRIORITY
+    };
+
     /* ADC_1_IRQ */
     const cy_stc_sysint_t ADC_1_IRQ_cfg = {
         .intrSrc = (IRQn_Type)ADC_1_IRQ__INTC_NUMBER,

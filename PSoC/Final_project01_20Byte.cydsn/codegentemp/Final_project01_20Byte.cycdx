@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="R1_17" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_18" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_15" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_16" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_13" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_14" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_17" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_20" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_21" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_18" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_19" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_11" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_12" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_9" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_10" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_33" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_34" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_31" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_32" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_35" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R_ref" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Debug" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="P1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="P2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_24" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_25" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_22" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_23" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_20" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_21" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_14" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_9" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_12" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_13" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_10" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_11" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="P1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="P2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_34" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_35" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R_ref" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Clock_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="isrTimer" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Debug" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Timer" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="TCPWM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  </block>
+  <block name="R1_33" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_26" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_27" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_24" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_25" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_28" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_31" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_32" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_29" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_30" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_27" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_28" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="D1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="D2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="P6_Vdd" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="A4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="AMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="A3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="P6_Vdd" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="A5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="A3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D0" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="A2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="AMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="LED_ConnectStatus" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="LED_Advertisement" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="BLE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
@@ -71,18 +75,16 @@
   <block name="R_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="LED_Red" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="VCC3_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="AMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="A6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="D5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="D6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="VCC3_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="R1_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="GND_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="WS_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <block name="DW" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  </block>
+  <block name="D6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="WS_SPI" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="sclk_s_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="select_s_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -98,12 +100,14 @@
     <block name="clock_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="mosi_m" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   </block>
-  <block name="D0" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="WS_DMA_INT" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="A1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="D3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="D4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="WS_DMA_INT" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="WS_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="DW" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  </block>
   <block name="A0" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="ADC_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="cy_analog_noconnect_27" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="vinMinusMux_27" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -409,4 +413,5 @@
     <block name="vinPlusMux_40" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="cy_analog_noconnect_173" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   </block>
+  <block name="D3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
 </blockRegMap>

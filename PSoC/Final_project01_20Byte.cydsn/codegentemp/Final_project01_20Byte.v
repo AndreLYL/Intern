@@ -1,6 +1,6 @@
 // ======================================================================
 // Final_project01_20Byte.v generated from TopDesign.cysch
-// 05/06/2021 at 13:48
+// 05/11/2021 at 14:58
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -2092,9 +2092,65 @@ module Scan_ADC_v2_10_6 (
 
 endmodule
 
+// TCPWM_Counter_PDL_v1_0(CaptureInput=7, CaptureInputMasked=3, ClockPrescaler=0, Compare0=16384, Compare1=16384, CompareOrCapture=2, CountDirection=0, CountInput=7, CountInputMasked=3, EnableCompareSwap=false, InterruptSource=1, Period=999, ReloadInput=7, ReloadInputMasked=3, Resolution=16, RunMode=0, StartInput=7, StartInputMasked=3, StopInput=7, StopInputMasked=3, CY_API_CALLBACK_HEADER_INCLUDE=#include "cyapicallbacks.h", CY_COMMENT=, CY_COMPONENT_NAME=TCPWM_Counter_PDL_v1_0, CY_CONFIG_TITLE=Timer, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=Timer, CY_INSTANCE_SHORT_NAME=Timer, CY_MAJOR_VERSION=1, CY_MINOR_VERSION=0, CY_PDL_DRIVER_NAME=tcpwm, CY_PDL_DRIVER_REQ_VERSION=1.0.0, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.4, INSTANCE_NAME=Timer, )
+module TCPWM_Counter_PDL_v1_0_7 (
+    capture,
+    clock,
+    compare,
+    count,
+    interrupt,
+    ovrflw,
+    reload,
+    start,
+    stop,
+    undrflw);
+    input       capture;
+    input       clock;
+    output      compare;
+    input       count;
+    output      interrupt;
+    output      ovrflw;
+    input       reload;
+    input       start;
+    input       stop;
+    output      undrflw;
+
+
+          wire  Net_1;
+          wire  Net_2;
+
+    cy_mxs40_tcpwm_v1_0 TCPWM (
+        .capture(capture),
+        .clock(clock),
+        .count(count),
+        .interrupt(interrupt),
+        .line(Net_2),
+        .line_compl(Net_1),
+        .reload(reload),
+        .start(start),
+        .stop(stop),
+        .tr_compare_match(compare),
+        .tr_overflow(ovrflw),
+        .tr_underflow(undrflw));
+    defparam TCPWM.exact_width = 0;
+    defparam TCPWM.width = 16;
+
+
+
+endmodule
+
 // top
 module top ;
 
+          wire  Net_2412;
+          wire  Net_2410;
+          wire  Net_2409;
+          wire  Net_2408;
+          wire  Net_2407;
+          wire  Net_2406;
+          wire  Net_2405;
+          wire  Net_2404;
+          wire  Net_2403;
     electrical  Net_2210;
     electrical  Net_2209;
     electrical  Net_2208;
@@ -2191,6 +2247,8 @@ module top ;
           wire  Net_1;
           wire  Net_3;
           wire  Net_2;
+          wire  Net_28;
+          wire  Net_10;
     electrical  Net_318;
     electrical  Net_2375;
     electrical  Net_311;
@@ -3481,6 +3539,38 @@ module top ;
 		  .fb({tmpFB_0__Debug_net[0:0]}),
 		  .io({tmpIO_0__Debug_net[0:0]}),
 		  .siovref(tmpSIOVREF__Debug_net));
+
+
+    TCPWM_Counter_PDL_v1_0_7 Timer (
+        .capture(1'b0),
+        .clock(Net_10),
+        .compare(Net_2404),
+        .count(1'b1),
+        .interrupt(Net_28),
+        .ovrflw(Net_2406),
+        .reload(1'b0),
+        .start(1'b0),
+        .stop(1'b0),
+        .undrflw(Net_2410));
+
+
+	cy_clock_v1_0
+		#(.id("14057e51-5afe-49bf-b541-a7e855d128f7"),
+		  .source_clock_id("2FB4EC85-8328-4C5A-9ED9-8B63060178EB"),
+		  .divisor(0),
+		  .period("1000000000"),
+		  .is_direct(0),
+		  .is_digital(0))
+		Clock_1
+		 (.clock_out(Net_10));
+
+
+
+	cy_mxs40_isr_v1_0
+		#(.deepsleep_required(0),
+		  .int_type(2'b10))
+		isrTimer
+		 (.int_signal(Net_28));
 
 
 

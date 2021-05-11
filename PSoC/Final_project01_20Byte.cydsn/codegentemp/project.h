@@ -151,6 +151,8 @@
 #include "WS_SPI.h"
 #include "ADC_1.h"
 #include "AMux_2.h"
+#include "Timer.h"
+#include "Clock_1.h"
 #include "UART_SCBCLK.h"
 #include "WS_SPI_SCBCLK.h"
 #include "ADC_1_intSarClock.h"

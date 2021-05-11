@@ -39,6 +39,9 @@
   <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1_PM.c" value="SOURCE_C;CortexM0p,CortexM4;;;;ADC_1" />
   <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\AMux_2.c" value="SOURCE_C;CortexM0p,CortexM4;;;;AMux_2" />
   <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\AMux_2.h" value="HEADER;;;;;AMux_2" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\Timer.c" value="SOURCE_C;CortexM0p,CortexM4;;;;Timer" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\Timer.h" value="HEADER;;;;;Timer" />
+  <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\Clock_1.h" value="HEADER;;;;;Clock_1" />
   <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\UART_SCBCLK.h" value="HEADER;;;;;UART_SCBCLK" />
   <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\WS_SPI_SCBCLK.h" value="HEADER;;;;;WS_SPI_SCBCLK" />
   <file name="M:\Githubrepo\Intern_hiwi\April_BLE\Final_project01_20Byte.cydsn\codegentemp\ADC_1_intSarClock.h" value="HEADER;;;;;ADC_1_intSarClock" />

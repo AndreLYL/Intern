@@ -42,8 +42,8 @@
 #define UART_SCBCLK__DIV_TYPE CY_SYSCLK_DIV_8_BIT
 
 /* ADC_1 */
-#define ADC_1_intSarClock__DIV_IDX 2
-#define ADC_1_intSarClock__DIV_NUM 2
+#define ADC_1_intSarClock__DIV_IDX 3
+#define ADC_1_intSarClock__DIV_NUM 3
 #define ADC_1_intSarClock__DIV_TYPE CY_SYSCLK_DIV_8_BIT
 #define ADC_1_SAR__HW SAR
 #define ADC_1_SAR__IDX 0
@@ -53,6 +53,15 @@
 #define Clock__DIV_IDX 8
 #define Clock__DIV_NUM 0
 #define Clock__DIV_TYPE CY_SYSCLK_DIV_16_BIT
+#define Clock_1__DIV_IDX 2
+#define Clock_1__DIV_NUM 2
+#define Clock_1__DIV_TYPE CY_SYSCLK_DIV_8_BIT
+
+/* Timer */
+#define Timer_TCPWM__CNT_HW TCPWM0_CNT0
+#define Timer_TCPWM__CNT_IDX 0u
+#define Timer_TCPWM__HW TCPWM0
+#define Timer_TCPWM__IDX 0u
 
 /* WS_DMA */
 #define WS_DMA_DW__BLOCK_HW DW0

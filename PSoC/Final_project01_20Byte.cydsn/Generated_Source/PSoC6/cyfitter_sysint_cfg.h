@@ -43,6 +43,9 @@
     #define WS_DMA_INT__INTC_ASSIGNED 1u
     extern const cy_stc_sysint_t WS_DMA_INT_cfg;
 
+    #define isrTimer__INTC_ASSIGNED 1u
+    extern const cy_stc_sysint_t isrTimer_cfg;
+
     #define ADC_1_IRQ__INTC_ASSIGNED 1u
     extern const cy_stc_sysint_t ADC_1_IRQ_cfg;
 

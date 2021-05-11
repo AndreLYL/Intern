@@ -58,7 +58,7 @@
 #define ENABLE      (1u)
 #define DISABLE     (0u)
 
-#define DEBUG_BLE_ENABLE    ENABLE
+#define DEBUG_BLE_ENABLE    DISABLE
 
 #if DEBUG_BLE_ENABLE
 #define DEBUG_BLE       printf
@@ -88,6 +88,8 @@ cy_stc_ble_conn_handle_t appConnHandle;
 cy_stc_ble_gatts_handle_value_ntf_t notificationPacket, notificationPacket2, notificationPacket3;
 
 uint8 send_flag = 1;
+bool dataUpdateReqest = true;
+float matrix[6][6];
 
 /*******************************************************************************
 *        Function Prototypes
@@ -95,6 +97,8 @@ uint8 send_flag = 1;
 void Ble_Init(void);
 void StackEventHandler(uint32 event, void* eventParam);
 void SendNotification(void);
+void TimerInterruptHandler(void);
+void Timer_Config(void);
 
 
 
@@ -119,28 +123,6 @@ void float2string(float arr[6][6], char str[])
     }
 }
 
-//void packSplit(char pack[108], uint8 spack[3][20])
-//{
-//    int k=0;
-//    spack[0][0] = 45; 
-//    spack[0][1] = 41;
-//    spack[1][0] = 45;
-//    spack[1][1] = 42;
-//    spack[2][0] = 45;
-//    spack[2][1] = 43;
-//
-//    for(uint8 i=2; i < 20; i++)
-//    {
-//        spack[0][i] = (spack[0][i]<<4) | pack[k]; 
-//        spack[1][i] = (spack[0][i]<<4) | pack[k+18];
-//        spack[2][i] = (spack[0][i]<<4) | pack[k+36];
-//        k++;
-//        spack[0][i] = (spack[0][i]<<4) | pack[k];
-//        spack[1][i] = (spack[0][i]<<4) | pack[k+18]; 
-//        spack[2][i] = (spack[0][i]<<4) | pack[k+36];
-//        k++;
-//    }
-//}
 
 void pack2Buffer(char pack[108])
 {
@@ -214,122 +196,171 @@ int HostMain(void)
     /* Initialize BLE */
     Ble_Init();
     
+    Timer_Start();
+    Timer_Config();
+    
 
-    float matrix[6][6];
-    int16_t countReference;
+
+    
     uint8_t R, G, B, base;
     char str[108] = {0};
     uint8 send_count = 0;
         
     for(;;)
     {
-        Cy_GPIO_Write(Debug_PORT,Debug_NUM, 0);  
-//        charNotificationEnabled = false;
-        for(uint8 i = 0;i < 6;i++)
-        {
-                     
-            AMux_2_FastSelect(i); 
-            CyDelayUs(3);  // 似乎这个Delay是不需要的
-            
-            for(uint8 j = 0; j < 6; j++)
-            {
-                countReference = 0;
 
-                AMux_1_FastSelect(j); 
-                CyDelayUs(10);
-                 
-                ADC_1_StartConvert();                 
-                while(!ADC_1_IsEndConversion(CY_SAR_WAIT_FOR_RESULT));
-                ADC_1_StopConvert();
-                countReference = ADC_1_GetResult16(0);
-                matrix[i][j] = ADC_1_CountsTo_Volts(0, countReference); 
-//                printf(" %.2fv\t", matrix[i][j]);
-                
 
-            }  
-//            printf("\r\n");
-        }
-//        charNotificationEnabled = true;
-        Cy_GPIO_Write(Debug_PORT,Debug_NUM, 1);
+
         
         /* Cy_Ble_ProcessEvents() allows BLE stack to process pending events */
-        float2string(matrix, str);
-        pack2Buffer(str);
-
-
         Cy_BLE_ProcessEvents();
         
         if(charNotificationEnabled == true)
-        {            
+        { 
+
+            
+            float2string(matrix, str);
+            pack2Buffer(str);
+            
             if(Cy_BLE_GATT_GetBusyStatus(appConnHandle.attId) ==\
                CY_BLE_STACK_STATE_FREE)
             {
                 /* Send notification data to the GATT Client*/
 //                SendNotification();
                 
-                if(send_flag == 1)
-                {
-                    Cy_BLE_GATTS_Notification(&notificationPacket);
-//                    printf("1");
-                    send_flag++;
-                }
-                else if(send_flag == 2)
-                {
-                    Cy_BLE_GATTS_Notification(&notificationPacket2);
-//                    printf("2");
-                    send_flag++;
-                }
-                else
-                {
-                    Cy_BLE_GATTS_Notification(&notificationPacket3);
-//                    printf("3");
-                    send_flag = 1;
-                    charNotificationEnabled = false;
-                    
-                }
-                
-                
-//                    notificationPacket.connHandle = appConnHandle;
-//                    notificationPacket.handleValPair.attrHandle = CUSTOM_SERV0_CHAR0_HANDLE;
-//                    notificationPacket.handleValPair.value.val = buffer;
-//                    notificationPacket.handleValPair.value.len = NOTIFICATION_PKT_SIZE;
+//                if(send_flag == 1)
+//                {
 //                    Cy_BLE_GATTS_Notification(&notificationPacket);
-//                    
-//                    notificationPacket2.connHandle = appConnHandle;
-//                    notificationPacket2.handleValPair.attrHandle = CUSTOM_SERV0_CHAR0_HANDLE;
-//                    notificationPacket2.handleValPair.value.val = buffer2;
-//                    notificationPacket2.handleValPair.value.len = NOTIFICATION_PKT_SIZE;
-//                    Cy_BLE_GATTS_Notification(&notificationPacket3);
-//
-//                    notificationPacket3.connHandle = appConnHandle;
-//                    notificationPacket3.handleValPair.attrHandle = CUSTOM_SERV0_CHAR0_HANDLE;
-//                    notificationPacket3.handleValPair.value.val = buffer3;
-//                    notificationPacket3.handleValPair.value.len = NOTIFICATION_PKT_SIZE;    
+//                    printf("1");
+//                    send_flag++;
+//                }
+//                else if(send_flag == 2)
+//                {
 //                    Cy_BLE_GATTS_Notification(&notificationPacket2);
+//                    printf("2");
+//                    send_flag++;
+//                }
+//                else
+//                {
+//                    Cy_BLE_GATTS_Notification(&notificationPacket3);
+//                    printf("3");
+//                    send_flag = 1;
+//                    charNotificationEnabled = false;
+//                    
+//                }
+                Cy_GPIO_Write(Debug_PORT,Debug_NUM, 1);
+                
+                Cy_BLE_GATTS_Notification(&notificationPacket);
+                Cy_BLE_GATTS_Notification(&notificationPacket2);
+                Cy_BLE_GATTS_Notification(&notificationPacket3);
+                charNotificationEnabled = false;
+                
+                Cy_GPIO_Write(Debug_PORT,Debug_NUM, 0);
                 
             }
             
         }
 
-        for(uint8 i = 0;i < 6;i++)
-        {
-                    
-            for(uint8 j = 0; j < 6; j++)
-            {
-//                printf(" %.2fv\t", matrix[i][j]);
-
-                base = (uint8)((-matrix[i][j] + 3.0) / 3.0 * 256);
-//                printf(" %d\t", base);
-                B = base > 128 ? base - 50 : base ;
-                G = base > 75 ? base - 30 : 0;
-                R = base > 170 ? base : 0;
-                WS_setRGB(i * 8 + j, R, G, B);
-
-                
-            }
-//            printf("\r\n");        
-        }
+//        for(uint8 i = 0;i < 6;i++)
+//        {
+//                    
+//            for(uint8 j = 0; j < 6; j++)
+//            {
+////                printf(" %.2fv\t", matrix[i][j]);
+//
+//                base = (uint8)((-matrix[i][j] + 3.0) / 3.0 * 256);
+////                printf(" %d\t", base);
+//                B = base > 128 ? base - 50 : base ;
+//                G = base > 75 ? base - 30 : 0;
+//                R = base > 170 ? base : 0;
+//                WS_setRGB(i * 8 + j, R, G, B);
+//
+//                
+//            }
+////            printf("\r\n");        
+//        }
     }
+}
+
+void Timer_Config(void)
+{
+    Cy_SysInt_Init(&isrTimer_cfg, TimerInterruptHandler);
+    NVIC_ClearPendingIRQ(isrTimer_cfg.intrSrc);/* Clears the interrupt */
+    NVIC_EnableIRQ(isrTimer_cfg.intrSrc); /* Enable the core interrupt */
+    __enable_irq(); /* Enable global interrupts. */
+    
+    /* Start the TCPWM component in timer/counter mode. The return value of the
+     * function indicates whether the arguments are valid or not. It is not used
+     * here for simplicity. */
+    (void)Cy_TCPWM_Counter_Init(Timer_HW, Timer_CNT_NUM, &Timer_config);
+    Cy_TCPWM_Enable_Multiple(Timer_HW, Timer_CNT_MASK); /* Enable the counter instance */
+    
+    /* Set the timer period in milliseconds. To count N cycles, period should be
+     * set to N-1. */
+    Cy_TCPWM_Counter_SetPeriod(Timer_HW, Timer_CNT_NUM, 1000 - 1);
+    
+    /* Trigger a software reload on the counter instance. This is required when 
+     * no other hardware input signal is connected to the component to act as
+     * a trigger source. */
+    Cy_TCPWM_TriggerReloadOrIndex(Timer_HW, Timer_CNT_MASK); 
+}
+
+/*******************************************************************************
+* Function Name: TimerInterruptHandler
+********************************************************************************
+*
+* Summary: Handler function for the timer interrupt that simply toggles the LED.
+*
+* Parameters:
+*  None
+*
+* Return:
+*  None
+*
+* Side Effects:
+*  None  
+*
+*******************************************************************************/
+
+void TimerInterruptHandler(void)
+{
+//    Cy_GPIO_Write(Debug_PORT,Debug_NUM, 1);
+   
+    /* Clear the terminal count interrupt */
+    Cy_TCPWM_ClearInterrupt(Timer_HW, Timer_CNT_NUM, CY_TCPWM_INT_ON_TC);
+    
+//    /* Toggle the LED */
+//    Cy_GPIO_Inv(Debug_PORT, Debug_NUM);
+    
+    /*ADC task*/
+    int16_t countReference;
+    for(uint8 i = 0;i < 6;i++)
+    {
+                 
+        AMux_2_FastSelect(i); 
+        CyDelayUs(3);  // 似乎这个Delay是不需要的
+        
+        for(uint8 j = 0; j < 6; j++)
+        {
+            countReference = 0;
+
+            AMux_1_FastSelect(j); 
+            CyDelayUs(10);
+             
+            ADC_1_StartConvert();                 
+            while(!ADC_1_IsEndConversion(CY_SAR_WAIT_FOR_RESULT));
+            ADC_1_StopConvert();
+            countReference = ADC_1_GetResult16(0);
+            matrix[i][j] = ADC_1_CountsTo_Volts(0, countReference); 
+//                printf(" %.2fv\t", matrix[i][j]);
+            
+
+        }  
+//            printf("\r\n");
+
+    }
+    printf("4");
+//    Cy_GPIO_Write(Debug_PORT,Debug_NUM, 0);
 }
 
 /*******************************************************************************
@@ -710,26 +741,7 @@ void StackEventHandler(uint32 event, void* eventParam)
             notificationPacket3.handleValPair.attrHandle = CUSTOM_SERV0_CHAR0_HANDLE;
             notificationPacket3.handleValPair.value.val = buffer3;
             notificationPacket3.handleValPair.value.len = NOTIFICATION_PKT_SIZE;
-//            if(send_flag == 1)
-//            {
-//                notificationPacket.handleValPair.value.val = buffer;
-////                send_flag++;
-//            }
-//            else if(send_flag == 2)
-//            {
-//                notificationPacket.handleValPair.value.val = buffer2;
-////                send_flag++;
-//            }
-//            else
-//            {
-//                notificationPacket.handleValPair.value.val = buffer3;
-////                send_flag=1;
-//            }
-////            else{
-////                charNotificationEnabled = false;
-////                send_flag =
-////            }
-//            
+      
             Cy_BLE_GetPhy(appConnHandle.bdHandle);
 
            

@@ -18,6 +18,14 @@
 #define INCLUDED_CYFITTER_SYSINT_H
 #include "cy_device_headers.h"
 
+/* isrTimer */
+#define isrTimer__INTC_CORTEXM4_ASSIGNED 1
+#define isrTimer__INTC_CORTEXM4_PRIORITY 7u
+#define isrTimer__INTC_NUMBER 90u
+#define isrTimer_INTC_CORTEXM4_ASSIGNED 1
+#define isrTimer_INTC_CORTEXM4_PRIORITY 7u
+#define isrTimer_INTC_NUMBER 90u
+
 /* ADC_1_IRQ */
 #define ADC_1_IRQ__INTC_CORTEXM4_ASSIGNED 1
 #define ADC_1_IRQ__INTC_CORTEXM4_PRIORITY 7u
@@ -53,13 +61,13 @@
 #define BLE_bless_isr__INTC_CORTEXM0P_MUX 3u
 #define BLE_bless_isr__INTC_CORTEXM0P_PRIORITY 3u
 #define BLE_bless_isr__INTC_CORTEXM4_ASSIGNED 1
-#define BLE_bless_isr__INTC_CORTEXM4_PRIORITY 7u
+#define BLE_bless_isr__INTC_CORTEXM4_PRIORITY 6u
 #define BLE_bless_isr__INTC_NUMBER 24u
 #define BLE_bless_isr_INTC_CORTEXM0P_ASSIGNED 1
 #define BLE_bless_isr_INTC_CORTEXM0P_MUX 3u
 #define BLE_bless_isr_INTC_CORTEXM0P_PRIORITY 3u
 #define BLE_bless_isr_INTC_CORTEXM4_ASSIGNED 1
-#define BLE_bless_isr_INTC_CORTEXM4_PRIORITY 7u
+#define BLE_bless_isr_INTC_CORTEXM4_PRIORITY 6u
 #define BLE_bless_isr_INTC_NUMBER 24u
 
 /* WS_SPI_SCB_IRQ */

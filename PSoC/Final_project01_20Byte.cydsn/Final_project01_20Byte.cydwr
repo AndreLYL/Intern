@@ -12,8 +12,12 @@
       <Data key="e89ed5fa-de50-429c-a12d-a4a4e976a8c7" value="Clock" />
     </Group>
     <Group key="Interrupt">
+      <Data key="3c627e0e-baec-46b6-b382-614d88691794/76cc9645-f3bd-4d51-b91b-2975c83cdda3" value="ADC_1_IRQ" />
+      <Data key="5b5cfa34-7f1f-4ea9-843a-232813cba185/bd067f71-3970-4ac5-b329-954cefcd6d5b" value="WS_SPI_SCB_IRQ" />
       <Data key="13f1be57-7ff4-4a68-85e5-4bdc6441b268/5e509665-5bd3-4115-bbc0-fb65a49def9a" value="BLE_bless_isr" />
-      <Data key="20737dce-7284-4a49-8138-672e7a6843c9/9260d369-b684-4310-b925-f618d77b89d7" value="DEBUG_SCB_IRQ" />
+      <Data key="89f55e60-aefa-43d7-a558-9c37a239bf4c" value="isrTimer" />
+      <Data key="356ffe00-7d49-48be-aec0-f4f8acff7331" value="WS_DMA_INT" />
+      <Data key="20737dce-7284-4a49-8138-672e7a6843c9/9260d369-b684-4310-b925-f618d77b89d7" value="UART_SCB_IRQ" />
     </Group>
     <Group key="Pin">
       <Data key="5b5cfa34-7f1f-4ea9-843a-232813cba185/6ab54762-7779-4044-8f78-8f0c3cc17648" value="WS_SPI_mosi_m" />
@@ -45,6 +49,11 @@
         <Data key="Assigned" value="True" />
         <Data key="Priority" value="Default" />
         <Data key="Vector" value="3" />
+      </Group>
+      <Group key="CortexM4">
+        <Data key="Assigned" value="True" />
+        <Data key="Priority" value="6" />
+        <Data key="Vector" value="-1" />
       </Group>
     </Group>
     <Group key="20737dce-7284-4a49-8138-672e7a6843c9/9260d369-b684-4310-b925-f618d77b89d7">

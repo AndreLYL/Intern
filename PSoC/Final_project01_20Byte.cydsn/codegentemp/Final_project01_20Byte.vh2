@@ -2,7 +2,7 @@
 --	Conversion of Final_project01_20Byte.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu May 06 13:48:46 2021
+--	Tue May 11 14:58:42 2021
 --
 
 USE cypress.cypress.all;
@@ -546,6 +546,18 @@ TERMINAL Net_2210 : bit;
 SIGNAL tmpFB_0__Debug_net_0 : bit;
 SIGNAL tmpIO_0__Debug_net_0 : bit;
 TERMINAL tmpSIOVREF__Debug_net_0 : bit;
+SIGNAL Net_10 : bit;
+SIGNAL \Timer:capture\ : bit;
+SIGNAL \Timer:count\ : bit;
+SIGNAL \Timer:reload\ : bit;
+SIGNAL \Timer:stop\ : bit;
+SIGNAL \Timer:start\ : bit;
+SIGNAL Net_2410 : bit;
+SIGNAL Net_2404 : bit;
+SIGNAL Net_2406 : bit;
+SIGNAL \Timer:Net_1\ : bit;
+SIGNAL \Timer:Net_2\ : bit;
+SIGNAL Net_28 : bit;
 BEGIN
 
 one <=  ('1') ;
@@ -2683,5 +2695,36 @@ Debug:cy_mxs40_gpio_v1_0
 		io=>(tmpIO_0__Debug_net_0),
 		annotation=>(open),
 		siovref=>(tmpSIOVREF__Debug_net_0));
+\Timer:TCPWM\:cy_mxs40_tcpwm_v1_0
+	GENERIC MAP(cy_registers=>"",
+		width=>16,
+		exact_width=>'0')
+	PORT MAP(clock=>Net_10,
+		capture=>zero,
+		count=>one,
+		reload=>zero,
+		stop=>zero,
+		start=>zero,
+		tr_underflow=>Net_2410,
+		tr_compare_match=>Net_2404,
+		tr_overflow=>Net_2406,
+		line_compl=>\Timer:Net_1\,
+		line=>\Timer:Net_2\,
+		interrupt=>Net_28);
+Clock_1:cy_clock_v1_0
+	GENERIC MAP(cy_registers=>"",
+		id=>"14057e51-5afe-49bf-b541-a7e855d128f7",
+		source_clock_id=>"2FB4EC85-8328-4C5A-9ED9-8B63060178EB",
+		divisor=>0,
+		period=>"1000000000",
+		is_direct=>'0',
+		is_digital=>'0')
+	PORT MAP(clock_out=>Net_10,
+		dig_domain_out=>open);
+isrTimer:cy_mxs40_isr_v1_0
+	GENERIC MAP(cy_registers=>"",
+		deepsleep_required=>'0',
+		int_type=>"10")
+	PORT MAP(int_signal=>Net_28);
 
 END R_T_L;
