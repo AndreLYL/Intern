@@ -58,6 +58,7 @@
 #define ENABLE      (1u)
 #define DISABLE     (0u)
 
+#define LED_MATRIX_ENABLE    DISABLE
 #define DEBUG_BLE_ENABLE    DISABLE
 
 #if DEBUG_BLE_ENABLE
@@ -170,11 +171,9 @@ int HostMain(void)
     __enable_irq(); /* Enable global interrupts. */
     
     UART_Start();
-    /* \x1b[2J\x1b[;H - ANSI ESC sequence for clear screen */
-    printf("\x1b[2J\x1b[;H");
+    printf("*****************************************************************"\
+               "*****************\r\n\n");
     
-    printf("*****************CE222046: PSoC 6 MCU BLE Throughput Measurement *******"\
-               "**********\r\n");
     printf("Role : Server (GATT OUT)\r\n");
     
     printf("*****************************************************************"\
@@ -200,18 +199,10 @@ int HostMain(void)
     Timer_Config();
     
 
-
-    
-    uint8_t R, G, B, base;
     char str[108] = {0};
-    uint8 send_count = 0;
-        
+    uint8 send_count = 0;     
     for(;;)
-    {
-
-
-
-        
+    {  
         /* Cy_Ble_ProcessEvents() allows BLE stack to process pending events */
         Cy_BLE_ProcessEvents();
         
@@ -226,28 +217,6 @@ int HostMain(void)
                CY_BLE_STACK_STATE_FREE)
             {
                 /* Send notification data to the GATT Client*/
-//                SendNotification();
-                
-//                if(send_flag == 1)
-//                {
-//                    Cy_BLE_GATTS_Notification(&notificationPacket);
-//                    printf("1");
-//                    send_flag++;
-//                }
-//                else if(send_flag == 2)
-//                {
-//                    Cy_BLE_GATTS_Notification(&notificationPacket2);
-//                    printf("2");
-//                    send_flag++;
-//                }
-//                else
-//                {
-//                    Cy_BLE_GATTS_Notification(&notificationPacket3);
-//                    printf("3");
-//                    send_flag = 1;
-//                    charNotificationEnabled = false;
-//                    
-//                }
                 Cy_GPIO_Write(Debug_PORT,Debug_NUM, 1);
                 
                 Cy_BLE_GATTS_Notification(&notificationPacket);
@@ -261,27 +230,11 @@ int HostMain(void)
             
         }
 
-//        for(uint8 i = 0;i < 6;i++)
-//        {
-//                    
-//            for(uint8 j = 0; j < 6; j++)
-//            {
-////                printf(" %.2fv\t", matrix[i][j]);
-//
-//                base = (uint8)((-matrix[i][j] + 3.0) / 3.0 * 256);
-////                printf(" %d\t", base);
-//                B = base > 128 ? base - 50 : base ;
-//                G = base > 75 ? base - 30 : 0;
-//                R = base > 170 ? base : 0;
-//                WS_setRGB(i * 8 + j, R, G, B);
-//
-//                
-//            }
-////            printf("\r\n");        
-//        }
     }
 }
 
+
+// config the Timer
 void Timer_Config(void)
 {
     Cy_SysInt_Init(&isrTimer_cfg, TimerInterruptHandler);
@@ -309,7 +262,7 @@ void Timer_Config(void)
 * Function Name: TimerInterruptHandler
 ********************************************************************************
 *
-* Summary: Handler function for the timer interrupt that simply toggles the LED.
+* Summary: Handler function for the timer interrupt that to collect data from sensor patch
 *
 * Parameters:
 *  None
@@ -334,33 +287,44 @@ void TimerInterruptHandler(void)
     
     /*ADC task*/
     int16_t countReference;
+    uint8_t R, G, B, base;
     for(uint8 i = 0;i < 6;i++)
     {
-                 
+        // select row on Sensor patch        
         AMux_2_FastSelect(i); 
-        CyDelayUs(3);  // 似乎这个Delay是不需要的
+        CyDelayUs(3);  
         
         for(uint8 j = 0; j < 6; j++)
         {
             countReference = 0;
-
+            
+            
+            // select column on sensor patch
             AMux_1_FastSelect(j); 
-            CyDelayUs(10);
-             
+            CyDelayUs(10);  // delay 10 us to avoid the Jitter
+            
+            // one shoot ADC
             ADC_1_StartConvert();                 
             while(!ADC_1_IsEndConversion(CY_SAR_WAIT_FOR_RESULT));
             ADC_1_StopConvert();
             countReference = ADC_1_GetResult16(0);
             matrix[i][j] = ADC_1_CountsTo_Volts(0, countReference); 
-//                printf(" %.2fv\t", matrix[i][j]);
+           
+            
+            // if LED Matrix is enabled, show the data on LED Matrix
+            if(LED_MATRIX_ENABLE){
+                base = (uint8)((-matrix[i][j] + 3.0) / 3.0 * 256);
+                B = base > 128 ? base - 50 : base ;
+                G = base > 75 ? base - 30 : 0;
+                R = base > 170 ? base : 0;
+                WS_setRGB(i * 8 + j, R, G, B);
+            }
             
 
         }  
-//            printf("\r\n");
-
     }
-    printf("4");
-//    Cy_GPIO_Write(Debug_PORT,Debug_NUM, 0);
+//    printf("4");
+
 }
 
 /*******************************************************************************

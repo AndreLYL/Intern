@@ -18,7 +18,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Final_project01_20Byte-000\Final_project01_20Byte">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Final_project01_20Byte-000\Final_project01_20Byte\Shared Files\host_main.c">
 <ExpandedNodeIds>
 <v>Final_project01_20Byte-000</v>
 <v>Final_project01_20Byte-000\Final_project01_20Byte</v>
@@ -78,44 +78,9 @@
 <v>Final_project01_20Byte-000\Final_project01_20Byte\Shared Files\system_psoc63.h</v>
 <v>Final_project01_20Byte-000\Final_project01_20Byte\Generated_Source</v>
 <v>Final_project01_20Byte-000\Final_project01_20Byte\Generated_Source\PSoC6</v>
+<v>Final_project01_20Byte-000\Final_project01_20Byte\Generated_Source\PSoC6\pdl</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Final_project01_20Byte-000</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\TopDesign</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr\Pins</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr\Analog</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr\DMA</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr\Clocks</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr\Interrupts</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr\System</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.cydwr\Directives</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\ARM GCC Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\ARM GCC Generic\cy8c6xx7_cm0plus.ld</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\ARM IAR Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\ARM IAR Generic\cy8c6xx7_cm0plus.icf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\ARM MDK Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\ARM MDK Generic\cy8c6xx7_cm0plus.scat</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Header Files</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\ARM GCC Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\ARM GCC Generic\startup_psoc63_cm0plus.S</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\ARM IAR Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\ARM IAR Generic\startup_psoc63_cm0plus.s</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\ARM MDK Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\ARM MDK Generic\startup_psoc63_cm0plus.s</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\main_cm0p.c</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM0p (Core 0)\Source Files\system_psoc63_cm0plus.c</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM4 (Core 1)</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM4 (Core 1)\ARM GCC Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM4 (Core 1)\ARM GCC Generic\cy8c6xx7_cm4_dual.ld</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM4 (Core 1)\ARM IAR Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM4 (Core 1)\ARM IAR Generic\cy8c6xx7_cm4_dual.icf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM4 (Core 1)\ARM MDK Generic</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CM4 (Core 1)\ARM MDK Generic\cy8c6xx7_cm4_dual.scat</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -124,12 +89,7 @@
 <v>Final_project01_20Byte-000\Final_project01_20Byte\TopDesign</v>
 <v>Final_project01_20Byte-000\Final_project01_20Byte\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Final_project01_20Byte-000</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\TopDesign</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\TopDesign\TopDesign.cysch</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -343,43 +303,7 @@
 <v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte.rpt</v>
 <v>Final_project01_20Byte-000\Final_project01_20Byte\Final_project01_20Byte_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Final_project01_20Byte-000</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_1.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_1_INIT.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_1_INT.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_1_PM.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\AMux_1.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\AMux_2.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_config.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_custom_config.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_dis_config.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_aios.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ancs.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ans.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bas.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bcs.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bls.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bms.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bts.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cgms.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_clk.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cps.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cscs.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cts.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_custom.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_dis.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ess.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_event_handler.lst</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_gap.lst</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -419,38 +343,7 @@
 <v>Final_project01_20Byte-000\Final_project01_20Byte\TCPWM_Counter_PDL_v1_0.pdf</v>
 <v>Final_project01_20Byte-000\Final_project01_20Byte\TCPWM_PWM_PDL_v1_0.pdf</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Final_project01_20Byte-000</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\PSoC 6 Architecture TRM</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\PSoC 63 Family Datasheet</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Peripheral Driver Library</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\System Reference Guides</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\AMux_v1_80</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\AMux_v1_80\AMux_v1_80.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\BLE_PDL_v2_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Connector20_v1_0</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Connector20_v1_0\Connector20_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\DMA_PDL_v2_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Gnd_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\GPIO_PDL_v1_0</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\GPIO_PDL_v1_0\GPIO_PDL_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\LED_v1_0</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\LED_v1_0\LED_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Power_v1_0</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Power_v1_0\Power_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Resistor_v1_0</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Resistor_v1_0\Resistor_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\Scan_ADC_P6_v2_10.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\SCB_SPI_PDL_v2_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\SCB_UART_PDL_v2_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\SysClk_PDL_v1_0</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\SysClk_PDL_v1_0\SysClk_PDL_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\SysInt_PDL_v1_0</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\SysInt_PDL_v1_0\SysInt_PDL_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\TCPWM_Counter_PDL_v1_0.pdf</v>
-<v>Final_project01_20Byte-000\Final_project01_20Byte\TCPWM_PWM_PDL_v1_0.pdf</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
@@ -458,7 +351,22 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs />
+<OpenDocs>
+<name v=".\TopDesign\TopDesign.cysch" />
+<name v=".\Final_project01_20Byte.cydwr" />
+<name v=".\main_cm0p.c" />
+<name v=".\main_cm4.c" />
+<name v=".\ledTask.c" />
+<name v=".\ledTask.h" />
+<name v=".\host_main.c" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="969, 487" SelectedTabbedMdiWindow="2b517909-1489-4971-91f7-be3e586df3ca"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="c3e3be91-2585-46c2-a647-17b3d6bf261e" /><DocumentWindow Key="H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\TopDesign\TopDesign.cysch" Guid="2b517909-1489-4971-91f7-be3e586df3ca" /><DocumentWindow Key="H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\Final_project01_20Byte.cydwr" Guid="135eaf5e-5fc3-497f-8e00-e41025f4e27a" /><DocumentWindow Key="H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\main_cm0p.c" Guid="43913c12-01f6-4a72-b8be-207f83ce0372" /><DocumentWindow Key="H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\main_cm4.c" Guid="4e62c079-6163-4b36-9c61-82cfc590c8bf" /><DocumentWindow Key="H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\ledTask.c" Guid="cab2e52b-7ff7-40a0-9a30-3cfc523cf014" /><DocumentWindow Key="H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\ledTask.h" Guid="08acf47c-e6a5-47cd-9523-94d4850e0d0a" /><DocumentWindow Key="H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\host_main.c" Guid="bb185799-e0c3-4984-b46e-2da357ab8d73" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

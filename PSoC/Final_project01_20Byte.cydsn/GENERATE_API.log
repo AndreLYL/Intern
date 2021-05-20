@@ -1,4 +1,4 @@
---------------- Build Started: 05/20/2021 14:43:19 Project: Final_project01_20Byte, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+--------------- Build Started: 05/20/2021 15:54:36 Project: Final_project01_20Byte, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
 cydsfit.exe -.appdatapath "C:\Users\43479\AppData\Local\Cypress Semiconductor\PSoC Creator\4.2" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\Final_project01_20Byte.cyprj -d CY8C6347BZI-BLD53 -s H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\Generated_Source\PSoC6 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
 ADD: fit.M0067: information: Clock Information: (The WCO is enabled. Chip startup will be slower because clock configuration cannot continue until the WCO is ready. See the device datasheet for WCO startup timing. If WCO is not required during startup, consider starting it in main() for faster chip startup.).
  * H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\Final_project01_20Byte.cydwr (WCO)
@@ -44,4 +44,4 @@ ADD: fit.M0052: information: Interrupt "UART_SCB_IRQ" is currently mapped to mul
  * H:\Githubrepo\Intern\PSoC\Final_project01_20Byte.cydsn\Final_project01_20Byte.cydwr (UART_SCB_IRQ)
 Dependency Generation...
 Cleanup...
---------------- Build Succeeded: 05/20/2021 14:44:07 ---------------
+--------------- Build Skipped: 05/20/2021 15:55:24 ---------------
