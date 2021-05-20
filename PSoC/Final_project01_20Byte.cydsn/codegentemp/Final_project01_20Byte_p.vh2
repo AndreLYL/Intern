@@ -1,6 +1,6 @@
 -- Project:   Final_project01_20Byte
--- Generated: 05/11/2021 14:58:52
--- PSoC Creator  4.4
+-- Generated: 05/20/2021 14:43:47
+-- PSoC Creator  4.2
 
 ENTITY Final_project01_20Byte IS
     PORT(

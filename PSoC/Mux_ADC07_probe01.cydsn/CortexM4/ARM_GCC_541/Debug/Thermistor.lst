@@ -1,0 +1,2061 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"Thermistor.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.section	.text.Thermistor_GetResistance,"ax",%progbits
+  21              		.align	2
+  22              		.global	Thermistor_GetResistance
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	Thermistor_GetResistance, %function
+  26              	Thermistor_GetResistance:
+  27              	.LFB703:
+  28              		.file 1 "Thermistor.c"
+   1:Thermistor.c  **** /*******************************************************************************
+   2:Thermistor.c  **** * File Name: Thermistor.c
+   3:Thermistor.c  **** * Version 1.20
+   4:Thermistor.c  **** *
+   5:Thermistor.c  **** * Description:
+   6:Thermistor.c  **** *  This file provides the source code to the API for the ThermistorCalc
+   7:Thermistor.c  **** *  Component.
+   8:Thermistor.c  **** *
+   9:Thermistor.c  **** * Note:
+  10:Thermistor.c  **** *  None.
+  11:Thermistor.c  **** *
+  12:Thermistor.c  **** ********************************************************************************
+  13:Thermistor.c  **** * Copyright 2013, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Thermistor.c  **** * You may use this file only in accordance with the license, terms, conditions,
+  15:Thermistor.c  **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:Thermistor.c  **** * the software package with which this file was provided.
+  17:Thermistor.c  **** *******************************************************************************/
+  18:Thermistor.c  **** 
+  19:Thermistor.c  **** #include "Thermistor.h"
+  20:Thermistor.c  **** 
+  21:Thermistor.c  **** 
+  22:Thermistor.c  **** /*******************************************************************************
+  23:Thermistor.c  **** * Function Name: Thermistor_GetResistance
+  24:Thermistor.c  **** ********************************************************************************
+  25:Thermistor.c  **** *
+  26:Thermistor.c  **** * Summary:
+  27:Thermistor.c  **** *  The digital values of the voltages across the reference resistor and the
+  28:Thermistor.c  **** *  thermistor are passed to this function as parameters. The function returns
+  29:Thermistor.c  **** *  the resistance, based on the voltage values.
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 2
+
+
+  30:Thermistor.c  **** *
+  31:Thermistor.c  **** * Parameters:
+  32:Thermistor.c  **** *  vReference: the voltage across the reference resistor;
+  33:Thermistor.c  **** *  vThermistor: the voltage across the thermistor.
+  34:Thermistor.c  **** *  The ratio of these two voltages is used by this function. Therefore, the
+  35:Thermistor.c  **** *  units for both parameters must be the same.
+  36:Thermistor.c  **** *
+  37:Thermistor.c  **** * Return:
+  38:Thermistor.c  **** *  The return value is the resistance across the thermistor. The value returned
+  39:Thermistor.c  **** *  is the resistance in Ohms.
+  40:Thermistor.c  **** *
+  41:Thermistor.c  **** *******************************************************************************/
+  42:Thermistor.c  **** uint32 Thermistor_GetResistance(int16 vReference, int16 vThermistor)
+  43:Thermistor.c  ****                                       
+  44:Thermistor.c  **** {
+  29              		.loc 1 44 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34              	.LVL0:
+  45:Thermistor.c  ****     int32 resT;
+  46:Thermistor.c  ****     int16 temp;
+  47:Thermistor.c  **** 
+  48:Thermistor.c  ****     /* Calculate thermistor resistance from the voltages */
+  49:Thermistor.c  ****     resT = Thermistor_REF_RESISTOR * ((int32)vThermistor);
+  35              		.loc 1 49 0
+  36 0000 42F21073 		movw	r3, #10000
+  37 0004 03FB01F1 		mul	r1, r3, r1
+  38              	.LVL1:
+  50:Thermistor.c  ****     if (vReference < 0)
+  39              		.loc 1 50 0
+  40 0008 0028     		cmp	r0, #0
+  41              	.LVL2:
+  42 000a 05DA     		bge	.L2
+  51:Thermistor.c  ****     {
+  52:Thermistor.c  ****         temp = -vReference;
+  43              		.loc 1 52 0
+  44 000c 4342     		negs	r3, r0
+  45              	.LVL3:
+  53:Thermistor.c  ****         temp = (int16)((uint16)((uint16)temp >> 1u));
+  46              		.loc 1 53 0
+  47 000e C3F34E03 		ubfx	r3, r3, #1, #15
+  48              	.LVL4:
+  54:Thermistor.c  ****         temp = -temp;
+  49              		.loc 1 54 0
+  50 0012 5B42     		negs	r3, r3
+  51              	.LVL5:
+  52 0014 1BB2     		sxth	r3, r3
+  53              	.LVL6:
+  54 0016 01E0     		b	.L3
+  55              	.LVL7:
+  56              	.L2:
+  55:Thermistor.c  ****     }
+  56:Thermistor.c  ****     else
+  57:Thermistor.c  ****     {
+  58:Thermistor.c  ****         temp = (int16)((uint16)((uint16)vReference >> 1u));
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 3
+
+
+  57              		.loc 1 58 0
+  58 0018 C0F34E03 		ubfx	r3, r0, #1, #15
+  59              	.LVL8:
+  60              	.L3:
+  59:Thermistor.c  ****     }
+  60:Thermistor.c  ****     resT += temp;
+  61              		.loc 1 60 0
+  62 001c 1944     		add	r1, r1, r3
+  63              	.LVL9:
+  61:Thermistor.c  ****     resT /= vReference;
+  62:Thermistor.c  **** 
+  63:Thermistor.c  ****     /* The ordering of Reference resistor value is specifically designed to keep the result from ov
+  64:Thermistor.c  ****     return ((uint32)((uint32)resT << Thermistor_REF_RES_SHIFT));
+  65:Thermistor.c  **** }
+  64              		.loc 1 65 0
+  65 001e 91FBF0F0 		sdiv	r0, r1, r0
+  66              	.LVL10:
+  67 0022 7047     		bx	lr
+  68              		.cfi_endproc
+  69              	.LFE703:
+  70              		.size	Thermistor_GetResistance, .-Thermistor_GetResistance
+  71              		.global	__aeabi_ui2d
+  72              		.global	__aeabi_d2f
+  73              		.global	__aeabi_f2d
+  74              		.global	__aeabi_dmul
+  75              		.global	__aeabi_dadd
+  76              		.global	__aeabi_ddiv
+  77              		.global	__aeabi_dsub
+  78              		.section	.text.Thermistor_GetTemperature,"ax",%progbits
+  79              		.align	2
+  80              		.global	Thermistor_GetTemperature
+  81              		.thumb
+  82              		.thumb_func
+  83              		.type	Thermistor_GetTemperature, %function
+  84              	Thermistor_GetTemperature:
+  85              	.LFB704:
+  66:Thermistor.c  **** 
+  67:Thermistor.c  **** 
+  68:Thermistor.c  **** /*******************************************************************************
+  69:Thermistor.c  **** * Function Name: Thermistor_GetTemperature
+  70:Thermistor.c  **** ********************************************************************************
+  71:Thermistor.c  **** *
+  72:Thermistor.c  **** * Summary:
+  73:Thermistor.c  **** *  The value of the thermistor resistance is passed to this function as a
+  74:Thermistor.c  **** *  parameter. The function returns the temperature, based on the resistance
+  75:Thermistor.c  **** *  value. The method used to calculate the temperature is dependent on whether
+  76:Thermistor.c  **** *  Equation or LUT was selected in the Customizer.
+  77:Thermistor.c  **** *
+  78:Thermistor.c  **** * Parameters:
+  79:Thermistor.c  **** *  resT: the resistance across the thermistor in Ohms.
+  80:Thermistor.c  **** *
+  81:Thermistor.c  **** * Return:
+  82:Thermistor.c  **** *  The return value is the temperature in 1/100ths of degrees C. For example,
+  83:Thermistor.c  **** *  the return value is 2345, when the actual temperature is 23.45 degrees C.
+  84:Thermistor.c  **** *
+  85:Thermistor.c  **** *******************************************************************************/
+  86:Thermistor.c  **** int16 Thermistor_GetTemperature(uint32 resT) 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 4
+
+
+  87:Thermistor.c  **** {
+  86              		.loc 1 87 0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 8
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              	.LVL11:
+  91 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  92              		.cfi_def_cfa_offset 20
+  93              		.cfi_offset 4, -20
+  94              		.cfi_offset 5, -16
+  95              		.cfi_offset 6, -12
+  96              		.cfi_offset 7, -8
+  97              		.cfi_offset 14, -4
+  98 0002 83B0     		sub	sp, sp, #12
+  99              		.cfi_def_cfa_offset 32
+  88:Thermistor.c  ****     int16 tempTR;
+  89:Thermistor.c  ****     
+  90:Thermistor.c  ****     #if (Thermistor_IMPLEMENTATION == Thermistor_EQUATION_METHOD)
+  91:Thermistor.c  **** 
+  92:Thermistor.c  ****         float32 stEqn;
+  93:Thermistor.c  ****         float32 logrT;
+  94:Thermistor.c  **** 
+  95:Thermistor.c  ****         /* Calculate thermistor resistance from the voltages */
+  96:Thermistor.c  ****         #if(!CY_PSOC3)
+  97:Thermistor.c  ****             logrT = (float32)log((float64)resT);
+ 100              		.loc 1 97 0
+ 101 0004 FFF7FEFF 		bl	__aeabi_ui2d
+ 102              	.LVL12:
+ 103 0008 FFF7FEFF 		bl	log
+ 104              	.LVL13:
+ 105 000c FFF7FEFF 		bl	__aeabi_d2f
+ 106              	.LVL14:
+  98:Thermistor.c  ****         #else
+  99:Thermistor.c  ****             logrT = log((float32)resT);
+ 100:Thermistor.c  ****         #endif  /* (!CY_PSOC3) */
+ 101:Thermistor.c  **** 
+ 102:Thermistor.c  ****         /* Calculate temperature from the resistance of thermistor using Steinhart-Hart Equation */
+ 103:Thermistor.c  ****         #if(!CY_PSOC3)
+ 104:Thermistor.c  ****             stEqn = (float32)(Thermistor_THA + (Thermistor_THB * logrT) + 
+ 107              		.loc 1 104 0
+ 108 0010 FFF7FEFF 		bl	__aeabi_f2d
+ 109              	.LVL15:
+ 110 0014 0646     		mov	r6, r0
+ 111 0016 0F46     		mov	r7, r1
+ 112 0018 27A3     		adr	r3, .L6+32
+ 113 001a D3E90023 		ldrd	r2, [r3]
+ 114 001e FFF7FEFF 		bl	__aeabi_dmul
+ 115              	.LVL16:
+ 116 0022 27A3     		adr	r3, .L6+40
+ 117 0024 D3E90023 		ldrd	r2, [r3]
+ 118 0028 FFF7FEFF 		bl	__aeabi_dadd
+ 119              	.LVL17:
+ 120 002c 0446     		mov	r4, r0
+ 121 002e 0D46     		mov	r5, r1
+ 105:Thermistor.c  ****                              (Thermistor_THC * pow((float64)logrT, (float32)3)));
+ 122              		.loc 1 105 0
+ 123 0030 0022     		movs	r2, #0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 5
+
+
+ 124 0032 1D4B     		ldr	r3, .L6+16
+ 125 0034 3046     		mov	r0, r6
+ 126 0036 3946     		mov	r1, r7
+ 127 0038 FFF7FEFF 		bl	pow
+ 128              	.LVL18:
+ 129 003c 16A3     		adr	r3, .L6
+ 130 003e D3E90023 		ldrd	r2, [r3]
+ 131 0042 FFF7FEFF 		bl	__aeabi_dmul
+ 132              	.LVL19:
+ 104:Thermistor.c  ****                              (Thermistor_THC * pow((float64)logrT, (float32)3)));
+ 133              		.loc 1 104 0
+ 134 0046 0246     		mov	r2, r0
+ 135 0048 0B46     		mov	r3, r1
+ 136 004a 2046     		mov	r0, r4
+ 137 004c 2946     		mov	r1, r5
+ 138 004e FFF7FEFF 		bl	__aeabi_dadd
+ 139              	.LVL20:
+ 140 0052 FFF7FEFF 		bl	__aeabi_d2f
+ 141              	.LVL21:
+ 106:Thermistor.c  ****         #else
+ 107:Thermistor.c  ****             stEqn = (float32)(Thermistor_THA + (Thermistor_THB * logrT) + 
+ 108:Thermistor.c  ****                              (Thermistor_THC * pow(logrT, (float32)3)));
+ 109:Thermistor.c  ****         #endif  /* (!CY_PSOC3) */
+ 110:Thermistor.c  **** 
+ 111:Thermistor.c  ****         tempTR = (int16)((float32)((((1.0 / stEqn) - Thermistor_K2C) * (float32)Thermistor_SCALE) +
+ 142              		.loc 1 111 0
+ 143 0056 FFF7FEFF 		bl	__aeabi_f2d
+ 144              	.LVL22:
+ 145 005a 0246     		mov	r2, r0
+ 146 005c 0B46     		mov	r3, r1
+ 147 005e 0020     		movs	r0, #0
+ 148 0060 1249     		ldr	r1, .L6+20
+ 149 0062 FFF7FEFF 		bl	__aeabi_ddiv
+ 150              	.LVL23:
+ 151 0066 0EA3     		adr	r3, .L6+8
+ 152 0068 D3E90023 		ldrd	r2, [r3]
+ 153 006c FFF7FEFF 		bl	__aeabi_dsub
+ 154              	.LVL24:
+ 155 0070 0022     		movs	r2, #0
+ 156 0072 0F4B     		ldr	r3, .L6+24
+ 157 0074 FFF7FEFF 		bl	__aeabi_dmul
+ 158              	.LVL25:
+ 159 0078 0022     		movs	r2, #0
+ 160 007a 0E4B     		ldr	r3, .L6+28
+ 161 007c FFF7FEFF 		bl	__aeabi_dadd
+ 162              	.LVL26:
+ 163 0080 FFF7FEFF 		bl	__aeabi_d2f
+ 164              	.LVL27:
+ 165 0084 07EE900A 		vmov	s15, r0
+ 166 0088 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 167 008c CDED017A 		vstr.32	s15, [sp, #4]	@ int
+ 168              	.LVL28:
+ 112:Thermistor.c  **** 
+ 113:Thermistor.c  ****     #else /* Thermistor_IMPLEMENTATION == Thermistor_LUT_METHOD */
+ 114:Thermistor.c  **** 
+ 115:Thermistor.c  ****         uint16 mid;
+ 116:Thermistor.c  ****         uint16 first = 0u;
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 6
+
+
+ 117:Thermistor.c  ****         uint16 last = Thermistor_LUT_SIZE - 1u;
+ 118:Thermistor.c  **** 
+ 119:Thermistor.c  ****         /* Calculate temperature from the resistance of thermistor by using the LUT */
+ 120:Thermistor.c  ****         while (first < last)
+ 121:Thermistor.c  ****         {
+ 122:Thermistor.c  ****             mid = (first + last) >> 1u;
+ 123:Thermistor.c  **** 
+ 124:Thermistor.c  ****             if ((0u == mid) || ((Thermistor_LUT_SIZE - 1u) == mid) || (resT == Thermistor_LUT[mid])
+ 125:Thermistor.c  ****             {
+ 126:Thermistor.c  ****                 last = mid;
+ 127:Thermistor.c  ****                 break;
+ 128:Thermistor.c  ****             }
+ 129:Thermistor.c  ****             else if (Thermistor_LUT[mid] > resT)
+ 130:Thermistor.c  ****             {
+ 131:Thermistor.c  ****                 first = mid + 1u;
+ 132:Thermistor.c  ****             }
+ 133:Thermistor.c  ****             else /* (Thermistor_LUT[mid] < resT) */
+ 134:Thermistor.c  ****             {
+ 135:Thermistor.c  ****                 last = mid - 1u;
+ 136:Thermistor.c  ****             }
+ 137:Thermistor.c  ****         }
+ 138:Thermistor.c  **** 
+ 139:Thermistor.c  ****         /* Calculation the closest entry in the LUT */
+ 140:Thermistor.c  ****         if ((Thermistor_LUT[last] > resT) && (last < (Thermistor_LUT_SIZE - 1u)) &&
+ 141:Thermistor.c  ****            ((Thermistor_LUT[last] - resT) > (resT - Thermistor_LUT[last + 1u])))
+ 142:Thermistor.c  ****         {
+ 143:Thermistor.c  ****             last++;
+ 144:Thermistor.c  ****         }
+ 145:Thermistor.c  ****         else if ((Thermistor_LUT[last] < resT) && (last > 0u) &&
+ 146:Thermistor.c  ****                 ((Thermistor_LUT[last - 1u] - resT) < (resT - Thermistor_LUT[last])))
+ 147:Thermistor.c  ****         {
+ 148:Thermistor.c  ****             last--;
+ 149:Thermistor.c  ****         }
+ 150:Thermistor.c  ****         else
+ 151:Thermistor.c  ****         {
+ 152:Thermistor.c  ****             /* Closest entry in the LUT already found */
+ 153:Thermistor.c  ****         }
+ 154:Thermistor.c  **** 
+ 155:Thermistor.c  ****         tempTR = Thermistor_MIN_TEMP + (int16)((uint16)(last * Thermistor_ACCURACY));
+ 156:Thermistor.c  **** 
+ 157:Thermistor.c  ****     #endif /* (Thermistor_IMPLEMENTATION == Thermistor_EQUATION_METHOD) */
+ 158:Thermistor.c  **** 
+ 159:Thermistor.c  ****     return (tempTR);
+ 160:Thermistor.c  **** }
+ 169              		.loc 1 160 0
+ 170 0090 BDF90400 		ldrsh	r0, [sp, #4]
+ 171 0094 03B0     		add	sp, sp, #12
+ 172              		.cfi_def_cfa_offset 20
+ 173              		@ sp needed
+ 174 0096 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 175              	.LVL29:
+ 176              	.L7:
+ 177              		.align	3
+ 178              	.L6:
+ 179 0098 4D33E444 		.word	1155806029
+ 180 009c 25658B3E 		.word	1049322789
+ 181 00a0 66666666 		.word	1717986918
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 7
+
+
+ 182 00a4 66127140 		.word	1081152102
+ 183 00a8 00000840 		.word	1074266112
+ 184 00ac 0000F03F 		.word	1072693248
+ 185 00b0 00005940 		.word	1079574528
+ 186 00b4 0000E03F 		.word	1071644672
+ 187 00b8 6943AA9A 		.word	-1700117655
+ 188 00bc B34D303F 		.word	1060130227
+ 189 00c0 D8FD850B 		.word	193330648
+ 190 00c4 29994D3F 		.word	1062050089
+ 191              		.cfi_endproc
+ 192              	.LFE704:
+ 193              		.size	Thermistor_GetTemperature, .-Thermistor_GetTemperature
+ 194              		.text
+ 195              	.Letext0:
+ 196              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 197              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 198              		.file 4 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/syslib/cy_syslib.h"
+ 199              		.file 5 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_spi.h"
+ 200              		.file 6 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_uart.h"
+ 201              		.file 7 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/sar/cy_sar.h"
+ 202              		.file 8 "Generated_Source\\PSoC6/ADC_1.h"
+ 203              		.file 9 "Generated_Source\\PSoC6\\pdl\\cmsis/include/core_cm4.h"
+ 204              		.file 10 "Generated_Source\\PSoC6/UART_1.h"
+ 205              		.file 11 "Generated_Source\\PSoC6/WS_SPI.h"
+ 206              		.file 12 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4
+ 207              		.section	.debug_info,"",%progbits
+ 208              	.Ldebug_info0:
+ 209 0000 64050000 		.4byte	0x564
+ 210 0004 0400     		.2byte	0x4
+ 211 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 212 000a 04       		.byte	0x4
+ 213 000b 01       		.uleb128 0x1
+ 214 000c 01010000 		.4byte	.LASF92
+ 215 0010 0C       		.byte	0xc
+ 216 0011 8C020000 		.4byte	.LASF93
+ 217 0015 5E030000 		.4byte	.LASF94
+ 218 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 219 001d 00000000 		.4byte	0
+ 220 0021 00000000 		.4byte	.Ldebug_line0
+ 221 0025 02       		.uleb128 0x2
+ 222 0026 02       		.byte	0x2
+ 223 0027 05       		.byte	0x5
+ 224 0028 E7010000 		.4byte	.LASF0
+ 225 002c 02       		.uleb128 0x2
+ 226 002d 01       		.byte	0x1
+ 227 002e 06       		.byte	0x6
+ 228 002f 26030000 		.4byte	.LASF1
+ 229 0033 02       		.uleb128 0x2
+ 230 0034 01       		.byte	0x1
+ 231 0035 08       		.byte	0x8
+ 232 0036 FA020000 		.4byte	.LASF2
+ 233 003a 03       		.uleb128 0x3
+ 234 003b B4040000 		.4byte	.LASF3
+ 235 003f 02       		.byte	0x2
+ 236 0040 29       		.byte	0x29
+ 237 0041 25000000 		.4byte	0x25
+ 238 0045 03       		.uleb128 0x3
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 8
+
+
+ 239 0046 C8010000 		.4byte	.LASF4
+ 240 004a 02       		.byte	0x2
+ 241 004b 2B       		.byte	0x2b
+ 242 004c 50000000 		.4byte	0x50
+ 243 0050 02       		.uleb128 0x2
+ 244 0051 02       		.byte	0x2
+ 245 0052 07       		.byte	0x7
+ 246 0053 CD030000 		.4byte	.LASF5
+ 247 0057 03       		.uleb128 0x3
+ 248 0058 89040000 		.4byte	.LASF6
+ 249 005c 02       		.byte	0x2
+ 250 005d 3F       		.byte	0x3f
+ 251 005e 62000000 		.4byte	0x62
+ 252 0062 02       		.uleb128 0x2
+ 253 0063 04       		.byte	0x4
+ 254 0064 05       		.byte	0x5
+ 255 0065 1F050000 		.4byte	.LASF7
+ 256 0069 03       		.uleb128 0x3
+ 257 006a B4010000 		.4byte	.LASF8
+ 258 006e 02       		.byte	0x2
+ 259 006f 41       		.byte	0x41
+ 260 0070 74000000 		.4byte	0x74
+ 261 0074 02       		.uleb128 0x2
+ 262 0075 04       		.byte	0x4
+ 263 0076 07       		.byte	0x7
+ 264 0077 6A040000 		.4byte	.LASF9
+ 265 007b 02       		.uleb128 0x2
+ 266 007c 08       		.byte	0x8
+ 267 007d 05       		.byte	0x5
+ 268 007e 70020000 		.4byte	.LASF10
+ 269 0082 02       		.uleb128 0x2
+ 270 0083 08       		.byte	0x8
+ 271 0084 07       		.byte	0x7
+ 272 0085 38030000 		.4byte	.LASF11
+ 273 0089 04       		.uleb128 0x4
+ 274 008a 04       		.byte	0x4
+ 275 008b 05       		.byte	0x5
+ 276 008c 696E7400 		.ascii	"int\000"
+ 277 0090 02       		.uleb128 0x2
+ 278 0091 04       		.byte	0x4
+ 279 0092 07       		.byte	0x7
+ 280 0093 35050000 		.4byte	.LASF12
+ 281 0097 03       		.uleb128 0x3
+ 282 0098 3C040000 		.4byte	.LASF13
+ 283 009c 03       		.byte	0x3
+ 284 009d 20       		.byte	0x20
+ 285 009e 3A000000 		.4byte	0x3a
+ 286 00a2 03       		.uleb128 0x3
+ 287 00a3 AA030000 		.4byte	.LASF14
+ 288 00a7 03       		.byte	0x3
+ 289 00a8 24       		.byte	0x24
+ 290 00a9 45000000 		.4byte	0x45
+ 291 00ad 03       		.uleb128 0x3
+ 292 00ae C2020000 		.4byte	.LASF15
+ 293 00b2 03       		.byte	0x3
+ 294 00b3 2C       		.byte	0x2c
+ 295 00b4 57000000 		.4byte	0x57
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 9
+
+
+ 296 00b8 03       		.uleb128 0x3
+ 297 00b9 4F030000 		.4byte	.LASF16
+ 298 00bd 03       		.byte	0x3
+ 299 00be 30       		.byte	0x30
+ 300 00bf 69000000 		.4byte	0x69
+ 301 00c3 02       		.uleb128 0x2
+ 302 00c4 04       		.byte	0x4
+ 303 00c5 07       		.byte	0x7
+ 304 00c6 99000000 		.4byte	.LASF17
+ 305 00ca 05       		.uleb128 0x5
+ 306 00cb B8000000 		.4byte	0xb8
+ 307 00cf 02       		.uleb128 0x2
+ 308 00d0 08       		.byte	0x8
+ 309 00d1 04       		.byte	0x4
+ 310 00d2 DE020000 		.4byte	.LASF18
+ 311 00d6 02       		.uleb128 0x2
+ 312 00d7 01       		.byte	0x1
+ 313 00d8 08       		.byte	0x8
+ 314 00d9 F2030000 		.4byte	.LASF19
+ 315 00dd 02       		.uleb128 0x2
+ 316 00de 04       		.byte	0x4
+ 317 00df 04       		.byte	0x4
+ 318 00e0 58020000 		.4byte	.LASF20
+ 319 00e4 02       		.uleb128 0x2
+ 320 00e5 08       		.byte	0x8
+ 321 00e6 04       		.byte	0x4
+ 322 00e7 82040000 		.4byte	.LASF21
+ 323 00eb 06       		.uleb128 0x6
+ 324 00ec 5C040000 		.4byte	.LASF22
+ 325 00f0 04       		.byte	0x4
+ 326 00f1 8603     		.2byte	0x386
+ 327 00f3 A2000000 		.4byte	0xa2
+ 328 00f7 06       		.uleb128 0x6
+ 329 00f8 63040000 		.4byte	.LASF23
+ 330 00fc 04       		.byte	0x4
+ 331 00fd 8703     		.2byte	0x387
+ 332 00ff B8000000 		.4byte	0xb8
+ 333 0103 06       		.uleb128 0x6
+ 334 0104 0A020000 		.4byte	.LASF24
+ 335 0108 04       		.byte	0x4
+ 336 0109 8903     		.2byte	0x389
+ 337 010b 97000000 		.4byte	0x97
+ 338 010f 06       		.uleb128 0x6
+ 339 0110 7C040000 		.4byte	.LASF25
+ 340 0114 04       		.byte	0x4
+ 341 0115 8A03     		.2byte	0x38a
+ 342 0117 AD000000 		.4byte	0xad
+ 343 011b 06       		.uleb128 0x6
+ 344 011c 63000000 		.4byte	.LASF26
+ 345 0120 04       		.byte	0x4
+ 346 0121 8B03     		.2byte	0x38b
+ 347 0123 DD000000 		.4byte	0xdd
+ 348 0127 06       		.uleb128 0x6
+ 349 0128 F7040000 		.4byte	.LASF27
+ 350 012c 04       		.byte	0x4
+ 351 012d 8C03     		.2byte	0x38c
+ 352 012f E4000000 		.4byte	0xe4
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 10
+
+
+ 353 0133 07       		.uleb128 0x7
+ 354 0134 04       		.byte	0x4
+ 355 0135 02       		.uleb128 0x2
+ 356 0136 01       		.byte	0x1
+ 357 0137 02       		.byte	0x2
+ 358 0138 44040000 		.4byte	.LASF28
+ 359 013c 08       		.uleb128 0x8
+ 360 013d 04       		.byte	0x4
+ 361 013e 42010000 		.4byte	0x142
+ 362 0142 09       		.uleb128 0x9
+ 363 0143 4D010000 		.4byte	0x14d
+ 364 0147 0A       		.uleb128 0xa
+ 365 0148 B8000000 		.4byte	0xb8
+ 366 014c 00       		.byte	0
+ 367 014d 06       		.uleb128 0x6
+ 368 014e 2C020000 		.4byte	.LASF29
+ 369 0152 05       		.byte	0x5
+ 370 0153 BF01     		.2byte	0x1bf
+ 371 0155 3C010000 		.4byte	0x13c
+ 372 0159 0B       		.uleb128 0xb
+ 373 015a 42050000 		.4byte	.LASF41
+ 374 015e 24       		.byte	0x24
+ 375 015f 05       		.byte	0x5
+ 376 0160 4102     		.2byte	0x241
+ 377 0162 DC010000 		.4byte	0x1dc
+ 378 0166 0C       		.uleb128 0xc
+ 379 0167 E0030000 		.4byte	.LASF30
+ 380 016b 05       		.byte	0x5
+ 381 016c 4402     		.2byte	0x244
+ 382 016e CA000000 		.4byte	0xca
+ 383 0172 00       		.byte	0
+ 384 0173 0C       		.uleb128 0xc
+ 385 0174 56040000 		.4byte	.LASF31
+ 386 0178 05       		.byte	0x5
+ 387 0179 4602     		.2byte	0x246
+ 388 017b 33010000 		.4byte	0x133
+ 389 017f 04       		.byte	0x4
+ 390 0180 0C       		.uleb128 0xc
+ 391 0181 6B000000 		.4byte	.LASF32
+ 392 0185 05       		.byte	0x5
+ 393 0186 4702     		.2byte	0x247
+ 394 0188 B8000000 		.4byte	0xb8
+ 395 018c 08       		.byte	0x8
+ 396 018d 0C       		.uleb128 0xc
+ 397 018e DE010000 		.4byte	.LASF33
+ 398 0192 05       		.byte	0x5
+ 399 0193 4802     		.2byte	0x248
+ 400 0195 CA000000 		.4byte	0xca
+ 401 0199 0C       		.byte	0xc
+ 402 019a 0C       		.uleb128 0xc
+ 403 019b 5E020000 		.4byte	.LASF34
+ 404 019f 05       		.byte	0x5
+ 405 01a0 4A02     		.2byte	0x24a
+ 406 01a2 33010000 		.4byte	0x133
+ 407 01a6 10       		.byte	0x10
+ 408 01a7 0C       		.uleb128 0xc
+ 409 01a8 C3030000 		.4byte	.LASF35
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 11
+
+
+ 410 01ac 05       		.byte	0x5
+ 411 01ad 4B02     		.2byte	0x24b
+ 412 01af B8000000 		.4byte	0xb8
+ 413 01b3 14       		.byte	0x14
+ 414 01b4 0C       		.uleb128 0xc
+ 415 01b5 B9020000 		.4byte	.LASF36
+ 416 01b9 05       		.byte	0x5
+ 417 01ba 4C02     		.2byte	0x24c
+ 418 01bc CA000000 		.4byte	0xca
+ 419 01c0 18       		.byte	0x18
+ 420 01c1 0C       		.uleb128 0xc
+ 421 01c2 01040000 		.4byte	.LASF37
+ 422 01c6 05       		.byte	0x5
+ 423 01c7 5202     		.2byte	0x252
+ 424 01c9 4D010000 		.4byte	0x14d
+ 425 01cd 1C       		.byte	0x1c
+ 426 01ce 0C       		.uleb128 0xc
+ 427 01cf AC040000 		.4byte	.LASF38
+ 428 01d3 05       		.byte	0x5
+ 429 01d4 5502     		.2byte	0x255
+ 430 01d6 B8000000 		.4byte	0xb8
+ 431 01da 20       		.byte	0x20
+ 432 01db 00       		.byte	0
+ 433 01dc 06       		.uleb128 0x6
+ 434 01dd DD000000 		.4byte	.LASF39
+ 435 01e1 05       		.byte	0x5
+ 436 01e2 5802     		.2byte	0x258
+ 437 01e4 59010000 		.4byte	0x159
+ 438 01e8 06       		.uleb128 0x6
+ 439 01e9 75000000 		.4byte	.LASF40
+ 440 01ed 06       		.byte	0x6
+ 441 01ee AB01     		.2byte	0x1ab
+ 442 01f0 3C010000 		.4byte	0x13c
+ 443 01f4 0B       		.uleb128 0xb
+ 444 01f5 B9000000 		.4byte	.LASF42
+ 445 01f9 38       		.byte	0x38
+ 446 01fa 06       		.byte	0x6
+ 447 01fb 4702     		.2byte	0x247
+ 448 01fd B8020000 		.4byte	0x2b8
+ 449 0201 0C       		.uleb128 0xc
+ 450 0202 BF010000 		.4byte	.LASF43
+ 451 0206 06       		.byte	0x6
+ 452 0207 4A02     		.2byte	0x24a
+ 453 0209 CA000000 		.4byte	0xca
+ 454 020d 00       		.byte	0
+ 455 020e 0C       		.uleb128 0xc
+ 456 020f F1020000 		.4byte	.LASF44
+ 457 0213 06       		.byte	0x6
+ 458 0214 4B02     		.2byte	0x24b
+ 459 0216 CA000000 		.4byte	0xca
+ 460 021a 04       		.byte	0x4
+ 461 021b 0C       		.uleb128 0xc
+ 462 021c 08030000 		.4byte	.LASF45
+ 463 0220 06       		.byte	0x6
+ 464 0221 4D02     		.2byte	0x24d
+ 465 0223 33010000 		.4byte	0x133
+ 466 0227 08       		.byte	0x8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 12
+
+
+ 467 0228 0C       		.uleb128 0xc
+ 468 0229 99020000 		.4byte	.LASF46
+ 469 022d 06       		.byte	0x6
+ 470 022e 4E02     		.2byte	0x24e
+ 471 0230 B8000000 		.4byte	0xb8
+ 472 0234 0C       		.byte	0xc
+ 473 0235 0C       		.uleb128 0xc
+ 474 0236 4A020000 		.4byte	.LASF47
+ 475 023a 06       		.byte	0x6
+ 476 023b 4F02     		.2byte	0x24f
+ 477 023d CA000000 		.4byte	0xca
+ 478 0241 10       		.byte	0x10
+ 479 0242 0C       		.uleb128 0xc
+ 480 0243 50000000 		.4byte	.LASF48
+ 481 0247 06       		.byte	0x6
+ 482 0248 5002     		.2byte	0x250
+ 483 024a CA000000 		.4byte	0xca
+ 484 024e 14       		.byte	0x14
+ 485 024f 0C       		.uleb128 0xc
+ 486 0250 56040000 		.4byte	.LASF31
+ 487 0254 06       		.byte	0x6
+ 488 0255 5202     		.2byte	0x252
+ 489 0257 33010000 		.4byte	0x133
+ 490 025b 18       		.byte	0x18
+ 491 025c 0C       		.uleb128 0xc
+ 492 025d 6B000000 		.4byte	.LASF32
+ 493 0261 06       		.byte	0x6
+ 494 0262 5302     		.2byte	0x253
+ 495 0264 B8000000 		.4byte	0xb8
+ 496 0268 1C       		.byte	0x1c
+ 497 0269 0C       		.uleb128 0xc
+ 498 026a DE010000 		.4byte	.LASF33
+ 499 026e 06       		.byte	0x6
+ 500 026f 5402     		.2byte	0x254
+ 501 0271 CA000000 		.4byte	0xca
+ 502 0275 20       		.byte	0x20
+ 503 0276 0C       		.uleb128 0xc
+ 504 0277 5E020000 		.4byte	.LASF34
+ 505 027b 06       		.byte	0x6
+ 506 027c 5602     		.2byte	0x256
+ 507 027e 33010000 		.4byte	0x133
+ 508 0282 24       		.byte	0x24
+ 509 0283 0C       		.uleb128 0xc
+ 510 0284 C3030000 		.4byte	.LASF35
+ 511 0288 06       		.byte	0x6
+ 512 0289 5702     		.2byte	0x257
+ 513 028b B8000000 		.4byte	0xb8
+ 514 028f 28       		.byte	0x28
+ 515 0290 0C       		.uleb128 0xc
+ 516 0291 0C000000 		.4byte	.LASF49
+ 517 0295 06       		.byte	0x6
+ 518 0296 5802     		.2byte	0x258
+ 519 0298 CA000000 		.4byte	0xca
+ 520 029c 2C       		.byte	0x2c
+ 521 029d 0C       		.uleb128 0xc
+ 522 029e 01040000 		.4byte	.LASF37
+ 523 02a2 06       		.byte	0x6
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 13
+
+
+ 524 02a3 5D02     		.2byte	0x25d
+ 525 02a5 E8010000 		.4byte	0x1e8
+ 526 02a9 30       		.byte	0x30
+ 527 02aa 0C       		.uleb128 0xc
+ 528 02ab AC040000 		.4byte	.LASF38
+ 529 02af 06       		.byte	0x6
+ 530 02b0 6002     		.2byte	0x260
+ 531 02b2 B8000000 		.4byte	0xb8
+ 532 02b6 34       		.byte	0x34
+ 533 02b7 00       		.byte	0
+ 534 02b8 06       		.uleb128 0x6
+ 535 02b9 DD040000 		.4byte	.LASF50
+ 536 02bd 06       		.byte	0x6
+ 537 02be 6302     		.2byte	0x263
+ 538 02c0 F4010000 		.4byte	0x1f4
+ 539 02c4 0D       		.uleb128 0xd
+ 540 02c5 01       		.byte	0x1
+ 541 02c6 33000000 		.4byte	0x33
+ 542 02ca 07       		.byte	0x7
+ 543 02cb 0504     		.2byte	0x405
+ 544 02cd EA020000 		.4byte	0x2ea
+ 545 02d1 0E       		.uleb128 0xe
+ 546 02d2 59050000 		.4byte	.LASF51
+ 547 02d6 00       		.byte	0
+ 548 02d7 0E       		.uleb128 0xe
+ 549 02d8 93040000 		.4byte	.LASF52
+ 550 02dc 01       		.byte	0x1
+ 551 02dd 0E       		.uleb128 0xe
+ 552 02de 0A040000 		.4byte	.LASF53
+ 553 02e2 02       		.byte	0x2
+ 554 02e3 0E       		.uleb128 0xe
+ 555 02e4 1D000000 		.4byte	.LASF54
+ 556 02e8 03       		.byte	0x3
+ 557 02e9 00       		.byte	0
+ 558 02ea 06       		.uleb128 0x6
+ 559 02eb 97050000 		.4byte	.LASF55
+ 560 02ef 07       		.byte	0x7
+ 561 02f0 0A04     		.2byte	0x40a
+ 562 02f2 C4020000 		.4byte	0x2c4
+ 563 02f6 0F       		.uleb128 0xf
+ 564 02f7 78       		.byte	0x78
+ 565 02f8 07       		.byte	0x7
+ 566 02f9 F404     		.2byte	0x4f4
+ 567 02fb C3030000 		.4byte	0x3c3
+ 568 02ff 0C       		.uleb128 0xc
+ 569 0300 A7020000 		.4byte	.LASF56
+ 570 0304 07       		.byte	0x7
+ 571 0305 F604     		.2byte	0x4f6
+ 572 0307 B8000000 		.4byte	0xb8
+ 573 030b 00       		.byte	0
+ 574 030c 0C       		.uleb128 0xc
+ 575 030d AE000000 		.4byte	.LASF57
+ 576 0311 07       		.byte	0x7
+ 577 0312 F704     		.2byte	0x4f7
+ 578 0314 B8000000 		.4byte	0xb8
+ 579 0318 04       		.byte	0x4
+ 580 0319 0C       		.uleb128 0xc
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 14
+
+
+ 581 031a AC020000 		.4byte	.LASF58
+ 582 031e 07       		.byte	0x7
+ 583 031f F804     		.2byte	0x4f8
+ 584 0321 B8000000 		.4byte	0xb8
+ 585 0325 08       		.byte	0x8
+ 586 0326 0C       		.uleb128 0xc
+ 587 0327 12050000 		.4byte	.LASF59
+ 588 032b 07       		.byte	0x7
+ 589 032c F904     		.2byte	0x4f9
+ 590 032e B8000000 		.4byte	0xb8
+ 591 0332 0C       		.byte	0xc
+ 592 0333 0C       		.uleb128 0xc
+ 593 0334 F6000000 		.4byte	.LASF60
+ 594 0338 07       		.byte	0x7
+ 595 0339 FA04     		.2byte	0x4fa
+ 596 033b B8000000 		.4byte	0xb8
+ 597 033f 10       		.byte	0x10
+ 598 0340 0C       		.uleb128 0xc
+ 599 0341 00020000 		.4byte	.LASF61
+ 600 0345 07       		.byte	0x7
+ 601 0346 FB04     		.2byte	0x4fb
+ 602 0348 EA020000 		.4byte	0x2ea
+ 603 034c 14       		.byte	0x14
+ 604 034d 0C       		.uleb128 0xc
+ 605 034e FF040000 		.4byte	.LASF62
+ 606 0352 07       		.byte	0x7
+ 607 0353 FC04     		.2byte	0x4fc
+ 608 0355 B8000000 		.4byte	0xb8
+ 609 0359 18       		.byte	0x18
+ 610 035a 0C       		.uleb128 0xc
+ 611 035b BE040000 		.4byte	.LASF63
+ 612 035f 07       		.byte	0x7
+ 613 0360 FD04     		.2byte	0x4fd
+ 614 0362 C3030000 		.4byte	0x3c3
+ 615 0366 1C       		.byte	0x1c
+ 616 0367 0C       		.uleb128 0xc
+ 617 0368 71050000 		.4byte	.LASF64
+ 618 036c 07       		.byte	0x7
+ 619 036d FE04     		.2byte	0x4fe
+ 620 036f B8000000 		.4byte	0xb8
+ 621 0373 5C       		.byte	0x5c
+ 622 0374 0C       		.uleb128 0xc
+ 623 0375 A2000000 		.4byte	.LASF65
+ 624 0379 07       		.byte	0x7
+ 625 037a FF04     		.2byte	0x4ff
+ 626 037c B8000000 		.4byte	0xb8
+ 627 0380 60       		.byte	0x60
+ 628 0381 0C       		.uleb128 0xc
+ 629 0382 7A050000 		.4byte	.LASF66
+ 630 0386 07       		.byte	0x7
+ 631 0387 0005     		.2byte	0x500
+ 632 0389 B8000000 		.4byte	0xb8
+ 633 038d 64       		.byte	0x64
+ 634 038e 0C       		.uleb128 0xc
+ 635 038f F7030000 		.4byte	.LASF67
+ 636 0393 07       		.byte	0x7
+ 637 0394 0105     		.2byte	0x501
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 15
+
+
+ 638 0396 B8000000 		.4byte	0xb8
+ 639 039a 68       		.byte	0x68
+ 640 039b 0C       		.uleb128 0xc
+ 641 039c B3030000 		.4byte	.LASF68
+ 642 03a0 07       		.byte	0x7
+ 643 03a1 0205     		.2byte	0x502
+ 644 03a3 B8000000 		.4byte	0xb8
+ 645 03a7 6C       		.byte	0x6c
+ 646 03a8 0C       		.uleb128 0xc
+ 647 03a9 7E020000 		.4byte	.LASF69
+ 648 03ad 07       		.byte	0x7
+ 649 03ae 0305     		.2byte	0x503
+ 650 03b0 35010000 		.4byte	0x135
+ 651 03b4 70       		.byte	0x70
+ 652 03b5 0C       		.uleb128 0xc
+ 653 03b6 D1000000 		.4byte	.LASF70
+ 654 03ba 07       		.byte	0x7
+ 655 03bb 0405     		.2byte	0x504
+ 656 03bd B8000000 		.4byte	0xb8
+ 657 03c1 74       		.byte	0x74
+ 658 03c2 00       		.byte	0
+ 659 03c3 10       		.uleb128 0x10
+ 660 03c4 B8000000 		.4byte	0xb8
+ 661 03c8 D3030000 		.4byte	0x3d3
+ 662 03cc 11       		.uleb128 0x11
+ 663 03cd C3000000 		.4byte	0xc3
+ 664 03d1 0F       		.byte	0xf
+ 665 03d2 00       		.byte	0
+ 666 03d3 06       		.uleb128 0x6
+ 667 03d4 C9040000 		.4byte	.LASF71
+ 668 03d8 07       		.byte	0x7
+ 669 03d9 0505     		.2byte	0x505
+ 670 03db F6020000 		.4byte	0x2f6
+ 671 03df 12       		.uleb128 0x12
+ 672 03e0 14       		.byte	0x14
+ 673 03e1 08       		.byte	0x8
+ 674 03e2 3B       		.byte	0x3b
+ 675 03e3 24040000 		.4byte	0x424
+ 676 03e7 13       		.uleb128 0x13
+ 677 03e8 00000000 		.4byte	.LASF72
+ 678 03ec 08       		.byte	0x8
+ 679 03ed 3D       		.byte	0x3d
+ 680 03ee B8000000 		.4byte	0xb8
+ 681 03f2 00       		.byte	0
+ 682 03f3 13       		.uleb128 0x13
+ 683 03f4 06050000 		.4byte	.LASF73
+ 684 03f8 08       		.byte	0x8
+ 685 03f9 3E       		.byte	0x3e
+ 686 03fa B8000000 		.4byte	0xb8
+ 687 03fe 04       		.byte	0x4
+ 688 03ff 13       		.uleb128 0x13
+ 689 0400 4A040000 		.4byte	.LASF74
+ 690 0404 08       		.byte	0x8
+ 691 0405 3F       		.byte	0x3f
+ 692 0406 24040000 		.4byte	0x424
+ 693 040a 08       		.byte	0x8
+ 694 040b 13       		.uleb128 0x13
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 16
+
+
+ 695 040c E7030000 		.4byte	.LASF75
+ 696 0410 08       		.byte	0x8
+ 697 0411 40       		.byte	0x40
+ 698 0412 B8000000 		.4byte	0xb8
+ 699 0416 0C       		.byte	0xc
+ 700 0417 13       		.uleb128 0x13
+ 701 0418 21020000 		.4byte	.LASF76
+ 702 041c 08       		.byte	0x8
+ 703 041d 45       		.byte	0x45
+ 704 041e B8000000 		.4byte	0xb8
+ 705 0422 10       		.byte	0x10
+ 706 0423 00       		.byte	0
+ 707 0424 08       		.uleb128 0x8
+ 708 0425 04       		.byte	0x4
+ 709 0426 2A040000 		.4byte	0x42a
+ 710 042a 14       		.uleb128 0x14
+ 711 042b D3030000 		.4byte	0x3d3
+ 712 042f 03       		.uleb128 0x3
+ 713 0430 12030000 		.4byte	.LASF77
+ 714 0434 08       		.byte	0x8
+ 715 0435 48       		.byte	0x48
+ 716 0436 DF030000 		.4byte	0x3df
+ 717 043a 15       		.uleb128 0x15
+ 718 043b 37000000 		.4byte	.LASF82
+ 719 043f 01       		.byte	0x1
+ 720 0440 2A       		.byte	0x2a
+ 721 0441 F7000000 		.4byte	0xf7
+ 722 0445 00000000 		.4byte	.LFB703
+ 723 0449 24000000 		.4byte	.LFE703-.LFB703
+ 724 044d 01       		.uleb128 0x1
+ 725 044e 9C       		.byte	0x9c
+ 726 044f 90040000 		.4byte	0x490
+ 727 0453 16       		.uleb128 0x16
+ 728 0454 D3010000 		.4byte	.LASF78
+ 729 0458 01       		.byte	0x1
+ 730 0459 2A       		.byte	0x2a
+ 731 045a 03010000 		.4byte	0x103
+ 732 045e 00000000 		.4byte	.LLST0
+ 733 0462 16       		.uleb128 0x16
+ 734 0463 64020000 		.4byte	.LASF79
+ 735 0467 01       		.byte	0x1
+ 736 0468 2A       		.byte	0x2a
+ 737 0469 03010000 		.4byte	0x103
+ 738 046d 21000000 		.4byte	.LLST1
+ 739 0471 17       		.uleb128 0x17
+ 740 0472 5E000000 		.4byte	.LASF80
+ 741 0476 01       		.byte	0x1
+ 742 0477 2D       		.byte	0x2d
+ 743 0478 0F010000 		.4byte	0x10f
+ 744 047c 42000000 		.4byte	.LLST2
+ 745 0480 17       		.uleb128 0x17
+ 746 0481 94000000 		.4byte	.LASF81
+ 747 0485 01       		.byte	0x1
+ 748 0486 2E       		.byte	0x2e
+ 749 0487 03010000 		.4byte	0x103
+ 750 048b 70000000 		.4byte	.LLST3
+ 751 048f 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 17
+
+
+ 752 0490 18       		.uleb128 0x18
+ 753 0491 22040000 		.4byte	.LASF83
+ 754 0495 01       		.byte	0x1
+ 755 0496 56       		.byte	0x56
+ 756 0497 03010000 		.4byte	0x103
+ 757 049b 00000000 		.4byte	.LFB704
+ 758 049f C8000000 		.4byte	.LFE704-.LFB704
+ 759 04a3 01       		.uleb128 0x1
+ 760 04a4 9C       		.byte	0x9c
+ 761 04a5 F8040000 		.4byte	0x4f8
+ 762 04a9 16       		.uleb128 0x16
+ 763 04aa 5E000000 		.4byte	.LASF80
+ 764 04ae 01       		.byte	0x1
+ 765 04af 56       		.byte	0x56
+ 766 04b0 F7000000 		.4byte	0xf7
+ 767 04b4 A7000000 		.4byte	.LLST4
+ 768 04b8 17       		.uleb128 0x17
+ 769 04b9 EA020000 		.4byte	.LASF84
+ 770 04bd 01       		.byte	0x1
+ 771 04be 58       		.byte	0x58
+ 772 04bf 03010000 		.4byte	0x103
+ 773 04c3 C8000000 		.4byte	.LLST5
+ 774 04c7 17       		.uleb128 0x17
+ 775 04c8 58030000 		.4byte	.LASF85
+ 776 04cc 01       		.byte	0x1
+ 777 04cd 5C       		.byte	0x5c
+ 778 04ce 1B010000 		.4byte	0x11b
+ 779 04d2 E8000000 		.4byte	.LLST6
+ 780 04d6 17       		.uleb128 0x17
+ 781 04d7 32030000 		.4byte	.LASF86
+ 782 04db 01       		.byte	0x1
+ 783 04dc 5D       		.byte	0x5d
+ 784 04dd 1B010000 		.4byte	0x11b
+ 785 04e1 FB000000 		.4byte	.LLST7
+ 786 04e5 19       		.uleb128 0x19
+ 787 04e6 0C000000 		.4byte	.LVL13
+ 788 04ea 51050000 		.4byte	0x551
+ 789 04ee 19       		.uleb128 0x19
+ 790 04ef 3C000000 		.4byte	.LVL18
+ 791 04f3 5C050000 		.4byte	0x55c
+ 792 04f7 00       		.byte	0
+ 793 04f8 1A       		.uleb128 0x1a
+ 794 04f9 28050000 		.4byte	.LASF87
+ 795 04fd 09       		.byte	0x9
+ 796 04fe EA07     		.2byte	0x7ea
+ 797 0500 04050000 		.4byte	0x504
+ 798 0504 05       		.uleb128 0x5
+ 799 0505 AD000000 		.4byte	0xad
+ 800 0509 1B       		.uleb128 0x1b
+ 801 050a F1010000 		.4byte	.LASF88
+ 802 050e 0A       		.byte	0xa
+ 803 050f 87       		.byte	0x87
+ 804 0510 B8020000 		.4byte	0x2b8
+ 805 0514 1A       		.uleb128 0x1a
+ 806 0515 CA020000 		.4byte	.LASF89
+ 807 0519 08       		.byte	0x8
+ 808 051a 6001     		.2byte	0x160
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 18
+
+
+ 809 051c B8000000 		.4byte	0xb8
+ 810 0520 10       		.uleb128 0x10
+ 811 0521 30050000 		.4byte	0x530
+ 812 0525 30050000 		.4byte	0x530
+ 813 0529 11       		.uleb128 0x11
+ 814 052a C3000000 		.4byte	0xc3
+ 815 052e 00       		.byte	0
+ 816 052f 00       		.byte	0
+ 817 0530 14       		.uleb128 0x14
+ 818 0531 2F040000 		.4byte	0x42f
+ 819 0535 1A       		.uleb128 0x1a
+ 820 0536 10020000 		.4byte	.LASF90
+ 821 053a 08       		.byte	0x8
+ 822 053b 6401     		.2byte	0x164
+ 823 053d 41050000 		.4byte	0x541
+ 824 0541 14       		.uleb128 0x14
+ 825 0542 20050000 		.4byte	0x520
+ 826 0546 1B       		.uleb128 0x1b
+ 827 0547 88050000 		.4byte	.LASF91
+ 828 054b 0B       		.byte	0xb
+ 829 054c 5E       		.byte	0x5e
+ 830 054d DC010000 		.4byte	0x1dc
+ 831 0551 1C       		.uleb128 0x1c
+ 832 0552 6C6F6700 		.ascii	"log\000"
+ 833 0556 6C6F6700 		.ascii	"log\000"
+ 834 055a 0C       		.byte	0xc
+ 835 055b 84       		.byte	0x84
+ 836 055c 1C       		.uleb128 0x1c
+ 837 055d 706F7700 		.ascii	"pow\000"
+ 838 0561 706F7700 		.ascii	"pow\000"
+ 839 0565 0C       		.byte	0xc
+ 840 0566 86       		.byte	0x86
+ 841 0567 00       		.byte	0
+ 842              		.section	.debug_abbrev,"",%progbits
+ 843              	.Ldebug_abbrev0:
+ 844 0000 01       		.uleb128 0x1
+ 845 0001 11       		.uleb128 0x11
+ 846 0002 01       		.byte	0x1
+ 847 0003 25       		.uleb128 0x25
+ 848 0004 0E       		.uleb128 0xe
+ 849 0005 13       		.uleb128 0x13
+ 850 0006 0B       		.uleb128 0xb
+ 851 0007 03       		.uleb128 0x3
+ 852 0008 0E       		.uleb128 0xe
+ 853 0009 1B       		.uleb128 0x1b
+ 854 000a 0E       		.uleb128 0xe
+ 855 000b 55       		.uleb128 0x55
+ 856 000c 17       		.uleb128 0x17
+ 857 000d 11       		.uleb128 0x11
+ 858 000e 01       		.uleb128 0x1
+ 859 000f 10       		.uleb128 0x10
+ 860 0010 17       		.uleb128 0x17
+ 861 0011 00       		.byte	0
+ 862 0012 00       		.byte	0
+ 863 0013 02       		.uleb128 0x2
+ 864 0014 24       		.uleb128 0x24
+ 865 0015 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 19
+
+
+ 866 0016 0B       		.uleb128 0xb
+ 867 0017 0B       		.uleb128 0xb
+ 868 0018 3E       		.uleb128 0x3e
+ 869 0019 0B       		.uleb128 0xb
+ 870 001a 03       		.uleb128 0x3
+ 871 001b 0E       		.uleb128 0xe
+ 872 001c 00       		.byte	0
+ 873 001d 00       		.byte	0
+ 874 001e 03       		.uleb128 0x3
+ 875 001f 16       		.uleb128 0x16
+ 876 0020 00       		.byte	0
+ 877 0021 03       		.uleb128 0x3
+ 878 0022 0E       		.uleb128 0xe
+ 879 0023 3A       		.uleb128 0x3a
+ 880 0024 0B       		.uleb128 0xb
+ 881 0025 3B       		.uleb128 0x3b
+ 882 0026 0B       		.uleb128 0xb
+ 883 0027 49       		.uleb128 0x49
+ 884 0028 13       		.uleb128 0x13
+ 885 0029 00       		.byte	0
+ 886 002a 00       		.byte	0
+ 887 002b 04       		.uleb128 0x4
+ 888 002c 24       		.uleb128 0x24
+ 889 002d 00       		.byte	0
+ 890 002e 0B       		.uleb128 0xb
+ 891 002f 0B       		.uleb128 0xb
+ 892 0030 3E       		.uleb128 0x3e
+ 893 0031 0B       		.uleb128 0xb
+ 894 0032 03       		.uleb128 0x3
+ 895 0033 08       		.uleb128 0x8
+ 896 0034 00       		.byte	0
+ 897 0035 00       		.byte	0
+ 898 0036 05       		.uleb128 0x5
+ 899 0037 35       		.uleb128 0x35
+ 900 0038 00       		.byte	0
+ 901 0039 49       		.uleb128 0x49
+ 902 003a 13       		.uleb128 0x13
+ 903 003b 00       		.byte	0
+ 904 003c 00       		.byte	0
+ 905 003d 06       		.uleb128 0x6
+ 906 003e 16       		.uleb128 0x16
+ 907 003f 00       		.byte	0
+ 908 0040 03       		.uleb128 0x3
+ 909 0041 0E       		.uleb128 0xe
+ 910 0042 3A       		.uleb128 0x3a
+ 911 0043 0B       		.uleb128 0xb
+ 912 0044 3B       		.uleb128 0x3b
+ 913 0045 05       		.uleb128 0x5
+ 914 0046 49       		.uleb128 0x49
+ 915 0047 13       		.uleb128 0x13
+ 916 0048 00       		.byte	0
+ 917 0049 00       		.byte	0
+ 918 004a 07       		.uleb128 0x7
+ 919 004b 0F       		.uleb128 0xf
+ 920 004c 00       		.byte	0
+ 921 004d 0B       		.uleb128 0xb
+ 922 004e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 20
+
+
+ 923 004f 00       		.byte	0
+ 924 0050 00       		.byte	0
+ 925 0051 08       		.uleb128 0x8
+ 926 0052 0F       		.uleb128 0xf
+ 927 0053 00       		.byte	0
+ 928 0054 0B       		.uleb128 0xb
+ 929 0055 0B       		.uleb128 0xb
+ 930 0056 49       		.uleb128 0x49
+ 931 0057 13       		.uleb128 0x13
+ 932 0058 00       		.byte	0
+ 933 0059 00       		.byte	0
+ 934 005a 09       		.uleb128 0x9
+ 935 005b 15       		.uleb128 0x15
+ 936 005c 01       		.byte	0x1
+ 937 005d 27       		.uleb128 0x27
+ 938 005e 19       		.uleb128 0x19
+ 939 005f 01       		.uleb128 0x1
+ 940 0060 13       		.uleb128 0x13
+ 941 0061 00       		.byte	0
+ 942 0062 00       		.byte	0
+ 943 0063 0A       		.uleb128 0xa
+ 944 0064 05       		.uleb128 0x5
+ 945 0065 00       		.byte	0
+ 946 0066 49       		.uleb128 0x49
+ 947 0067 13       		.uleb128 0x13
+ 948 0068 00       		.byte	0
+ 949 0069 00       		.byte	0
+ 950 006a 0B       		.uleb128 0xb
+ 951 006b 13       		.uleb128 0x13
+ 952 006c 01       		.byte	0x1
+ 953 006d 03       		.uleb128 0x3
+ 954 006e 0E       		.uleb128 0xe
+ 955 006f 0B       		.uleb128 0xb
+ 956 0070 0B       		.uleb128 0xb
+ 957 0071 3A       		.uleb128 0x3a
+ 958 0072 0B       		.uleb128 0xb
+ 959 0073 3B       		.uleb128 0x3b
+ 960 0074 05       		.uleb128 0x5
+ 961 0075 01       		.uleb128 0x1
+ 962 0076 13       		.uleb128 0x13
+ 963 0077 00       		.byte	0
+ 964 0078 00       		.byte	0
+ 965 0079 0C       		.uleb128 0xc
+ 966 007a 0D       		.uleb128 0xd
+ 967 007b 00       		.byte	0
+ 968 007c 03       		.uleb128 0x3
+ 969 007d 0E       		.uleb128 0xe
+ 970 007e 3A       		.uleb128 0x3a
+ 971 007f 0B       		.uleb128 0xb
+ 972 0080 3B       		.uleb128 0x3b
+ 973 0081 05       		.uleb128 0x5
+ 974 0082 49       		.uleb128 0x49
+ 975 0083 13       		.uleb128 0x13
+ 976 0084 38       		.uleb128 0x38
+ 977 0085 0B       		.uleb128 0xb
+ 978 0086 00       		.byte	0
+ 979 0087 00       		.byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 21
+
+
+ 980 0088 0D       		.uleb128 0xd
+ 981 0089 04       		.uleb128 0x4
+ 982 008a 01       		.byte	0x1
+ 983 008b 0B       		.uleb128 0xb
+ 984 008c 0B       		.uleb128 0xb
+ 985 008d 49       		.uleb128 0x49
+ 986 008e 13       		.uleb128 0x13
+ 987 008f 3A       		.uleb128 0x3a
+ 988 0090 0B       		.uleb128 0xb
+ 989 0091 3B       		.uleb128 0x3b
+ 990 0092 05       		.uleb128 0x5
+ 991 0093 01       		.uleb128 0x1
+ 992 0094 13       		.uleb128 0x13
+ 993 0095 00       		.byte	0
+ 994 0096 00       		.byte	0
+ 995 0097 0E       		.uleb128 0xe
+ 996 0098 28       		.uleb128 0x28
+ 997 0099 00       		.byte	0
+ 998 009a 03       		.uleb128 0x3
+ 999 009b 0E       		.uleb128 0xe
+ 1000 009c 1C       		.uleb128 0x1c
+ 1001 009d 0B       		.uleb128 0xb
+ 1002 009e 00       		.byte	0
+ 1003 009f 00       		.byte	0
+ 1004 00a0 0F       		.uleb128 0xf
+ 1005 00a1 13       		.uleb128 0x13
+ 1006 00a2 01       		.byte	0x1
+ 1007 00a3 0B       		.uleb128 0xb
+ 1008 00a4 0B       		.uleb128 0xb
+ 1009 00a5 3A       		.uleb128 0x3a
+ 1010 00a6 0B       		.uleb128 0xb
+ 1011 00a7 3B       		.uleb128 0x3b
+ 1012 00a8 05       		.uleb128 0x5
+ 1013 00a9 01       		.uleb128 0x1
+ 1014 00aa 13       		.uleb128 0x13
+ 1015 00ab 00       		.byte	0
+ 1016 00ac 00       		.byte	0
+ 1017 00ad 10       		.uleb128 0x10
+ 1018 00ae 01       		.uleb128 0x1
+ 1019 00af 01       		.byte	0x1
+ 1020 00b0 49       		.uleb128 0x49
+ 1021 00b1 13       		.uleb128 0x13
+ 1022 00b2 01       		.uleb128 0x1
+ 1023 00b3 13       		.uleb128 0x13
+ 1024 00b4 00       		.byte	0
+ 1025 00b5 00       		.byte	0
+ 1026 00b6 11       		.uleb128 0x11
+ 1027 00b7 21       		.uleb128 0x21
+ 1028 00b8 00       		.byte	0
+ 1029 00b9 49       		.uleb128 0x49
+ 1030 00ba 13       		.uleb128 0x13
+ 1031 00bb 2F       		.uleb128 0x2f
+ 1032 00bc 0B       		.uleb128 0xb
+ 1033 00bd 00       		.byte	0
+ 1034 00be 00       		.byte	0
+ 1035 00bf 12       		.uleb128 0x12
+ 1036 00c0 13       		.uleb128 0x13
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 22
+
+
+ 1037 00c1 01       		.byte	0x1
+ 1038 00c2 0B       		.uleb128 0xb
+ 1039 00c3 0B       		.uleb128 0xb
+ 1040 00c4 3A       		.uleb128 0x3a
+ 1041 00c5 0B       		.uleb128 0xb
+ 1042 00c6 3B       		.uleb128 0x3b
+ 1043 00c7 0B       		.uleb128 0xb
+ 1044 00c8 01       		.uleb128 0x1
+ 1045 00c9 13       		.uleb128 0x13
+ 1046 00ca 00       		.byte	0
+ 1047 00cb 00       		.byte	0
+ 1048 00cc 13       		.uleb128 0x13
+ 1049 00cd 0D       		.uleb128 0xd
+ 1050 00ce 00       		.byte	0
+ 1051 00cf 03       		.uleb128 0x3
+ 1052 00d0 0E       		.uleb128 0xe
+ 1053 00d1 3A       		.uleb128 0x3a
+ 1054 00d2 0B       		.uleb128 0xb
+ 1055 00d3 3B       		.uleb128 0x3b
+ 1056 00d4 0B       		.uleb128 0xb
+ 1057 00d5 49       		.uleb128 0x49
+ 1058 00d6 13       		.uleb128 0x13
+ 1059 00d7 38       		.uleb128 0x38
+ 1060 00d8 0B       		.uleb128 0xb
+ 1061 00d9 00       		.byte	0
+ 1062 00da 00       		.byte	0
+ 1063 00db 14       		.uleb128 0x14
+ 1064 00dc 26       		.uleb128 0x26
+ 1065 00dd 00       		.byte	0
+ 1066 00de 49       		.uleb128 0x49
+ 1067 00df 13       		.uleb128 0x13
+ 1068 00e0 00       		.byte	0
+ 1069 00e1 00       		.byte	0
+ 1070 00e2 15       		.uleb128 0x15
+ 1071 00e3 2E       		.uleb128 0x2e
+ 1072 00e4 01       		.byte	0x1
+ 1073 00e5 3F       		.uleb128 0x3f
+ 1074 00e6 19       		.uleb128 0x19
+ 1075 00e7 03       		.uleb128 0x3
+ 1076 00e8 0E       		.uleb128 0xe
+ 1077 00e9 3A       		.uleb128 0x3a
+ 1078 00ea 0B       		.uleb128 0xb
+ 1079 00eb 3B       		.uleb128 0x3b
+ 1080 00ec 0B       		.uleb128 0xb
+ 1081 00ed 27       		.uleb128 0x27
+ 1082 00ee 19       		.uleb128 0x19
+ 1083 00ef 49       		.uleb128 0x49
+ 1084 00f0 13       		.uleb128 0x13
+ 1085 00f1 11       		.uleb128 0x11
+ 1086 00f2 01       		.uleb128 0x1
+ 1087 00f3 12       		.uleb128 0x12
+ 1088 00f4 06       		.uleb128 0x6
+ 1089 00f5 40       		.uleb128 0x40
+ 1090 00f6 18       		.uleb128 0x18
+ 1091 00f7 9742     		.uleb128 0x2117
+ 1092 00f9 19       		.uleb128 0x19
+ 1093 00fa 01       		.uleb128 0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 23
+
+
+ 1094 00fb 13       		.uleb128 0x13
+ 1095 00fc 00       		.byte	0
+ 1096 00fd 00       		.byte	0
+ 1097 00fe 16       		.uleb128 0x16
+ 1098 00ff 05       		.uleb128 0x5
+ 1099 0100 00       		.byte	0
+ 1100 0101 03       		.uleb128 0x3
+ 1101 0102 0E       		.uleb128 0xe
+ 1102 0103 3A       		.uleb128 0x3a
+ 1103 0104 0B       		.uleb128 0xb
+ 1104 0105 3B       		.uleb128 0x3b
+ 1105 0106 0B       		.uleb128 0xb
+ 1106 0107 49       		.uleb128 0x49
+ 1107 0108 13       		.uleb128 0x13
+ 1108 0109 02       		.uleb128 0x2
+ 1109 010a 17       		.uleb128 0x17
+ 1110 010b 00       		.byte	0
+ 1111 010c 00       		.byte	0
+ 1112 010d 17       		.uleb128 0x17
+ 1113 010e 34       		.uleb128 0x34
+ 1114 010f 00       		.byte	0
+ 1115 0110 03       		.uleb128 0x3
+ 1116 0111 0E       		.uleb128 0xe
+ 1117 0112 3A       		.uleb128 0x3a
+ 1118 0113 0B       		.uleb128 0xb
+ 1119 0114 3B       		.uleb128 0x3b
+ 1120 0115 0B       		.uleb128 0xb
+ 1121 0116 49       		.uleb128 0x49
+ 1122 0117 13       		.uleb128 0x13
+ 1123 0118 02       		.uleb128 0x2
+ 1124 0119 17       		.uleb128 0x17
+ 1125 011a 00       		.byte	0
+ 1126 011b 00       		.byte	0
+ 1127 011c 18       		.uleb128 0x18
+ 1128 011d 2E       		.uleb128 0x2e
+ 1129 011e 01       		.byte	0x1
+ 1130 011f 3F       		.uleb128 0x3f
+ 1131 0120 19       		.uleb128 0x19
+ 1132 0121 03       		.uleb128 0x3
+ 1133 0122 0E       		.uleb128 0xe
+ 1134 0123 3A       		.uleb128 0x3a
+ 1135 0124 0B       		.uleb128 0xb
+ 1136 0125 3B       		.uleb128 0x3b
+ 1137 0126 0B       		.uleb128 0xb
+ 1138 0127 27       		.uleb128 0x27
+ 1139 0128 19       		.uleb128 0x19
+ 1140 0129 49       		.uleb128 0x49
+ 1141 012a 13       		.uleb128 0x13
+ 1142 012b 11       		.uleb128 0x11
+ 1143 012c 01       		.uleb128 0x1
+ 1144 012d 12       		.uleb128 0x12
+ 1145 012e 06       		.uleb128 0x6
+ 1146 012f 40       		.uleb128 0x40
+ 1147 0130 18       		.uleb128 0x18
+ 1148 0131 9642     		.uleb128 0x2116
+ 1149 0133 19       		.uleb128 0x19
+ 1150 0134 01       		.uleb128 0x1
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 24
+
+
+ 1151 0135 13       		.uleb128 0x13
+ 1152 0136 00       		.byte	0
+ 1153 0137 00       		.byte	0
+ 1154 0138 19       		.uleb128 0x19
+ 1155 0139 898201   		.uleb128 0x4109
+ 1156 013c 00       		.byte	0
+ 1157 013d 11       		.uleb128 0x11
+ 1158 013e 01       		.uleb128 0x1
+ 1159 013f 31       		.uleb128 0x31
+ 1160 0140 13       		.uleb128 0x13
+ 1161 0141 00       		.byte	0
+ 1162 0142 00       		.byte	0
+ 1163 0143 1A       		.uleb128 0x1a
+ 1164 0144 34       		.uleb128 0x34
+ 1165 0145 00       		.byte	0
+ 1166 0146 03       		.uleb128 0x3
+ 1167 0147 0E       		.uleb128 0xe
+ 1168 0148 3A       		.uleb128 0x3a
+ 1169 0149 0B       		.uleb128 0xb
+ 1170 014a 3B       		.uleb128 0x3b
+ 1171 014b 05       		.uleb128 0x5
+ 1172 014c 49       		.uleb128 0x49
+ 1173 014d 13       		.uleb128 0x13
+ 1174 014e 3F       		.uleb128 0x3f
+ 1175 014f 19       		.uleb128 0x19
+ 1176 0150 3C       		.uleb128 0x3c
+ 1177 0151 19       		.uleb128 0x19
+ 1178 0152 00       		.byte	0
+ 1179 0153 00       		.byte	0
+ 1180 0154 1B       		.uleb128 0x1b
+ 1181 0155 34       		.uleb128 0x34
+ 1182 0156 00       		.byte	0
+ 1183 0157 03       		.uleb128 0x3
+ 1184 0158 0E       		.uleb128 0xe
+ 1185 0159 3A       		.uleb128 0x3a
+ 1186 015a 0B       		.uleb128 0xb
+ 1187 015b 3B       		.uleb128 0x3b
+ 1188 015c 0B       		.uleb128 0xb
+ 1189 015d 49       		.uleb128 0x49
+ 1190 015e 13       		.uleb128 0x13
+ 1191 015f 3F       		.uleb128 0x3f
+ 1192 0160 19       		.uleb128 0x19
+ 1193 0161 3C       		.uleb128 0x3c
+ 1194 0162 19       		.uleb128 0x19
+ 1195 0163 00       		.byte	0
+ 1196 0164 00       		.byte	0
+ 1197 0165 1C       		.uleb128 0x1c
+ 1198 0166 2E       		.uleb128 0x2e
+ 1199 0167 00       		.byte	0
+ 1200 0168 3F       		.uleb128 0x3f
+ 1201 0169 19       		.uleb128 0x19
+ 1202 016a 3C       		.uleb128 0x3c
+ 1203 016b 19       		.uleb128 0x19
+ 1204 016c 6E       		.uleb128 0x6e
+ 1205 016d 08       		.uleb128 0x8
+ 1206 016e 03       		.uleb128 0x3
+ 1207 016f 08       		.uleb128 0x8
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 25
+
+
+ 1208 0170 3A       		.uleb128 0x3a
+ 1209 0171 0B       		.uleb128 0xb
+ 1210 0172 3B       		.uleb128 0x3b
+ 1211 0173 0B       		.uleb128 0xb
+ 1212 0174 00       		.byte	0
+ 1213 0175 00       		.byte	0
+ 1214 0176 00       		.byte	0
+ 1215              		.section	.debug_loc,"",%progbits
+ 1216              	.Ldebug_loc0:
+ 1217              	.LLST0:
+ 1218 0000 00000000 		.4byte	.LVL0
+ 1219 0004 0A000000 		.4byte	.LVL2
+ 1220 0008 0100     		.2byte	0x1
+ 1221 000a 50       		.byte	0x50
+ 1222 000b 0A000000 		.4byte	.LVL2
+ 1223 000f 24000000 		.4byte	.LFE703
+ 1224 0013 0400     		.2byte	0x4
+ 1225 0015 F3       		.byte	0xf3
+ 1226 0016 01       		.uleb128 0x1
+ 1227 0017 50       		.byte	0x50
+ 1228 0018 9F       		.byte	0x9f
+ 1229 0019 00000000 		.4byte	0
+ 1230 001d 00000000 		.4byte	0
+ 1231              	.LLST1:
+ 1232 0021 00000000 		.4byte	.LVL0
+ 1233 0025 08000000 		.4byte	.LVL1
+ 1234 0029 0100     		.2byte	0x1
+ 1235 002b 51       		.byte	0x51
+ 1236 002c 08000000 		.4byte	.LVL1
+ 1237 0030 24000000 		.4byte	.LFE703
+ 1238 0034 0400     		.2byte	0x4
+ 1239 0036 F3       		.byte	0xf3
+ 1240 0037 01       		.uleb128 0x1
+ 1241 0038 51       		.byte	0x51
+ 1242 0039 9F       		.byte	0x9f
+ 1243 003a 00000000 		.4byte	0
+ 1244 003e 00000000 		.4byte	0
+ 1245              	.LLST2:
+ 1246 0042 08000000 		.4byte	.LVL1
+ 1247 0046 1E000000 		.4byte	.LVL9
+ 1248 004a 0100     		.2byte	0x1
+ 1249 004c 51       		.byte	0x51
+ 1250 004d 1E000000 		.4byte	.LVL9
+ 1251 0051 22000000 		.4byte	.LVL10
+ 1252 0055 0600     		.2byte	0x6
+ 1253 0057 71       		.byte	0x71
+ 1254 0058 00       		.sleb128 0
+ 1255 0059 70       		.byte	0x70
+ 1256 005a 00       		.sleb128 0
+ 1257 005b 1B       		.byte	0x1b
+ 1258 005c 9F       		.byte	0x9f
+ 1259 005d 22000000 		.4byte	.LVL10
+ 1260 0061 24000000 		.4byte	.LFE703
+ 1261 0065 0100     		.2byte	0x1
+ 1262 0067 50       		.byte	0x50
+ 1263 0068 00000000 		.4byte	0
+ 1264 006c 00000000 		.4byte	0
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 26
+
+
+ 1265              	.LLST3:
+ 1266 0070 0E000000 		.4byte	.LVL3
+ 1267 0074 14000000 		.4byte	.LVL5
+ 1268 0078 0100     		.2byte	0x1
+ 1269 007a 53       		.byte	0x53
+ 1270 007b 14000000 		.4byte	.LVL5
+ 1271 007f 16000000 		.4byte	.LVL6
+ 1272 0083 0400     		.2byte	0x4
+ 1273 0085 73       		.byte	0x73
+ 1274 0086 00       		.sleb128 0
+ 1275 0087 1F       		.byte	0x1f
+ 1276 0088 9F       		.byte	0x9f
+ 1277 0089 16000000 		.4byte	.LVL6
+ 1278 008d 18000000 		.4byte	.LVL7
+ 1279 0091 0100     		.2byte	0x1
+ 1280 0093 53       		.byte	0x53
+ 1281 0094 1C000000 		.4byte	.LVL8
+ 1282 0098 24000000 		.4byte	.LFE703
+ 1283 009c 0100     		.2byte	0x1
+ 1284 009e 53       		.byte	0x53
+ 1285 009f 00000000 		.4byte	0
+ 1286 00a3 00000000 		.4byte	0
+ 1287              	.LLST4:
+ 1288 00a7 00000000 		.4byte	.LVL11
+ 1289 00ab 07000000 		.4byte	.LVL12-1
+ 1290 00af 0100     		.2byte	0x1
+ 1291 00b1 50       		.byte	0x50
+ 1292 00b2 07000000 		.4byte	.LVL12-1
+ 1293 00b6 C8000000 		.4byte	.LFE704
+ 1294 00ba 0400     		.2byte	0x4
+ 1295 00bc F3       		.byte	0xf3
+ 1296 00bd 01       		.uleb128 0x1
+ 1297 00be 50       		.byte	0x50
+ 1298 00bf 9F       		.byte	0x9f
+ 1299 00c0 00000000 		.4byte	0
+ 1300 00c4 00000000 		.4byte	0
+ 1301              	.LLST5:
+ 1302 00c8 90000000 		.4byte	.LVL28
+ 1303 00cc 98000000 		.4byte	.LVL29
+ 1304 00d0 0200     		.2byte	0x2
+ 1305 00d2 91       		.byte	0x91
+ 1306 00d3 64       		.sleb128 -28
+ 1307 00d4 98000000 		.4byte	.LVL29
+ 1308 00d8 C8000000 		.4byte	.LFE704
+ 1309 00dc 0200     		.2byte	0x2
+ 1310 00de 7D       		.byte	0x7d
+ 1311 00df 64       		.sleb128 -28
+ 1312 00e0 00000000 		.4byte	0
+ 1313 00e4 00000000 		.4byte	0
+ 1314              	.LLST6:
+ 1315 00e8 56000000 		.4byte	.LVL21
+ 1316 00ec 59000000 		.4byte	.LVL22-1
+ 1317 00f0 0100     		.2byte	0x1
+ 1318 00f2 50       		.byte	0x50
+ 1319 00f3 00000000 		.4byte	0
+ 1320 00f7 00000000 		.4byte	0
+ 1321              	.LLST7:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 27
+
+
+ 1322 00fb 10000000 		.4byte	.LVL14
+ 1323 00ff 13000000 		.4byte	.LVL15-1
+ 1324 0103 0100     		.2byte	0x1
+ 1325 0105 50       		.byte	0x50
+ 1326 0106 00000000 		.4byte	0
+ 1327 010a 00000000 		.4byte	0
+ 1328              		.section	.debug_aranges,"",%progbits
+ 1329 0000 24000000 		.4byte	0x24
+ 1330 0004 0200     		.2byte	0x2
+ 1331 0006 00000000 		.4byte	.Ldebug_info0
+ 1332 000a 04       		.byte	0x4
+ 1333 000b 00       		.byte	0
+ 1334 000c 0000     		.2byte	0
+ 1335 000e 0000     		.2byte	0
+ 1336 0010 00000000 		.4byte	.LFB703
+ 1337 0014 24000000 		.4byte	.LFE703-.LFB703
+ 1338 0018 00000000 		.4byte	.LFB704
+ 1339 001c C8000000 		.4byte	.LFE704-.LFB704
+ 1340 0020 00000000 		.4byte	0
+ 1341 0024 00000000 		.4byte	0
+ 1342              		.section	.debug_ranges,"",%progbits
+ 1343              	.Ldebug_ranges0:
+ 1344 0000 00000000 		.4byte	.LFB703
+ 1345 0004 24000000 		.4byte	.LFE703
+ 1346 0008 00000000 		.4byte	.LFB704
+ 1347 000c C8000000 		.4byte	.LFE704
+ 1348 0010 00000000 		.4byte	0
+ 1349 0014 00000000 		.4byte	0
+ 1350              		.section	.debug_line,"",%progbits
+ 1351              	.Ldebug_line0:
+ 1352 0000 10030000 		.section	.debug_str,"MS",%progbits,1
+ 1352      0200D802 
+ 1352      00000201 
+ 1352      FB0E0D00 
+ 1352      01010101 
+ 1353              	.LASF72:
+ 1354 0000 6368616E 		.ascii	"channelBase\000"
+ 1354      6E656C42 
+ 1354      61736500 
+ 1355              	.LASF49:
+ 1356 000c 74784C65 		.ascii	"txLeftToTransmit\000"
+ 1356      6674546F 
+ 1356      5472616E 
+ 1356      736D6974 
+ 1356      00
+ 1357              	.LASF54:
+ 1358 001d 43595F53 		.ascii	"CY_SAR_RANGE_COND_OUTSIDE\000"
+ 1358      41525F52 
+ 1358      414E4745 
+ 1358      5F434F4E 
+ 1358      445F4F55 
+ 1359              	.LASF82:
+ 1360 0037 54686572 		.ascii	"Thermistor_GetResistance\000"
+ 1360      6D697374 
+ 1360      6F725F47 
+ 1360      65745265 
+ 1360      73697374 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 28
+
+
+ 1361              	.LASF48:
+ 1362 0050 72785269 		.ascii	"rxRingBufTail\000"
+ 1362      6E674275 
+ 1362      66546169 
+ 1362      6C00
+ 1363              	.LASF80:
+ 1364 005e 72657354 		.ascii	"resT\000"
+ 1364      00
+ 1365              	.LASF26:
+ 1366 0063 666C6F61 		.ascii	"float32\000"
+ 1366      74333200 
+ 1367              	.LASF32:
+ 1368 006b 72784275 		.ascii	"rxBufSize\000"
+ 1368      6653697A 
+ 1368      6500
+ 1369              	.LASF40:
+ 1370 0075 63795F63 		.ascii	"cy_cb_scb_uart_handle_events_t\000"
+ 1370      625F7363 
+ 1370      625F7561 
+ 1370      72745F68 
+ 1370      616E646C 
+ 1371              	.LASF81:
+ 1372 0094 74656D70 		.ascii	"temp\000"
+ 1372      00
+ 1373              	.LASF17:
+ 1374 0099 73697A65 		.ascii	"sizetype\000"
+ 1374      74797065 
+ 1374      00
+ 1375              	.LASF65:
+ 1376 00a2 73617449 		.ascii	"satIntrMask\000"
+ 1376      6E74724D 
+ 1376      61736B00 
+ 1377              	.LASF57:
+ 1378 00ae 73616D70 		.ascii	"sampleCtrl\000"
+ 1378      6C654374 
+ 1378      726C00
+ 1379              	.LASF42:
+ 1380 00b9 63795F73 		.ascii	"cy_stc_scb_uart_context\000"
+ 1380      74635F73 
+ 1380      63625F75 
+ 1380      6172745F 
+ 1380      636F6E74 
+ 1381              	.LASF70:
+ 1382 00d1 76726566 		.ascii	"vrefMvValue\000"
+ 1382      4D765661 
+ 1382      6C756500 
+ 1383              	.LASF39:
+ 1384 00dd 63795F73 		.ascii	"cy_stc_scb_spi_context_t\000"
+ 1384      74635F73 
+ 1384      63625F73 
+ 1384      70695F63 
+ 1384      6F6E7465 
+ 1385              	.LASF60:
+ 1386 00f6 72616E67 		.ascii	"rangeThres\000"
+ 1386      65546872 
+ 1386      657300
+ 1387              	.LASF92:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 29
+
+
+ 1388 0101 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1388      43313120 
+ 1388      352E342E 
+ 1388      31203230 
+ 1388      31363036 
+ 1389 0134 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 1389      20726576 
+ 1389      6973696F 
+ 1389      6E203233 
+ 1389      37373135 
+ 1390 0167 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -Og -ffunction-s"
+ 1390      70202D6D 
+ 1390      6670753D 
+ 1390      66707634 
+ 1390      2D73702D 
+ 1391 019a 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 1391      6F6E7320 
+ 1391      2D666661 
+ 1391      742D6C74 
+ 1391      6F2D6F62 
+ 1392              	.LASF8:
+ 1393 01b4 5F5F7569 		.ascii	"__uint32_t\000"
+ 1393      6E743332 
+ 1393      5F7400
+ 1394              	.LASF43:
+ 1395 01bf 74785374 		.ascii	"txStatus\000"
+ 1395      61747573 
+ 1395      00
+ 1396              	.LASF4:
+ 1397 01c8 5F5F7569 		.ascii	"__uint16_t\000"
+ 1397      6E743136 
+ 1397      5F7400
+ 1398              	.LASF78:
+ 1399 01d3 76526566 		.ascii	"vReference\000"
+ 1399      6572656E 
+ 1399      636500
+ 1400              	.LASF33:
+ 1401 01de 72784275 		.ascii	"rxBufIdx\000"
+ 1401      66496478 
+ 1401      00
+ 1402              	.LASF0:
+ 1403 01e7 73686F72 		.ascii	"short int\000"
+ 1403      7420696E 
+ 1403      7400
+ 1404              	.LASF88:
+ 1405 01f1 55415254 		.ascii	"UART_1_context\000"
+ 1405      5F315F63 
+ 1405      6F6E7465 
+ 1405      787400
+ 1406              	.LASF61:
+ 1407 0200 72616E67 		.ascii	"rangeCond\000"
+ 1407      65436F6E 
+ 1407      6400
+ 1408              	.LASF24:
+ 1409 020a 696E7431 		.ascii	"int16\000"
+ 1409      3600
+ 1410              	.LASF90:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 30
+
+
+ 1411 0210 4144435F 		.ascii	"ADC_1_allConfigs\000"
+ 1411      315F616C 
+ 1411      6C436F6E 
+ 1411      66696773 
+ 1411      00
+ 1412              	.LASF76:
+ 1413 0221 636C6B44 		.ascii	"clkDivider\000"
+ 1413      69766964 
+ 1413      657200
+ 1414              	.LASF29:
+ 1415 022c 63795F63 		.ascii	"cy_cb_scb_spi_handle_events_t\000"
+ 1415      625F7363 
+ 1415      625F7370 
+ 1415      695F6861 
+ 1415      6E646C65 
+ 1416              	.LASF47:
+ 1417 024a 72785269 		.ascii	"rxRingBufHead\000"
+ 1417      6E674275 
+ 1417      66486561 
+ 1417      6400
+ 1418              	.LASF20:
+ 1419 0258 666C6F61 		.ascii	"float\000"
+ 1419      7400
+ 1420              	.LASF34:
+ 1421 025e 74784275 		.ascii	"txBuf\000"
+ 1421      6600
+ 1422              	.LASF79:
+ 1423 0264 76546865 		.ascii	"vThermistor\000"
+ 1423      726D6973 
+ 1423      746F7200 
+ 1424              	.LASF10:
+ 1425 0270 6C6F6E67 		.ascii	"long long int\000"
+ 1425      206C6F6E 
+ 1425      6720696E 
+ 1425      7400
+ 1426              	.LASF69:
+ 1427 027e 636F6E66 		.ascii	"configRouting\000"
+ 1427      6967526F 
+ 1427      7574696E 
+ 1427      6700
+ 1428              	.LASF93:
+ 1429 028c 54686572 		.ascii	"Thermistor.c\000"
+ 1429      6D697374 
+ 1429      6F722E63 
+ 1429      00
+ 1430              	.LASF46:
+ 1431 0299 72785269 		.ascii	"rxRingBufSize\000"
+ 1431      6E674275 
+ 1431      6653697A 
+ 1431      6500
+ 1432              	.LASF56:
+ 1433 02a7 6374726C 		.ascii	"ctrl\000"
+ 1433      00
+ 1434              	.LASF58:
+ 1435 02ac 73616D70 		.ascii	"sampleTime01\000"
+ 1435      6C655469 
+ 1435      6D653031 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 31
+
+
+ 1435      00
+ 1436              	.LASF36:
+ 1437 02b9 74784275 		.ascii	"txBufIdx\000"
+ 1437      66496478 
+ 1437      00
+ 1438              	.LASF15:
+ 1439 02c2 696E7433 		.ascii	"int32_t\000"
+ 1439      325F7400 
+ 1440              	.LASF89:
+ 1441 02ca 4144435F 		.ascii	"ADC_1_currentConfig\000"
+ 1441      315F6375 
+ 1441      7272656E 
+ 1441      74436F6E 
+ 1441      66696700 
+ 1442              	.LASF18:
+ 1443 02de 6C6F6E67 		.ascii	"long double\000"
+ 1443      20646F75 
+ 1443      626C6500 
+ 1444              	.LASF84:
+ 1445 02ea 74656D70 		.ascii	"tempTR\000"
+ 1445      545200
+ 1446              	.LASF44:
+ 1447 02f1 72785374 		.ascii	"rxStatus\000"
+ 1447      61747573 
+ 1447      00
+ 1448              	.LASF2:
+ 1449 02fa 756E7369 		.ascii	"unsigned char\000"
+ 1449      676E6564 
+ 1449      20636861 
+ 1449      7200
+ 1450              	.LASF45:
+ 1451 0308 72785269 		.ascii	"rxRingBuf\000"
+ 1451      6E674275 
+ 1451      6600
+ 1452              	.LASF77:
+ 1453 0312 4144435F 		.ascii	"ADC_1_CONFIG_STRUCT\000"
+ 1453      315F434F 
+ 1453      4E464947 
+ 1453      5F535452 
+ 1453      55435400 
+ 1454              	.LASF1:
+ 1455 0326 7369676E 		.ascii	"signed char\000"
+ 1455      65642063 
+ 1455      68617200 
+ 1456              	.LASF86:
+ 1457 0332 6C6F6772 		.ascii	"logrT\000"
+ 1457      5400
+ 1458              	.LASF11:
+ 1459 0338 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1459      206C6F6E 
+ 1459      6720756E 
+ 1459      7369676E 
+ 1459      65642069 
+ 1460              	.LASF16:
+ 1461 034f 75696E74 		.ascii	"uint32_t\000"
+ 1461      33325F74 
+ 1461      00
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 32
+
+
+ 1462              	.LASF85:
+ 1463 0358 73744571 		.ascii	"stEqn\000"
+ 1463      6E00
+ 1464              	.LASF94:
+ 1465 035e 4D3A5C47 		.ascii	"M:\\Githubrepo\\Intern_hiwi\\FinalProject\\FinalPro"
+ 1465      69746875 
+ 1465      62726570 
+ 1465      6F5C496E 
+ 1465      7465726E 
+ 1466 038d 6A656374 		.ascii	"ject\\Mux_ADC07_probe01.cydsn\000"
+ 1466      5C4D7578 
+ 1466      5F414443 
+ 1466      30375F70 
+ 1466      726F6265 
+ 1467              	.LASF14:
+ 1468 03aa 75696E74 		.ascii	"uint16_t\000"
+ 1468      31365F74 
+ 1468      00
+ 1469              	.LASF68:
+ 1470 03b3 6D757853 		.ascii	"muxSwitchSqCtrl\000"
+ 1470      77697463 
+ 1470      68537143 
+ 1470      74726C00 
+ 1471              	.LASF35:
+ 1472 03c3 74784275 		.ascii	"txBufSize\000"
+ 1472      6653697A 
+ 1472      6500
+ 1473              	.LASF5:
+ 1474 03cd 73686F72 		.ascii	"short unsigned int\000"
+ 1474      7420756E 
+ 1474      7369676E 
+ 1474      65642069 
+ 1474      6E7400
+ 1475              	.LASF30:
+ 1476 03e0 73746174 		.ascii	"status\000"
+ 1476      757300
+ 1477              	.LASF75:
+ 1478 03e7 6D697363 		.ascii	"miscConfig\000"
+ 1478      436F6E66 
+ 1478      696700
+ 1479              	.LASF19:
+ 1480 03f2 63686172 		.ascii	"char\000"
+ 1480      00
+ 1481              	.LASF67:
+ 1482 03f7 6D757853 		.ascii	"muxSwitch\000"
+ 1482      77697463 
+ 1482      6800
+ 1483              	.LASF37:
+ 1484 0401 63624576 		.ascii	"cbEvents\000"
+ 1484      656E7473 
+ 1484      00
+ 1485              	.LASF53:
+ 1486 040a 43595F53 		.ascii	"CY_SAR_RANGE_COND_ABOVE\000"
+ 1486      41525F52 
+ 1486      414E4745 
+ 1486      5F434F4E 
+ 1486      445F4142 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 33
+
+
+ 1487              	.LASF83:
+ 1488 0422 54686572 		.ascii	"Thermistor_GetTemperature\000"
+ 1488      6D697374 
+ 1488      6F725F47 
+ 1488      65745465 
+ 1488      6D706572 
+ 1489              	.LASF13:
+ 1490 043c 696E7431 		.ascii	"int16_t\000"
+ 1490      365F7400 
+ 1491              	.LASF28:
+ 1492 0444 5F426F6F 		.ascii	"_Bool\000"
+ 1492      6C00
+ 1493              	.LASF74:
+ 1494 044a 6877436F 		.ascii	"hwConfigStc\000"
+ 1494      6E666967 
+ 1494      53746300 
+ 1495              	.LASF31:
+ 1496 0456 72784275 		.ascii	"rxBuf\000"
+ 1496      6600
+ 1497              	.LASF22:
+ 1498 045c 75696E74 		.ascii	"uint16\000"
+ 1498      313600
+ 1499              	.LASF23:
+ 1500 0463 75696E74 		.ascii	"uint32\000"
+ 1500      333200
+ 1501              	.LASF9:
+ 1502 046a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1502      20756E73 
+ 1502      69676E65 
+ 1502      6420696E 
+ 1502      7400
+ 1503              	.LASF25:
+ 1504 047c 696E7433 		.ascii	"int32\000"
+ 1504      3200
+ 1505              	.LASF21:
+ 1506 0482 646F7562 		.ascii	"double\000"
+ 1506      6C6500
+ 1507              	.LASF6:
+ 1508 0489 5F5F696E 		.ascii	"__int32_t\000"
+ 1508      7433325F 
+ 1508      7400
+ 1509              	.LASF52:
+ 1510 0493 43595F53 		.ascii	"CY_SAR_RANGE_COND_INSIDE\000"
+ 1510      41525F52 
+ 1510      414E4745 
+ 1510      5F434F4E 
+ 1510      445F494E 
+ 1511              	.LASF38:
+ 1512 04ac 696E6974 		.ascii	"initKey\000"
+ 1512      4B657900 
+ 1513              	.LASF3:
+ 1514 04b4 5F5F696E 		.ascii	"__int16_t\000"
+ 1514      7431365F 
+ 1514      7400
+ 1515              	.LASF63:
+ 1516 04be 6368616E 		.ascii	"chanConfig\000"
+ 1516      436F6E66 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 34
+
+
+ 1516      696700
+ 1517              	.LASF71:
+ 1518 04c9 63795F73 		.ascii	"cy_stc_sar_config_t\000"
+ 1518      74635F73 
+ 1518      61725F63 
+ 1518      6F6E6669 
+ 1518      675F7400 
+ 1519              	.LASF50:
+ 1520 04dd 63795F73 		.ascii	"cy_stc_scb_uart_context_t\000"
+ 1520      74635F73 
+ 1520      63625F75 
+ 1520      6172745F 
+ 1520      636F6E74 
+ 1521              	.LASF27:
+ 1522 04f7 666C6F61 		.ascii	"float64\000"
+ 1522      74363400 
+ 1523              	.LASF62:
+ 1524 04ff 6368616E 		.ascii	"chanEn\000"
+ 1524      456E00
+ 1525              	.LASF73:
+ 1526 0506 6E756D43 		.ascii	"numChannels\000"
+ 1526      68616E6E 
+ 1526      656C7300 
+ 1527              	.LASF59:
+ 1528 0512 73616D70 		.ascii	"sampleTime23\000"
+ 1528      6C655469 
+ 1528      6D653233 
+ 1528      00
+ 1529              	.LASF7:
+ 1530 051f 6C6F6E67 		.ascii	"long int\000"
+ 1530      20696E74 
+ 1530      00
+ 1531              	.LASF87:
+ 1532 0528 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1532      52784275 
+ 1532      66666572 
+ 1532      00
+ 1533              	.LASF12:
+ 1534 0535 756E7369 		.ascii	"unsigned int\000"
+ 1534      676E6564 
+ 1534      20696E74 
+ 1534      00
+ 1535              	.LASF41:
+ 1536 0542 63795F73 		.ascii	"cy_stc_scb_spi_context\000"
+ 1536      74635F73 
+ 1536      63625F73 
+ 1536      70695F63 
+ 1536      6F6E7465 
+ 1537              	.LASF51:
+ 1538 0559 43595F53 		.ascii	"CY_SAR_RANGE_COND_BELOW\000"
+ 1538      41525F52 
+ 1538      414E4745 
+ 1538      5F434F4E 
+ 1538      445F4245 
+ 1539              	.LASF64:
+ 1540 0571 696E7472 		.ascii	"intrMask\000"
+ 1540      4D61736B 
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccJrRiTC.s 			page 35
+
+
+ 1540      00
+ 1541              	.LASF66:
+ 1542 057a 72616E67 		.ascii	"rangeIntrMask\000"
+ 1542      65496E74 
+ 1542      724D6173 
+ 1542      6B00
+ 1543              	.LASF91:
+ 1544 0588 57535F53 		.ascii	"WS_SPI_context\000"
+ 1544      50495F63 
+ 1544      6F6E7465 
+ 1544      787400
+ 1545              	.LASF55:
+ 1546 0597 63795F65 		.ascii	"cy_en_sar_range_detect_condition_t\000"
+ 1546      6E5F7361 
+ 1546      725F7261 
+ 1546      6E67655F 
+ 1546      64657465 
+ 1547              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
