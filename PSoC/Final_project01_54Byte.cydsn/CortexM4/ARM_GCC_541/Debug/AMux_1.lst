@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
   27:Generated_Source\PSoC6/AMux_1.c **** *  Disconnect all channels.
   28:Generated_Source\PSoC6/AMux_1.c **** *
   29:Generated_Source\PSoC6/AMux_1.c **** * Parameters:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 2
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 2
 
 
   30:Generated_Source\PSoC6/AMux_1.c **** *  void
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
   60 001a 10BD     		pop	{r4, pc}
   61              	.LVL5:
   62              	.L6:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 3
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 3
 
 
   63              		.align	2
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
   94              		.loc 1 73 0
   95 000e 014B     		ldr	r3, .L9
   96 0010 1C70     		strb	r4, [r3]
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 4
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 4
 
 
   97 0012 10BD     		pop	{r4, pc}
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  127 0008 FF28     		cmp	r0, #255
  128 000a 01D0     		beq	.L12
   98:Generated_Source\PSoC6/AMux_1.c ****     {
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 5
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 5
 
 
   99:Generated_Source\PSoC6/AMux_1.c ****         AMux_1_Disconnect(AMux_1_lastChannel);
@@ -281,8 +281,8 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  153 0000 FF       		.byte	-1
  154              		.text
  155              	.Letext0:
- 156              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 157              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 156              		.file 2 "d:\\mysoftware\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-no
+ 157              		.file 3 "d:\\mysoftware\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-no
  158              		.file 4 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/syslib/cy_syslib.h"
  159              		.file 5 "Generated_Source\\PSoC6\\cyfitter_cfg.h"
  160              		.file 6 "Generated_Source\\PSoC6\\pdl\\cmsis/include/core_cm4.h"
@@ -293,12 +293,12 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  165 0006 00000000 		.4byte	.Ldebug_abbrev0
  166 000a 04       		.byte	0x4
  167 000b 01       		.uleb128 0x1
- 168 000c 24010000 		.4byte	.LASF28
+ 168 000c 1A010000 		.4byte	.LASF28
  169 0010 0C       		.byte	0xc
- 170 0011 30020000 		.4byte	.LASF29
- 171 0015 8D000000 		.4byte	.LASF30
+ 170 0011 26020000 		.4byte	.LASF29
+ 171 0015 12000000 		.4byte	.LASF30
  172 0019 00000000 		.4byte	.Ldebug_ranges0+0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 6
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 6
 
 
  173 001d 00000000 		.4byte	0
@@ -306,11 +306,11 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  175 0025 02       		.uleb128 0x2
  176 0026 02       		.byte	0x2
  177 0027 05       		.byte	0x5
- 178 0028 FB010000 		.4byte	.LASF0
+ 178 0028 F1010000 		.4byte	.LASF0
  179 002c 02       		.uleb128 0x2
  180 002d 01       		.byte	0x1
  181 002e 06       		.byte	0x6
- 182 002f 4F000000 		.4byte	.LASF1
+ 182 002f 86000000 		.4byte	.LASF1
  183 0033 03       		.uleb128 0x3
  184 0034 00000000 		.4byte	.LASF4
  185 0038 02       		.byte	0x2
@@ -319,37 +319,37 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  188 003e 02       		.uleb128 0x2
  189 003f 01       		.byte	0x1
  190 0040 08       		.byte	0x8
- 191 0041 5B000000 		.4byte	.LASF2
+ 191 0041 92000000 		.4byte	.LASF2
  192 0045 02       		.uleb128 0x2
  193 0046 02       		.byte	0x2
  194 0047 07       		.byte	0x7
- 195 0048 29000000 		.4byte	.LASF3
+ 195 0048 60000000 		.4byte	.LASF3
  196 004c 03       		.uleb128 0x3
- 197 004d 1F000000 		.4byte	.LASF5
+ 197 004d 56000000 		.4byte	.LASF5
  198 0051 02       		.byte	0x2
  199 0052 3F       		.byte	0x3f
  200 0053 57000000 		.4byte	0x57
  201 0057 02       		.uleb128 0x2
  202 0058 04       		.byte	0x4
  203 0059 05       		.byte	0x5
- 204 005a 19020000 		.4byte	.LASF6
+ 204 005a 0F020000 		.4byte	.LASF6
  205 005e 03       		.uleb128 0x3
- 206 005f D4000000 		.4byte	.LASF7
+ 206 005f CA000000 		.4byte	.LASF7
  207 0063 02       		.byte	0x2
  208 0064 41       		.byte	0x41
  209 0065 69000000 		.4byte	0x69
  210 0069 02       		.uleb128 0x2
  211 006a 04       		.byte	0x4
  212 006b 07       		.byte	0x7
- 213 006c 7B000000 		.4byte	.LASF8
+ 213 006c B2000000 		.4byte	.LASF8
  214 0070 02       		.uleb128 0x2
  215 0071 08       		.byte	0x8
  216 0072 05       		.byte	0x5
- 217 0073 E8010000 		.4byte	.LASF9
+ 217 0073 DE010000 		.4byte	.LASF9
  218 0077 02       		.uleb128 0x2
  219 0078 08       		.byte	0x8
  220 0079 07       		.byte	0x7
- 221 007a 05010000 		.4byte	.LASF10
+ 221 007a FB000000 		.4byte	.LASF10
  222 007e 04       		.uleb128 0x4
  223 007f 04       		.byte	0x4
  224 0080 05       		.byte	0x5
@@ -357,48 +357,48 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  226 0085 02       		.uleb128 0x2
  227 0086 04       		.byte	0x4
  228 0087 07       		.byte	0x7
- 229 0088 3C000000 		.4byte	.LASF11
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 7
+ 229 0088 73000000 		.4byte	.LASF11
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 7
 
 
  230 008c 03       		.uleb128 0x3
- 231 008d 1C010000 		.4byte	.LASF12
+ 231 008d 12010000 		.4byte	.LASF12
  232 0091 03       		.byte	0x3
  233 0092 18       		.byte	0x18
  234 0093 33000000 		.4byte	0x33
  235 0097 03       		.uleb128 0x3
- 236 0098 D7010000 		.4byte	.LASF13
+ 236 0098 CD010000 		.4byte	.LASF13
  237 009c 03       		.byte	0x3
  238 009d 2C       		.byte	0x2c
  239 009e 4C000000 		.4byte	0x4c
  240 00a2 03       		.uleb128 0x3
- 241 00a3 10020000 		.4byte	.LASF14
+ 241 00a3 06020000 		.4byte	.LASF14
  242 00a7 03       		.byte	0x3
  243 00a8 30       		.byte	0x30
  244 00a9 5E000000 		.4byte	0x5e
  245 00ad 02       		.uleb128 0x2
  246 00ae 04       		.byte	0x4
  247 00af 07       		.byte	0x7
- 248 00b0 DF010000 		.4byte	.LASF15
+ 248 00b0 D5010000 		.4byte	.LASF15
  249 00b4 02       		.uleb128 0x2
  250 00b5 01       		.byte	0x1
  251 00b6 08       		.byte	0x8
- 252 00b7 F6010000 		.4byte	.LASF16
+ 252 00b7 EC010000 		.4byte	.LASF16
  253 00bb 02       		.uleb128 0x2
  254 00bc 04       		.byte	0x4
  255 00bd 04       		.byte	0x4
- 256 00be 49000000 		.4byte	.LASF17
+ 256 00be 80000000 		.4byte	.LASF17
  257 00c2 02       		.uleb128 0x2
  258 00c3 08       		.byte	0x8
  259 00c4 04       		.byte	0x4
- 260 00c5 DF000000 		.4byte	.LASF18
+ 260 00c5 D5000000 		.4byte	.LASF18
  261 00c9 05       		.uleb128 0x5
- 262 00ca CE000000 		.4byte	.LASF19
+ 262 00ca C4000000 		.4byte	.LASF19
  263 00ce 04       		.byte	0x4
  264 00cf 8503     		.2byte	0x385
  265 00d1 8C000000 		.4byte	0x8c
  266 00d5 06       		.uleb128 0x6
- 267 00d6 E6000000 		.4byte	.LASF20
+ 267 00d6 DC000000 		.4byte	.LASF20
  268 00da 01       		.byte	0x1
  269 00db 24       		.byte	0x24
  270 00dc 00000000 		.4byte	.LFB125
@@ -407,7 +407,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  273 00e5 9C       		.byte	0x9c
  274 00e6 0A010000 		.4byte	0x10a
  275 00ea 07       		.uleb128 0x7
- 276 00eb 00010000 		.4byte	.LASF24
+ 276 00eb F6000000 		.4byte	.LASF24
  277 00ef 01       		.byte	0x1
  278 00f0 26       		.byte	0x26
  279 00f1 C9000000 		.4byte	0xc9
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  284 0102 09       		.uleb128 0x9
  285 0103 01       		.uleb128 0x1
  286 0104 50       		.byte	0x50
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 8
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 8
 
 
  287 0105 02       		.uleb128 0x2
@@ -427,7 +427,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  290 0108 00       		.byte	0
  291 0109 00       		.byte	0
  292 010a 06       		.uleb128 0x6
- 293 010b 22020000 		.4byte	.LASF21
+ 293 010b 18020000 		.4byte	.LASF21
  294 010f 01       		.byte	0x1
  295 0110 45       		.byte	0x45
  296 0111 00000000 		.4byte	.LFB126
@@ -456,7 +456,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  319 0146 00       		.byte	0
  320 0147 00       		.byte	0
  321 0148 06       		.uleb128 0x6
- 322 0149 69000000 		.4byte	.LASF22
+ 322 0149 A0000000 		.4byte	.LASF22
  323 014d 01       		.byte	0x1
  324 014e 5E       		.byte	0x5e
  325 014f 00000000 		.4byte	.LFB127
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  341 017a B3010000 		.4byte	0x1b3
  342 017e 09       		.uleb128 0x9
  343 017f 01       		.uleb128 0x1
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 9
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 9
 
 
  344 0180 50       		.byte	0x50
@@ -488,7 +488,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  348 0184 00       		.byte	0
  349 0185 00       		.byte	0
  350 0186 0C       		.uleb128 0xc
- 351 0187 50020000 		.4byte	.LASF25
+ 351 0187 46020000 		.4byte	.LASF25
  352 018b 01       		.byte	0x1
  353 018c 14       		.byte	0x14
  354 018d C9000000 		.4byte	0xc9
@@ -496,20 +496,20 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  356 0192 03       		.byte	0x3
  357 0193 00000000 		.4byte	AMux_1_lastChannel
  358 0197 0D       		.uleb128 0xd
- 359 0198 F3000000 		.4byte	.LASF31
+ 359 0198 E9000000 		.4byte	.LASF31
  360 019c 06       		.byte	0x6
  361 019d EA07     		.2byte	0x7ea
  362 019f A3010000 		.4byte	0x1a3
  363 01a3 0E       		.uleb128 0xe
  364 01a4 97000000 		.4byte	0x97
  365 01a8 0F       		.uleb128 0xf
- 366 01a9 12000000 		.4byte	.LASF26
- 367 01ad 12000000 		.4byte	.LASF26
+ 366 01a9 49000000 		.4byte	.LASF26
+ 367 01ad 49000000 		.4byte	.LASF26
  368 01b1 05       		.byte	0x5
  369 01b2 1C       		.byte	0x1c
  370 01b3 0F       		.uleb128 0xf
- 371 01b4 05020000 		.4byte	.LASF27
- 372 01b8 05020000 		.4byte	.LASF27
+ 371 01b4 FB010000 		.4byte	.LASF27
+ 372 01b8 FB010000 		.4byte	.LASF27
  373 01bc 05       		.byte	0x5
  374 01bd 1B       		.byte	0x1b
  375 01be 00       		.byte	0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  398 0014 24       		.uleb128 0x24
  399 0015 00       		.byte	0
  400 0016 0B       		.uleb128 0xb
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 10
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 10
 
 
  401 0017 0B       		.uleb128 0xb
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  455 004d 0B       		.uleb128 0xb
  456 004e 27       		.uleb128 0x27
  457 004f 19       		.uleb128 0x19
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 11
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 11
 
 
  458 0050 11       		.uleb128 0x11
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  512 008c 49       		.uleb128 0x49
  513 008d 13       		.uleb128 0x13
  514 008e 02       		.uleb128 0x2
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 12
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 12
 
 
  515 008f 17       		.uleb128 0x17
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  569 00c7 3F       		.uleb128 0x3f
  570 00c8 19       		.uleb128 0x19
  571 00c9 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 13
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 13
 
 
  572 00ca 19       		.uleb128 0x19
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  626 0062 50       		.byte	0x50
  627 0063 9F       		.byte	0x9f
  628 0064 00000000 		.4byte	0
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 14
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 14
 
 
  629 0068 00000000 		.4byte	0
@@ -810,8 +810,8 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  655 001c 00000000 		.4byte	0
  656              		.section	.debug_line,"",%progbits
  657              	.Ldebug_line0:
- 658 0000 11020000 		.section	.debug_str,"MS",%progbits,1
- 658      0200C001 
+ 658 0000 FF010000 		.section	.debug_str,"MS",%progbits,1
+ 658      0200AE01 
  658      00000201 
  658      FB0E0D00 
  658      01010101 
@@ -822,167 +822,164 @@ ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 1
  661              	.LASF23:
  662 000a 6368616E 		.ascii	"channel\000"
  662      6E656C00 
- 663              	.LASF26:
- 664 0012 414D7578 		.ascii	"AMux_1_Unset\000"
- 664      5F315F55 
- 664      6E736574 
- 664      00
- 665              	.LASF5:
- 666 001f 5F5F696E 		.ascii	"__int32_t\000"
- 666      7433325F 
- 666      7400
- 667              	.LASF3:
- 668 0029 73686F72 		.ascii	"short unsigned int\000"
- 668      7420756E 
- 668      7369676E 
- 668      65642069 
- 668      6E7400
- 669              	.LASF11:
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 15
+ 663              	.LASF30:
+ 664 0012 483A5C47 		.ascii	"H:\\Githubrepo\\Intern\\PSoC\\Final_project01_54Byt"
+ 664      69746875 
+ 664      62726570 
+ 664      6F5C496E 
+ 664      7465726E 
+ 665 0041 652E6379 		.ascii	"e.cydsn\000"
+ 665      64736E00 
+ 666              	.LASF26:
+ 667 0049 414D7578 		.ascii	"AMux_1_Unset\000"
+ 667      5F315F55 
+ 667      6E736574 
+ 667      00
+ 668              	.LASF5:
+ 669 0056 5F5F696E 		.ascii	"__int32_t\000"
+ 669      7433325F 
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 15
 
 
- 670 003c 756E7369 		.ascii	"unsigned int\000"
- 670      676E6564 
- 670      20696E74 
- 670      00
- 671              	.LASF17:
- 672 0049 666C6F61 		.ascii	"float\000"
- 672      7400
- 673              	.LASF1:
- 674 004f 7369676E 		.ascii	"signed char\000"
- 674      65642063 
- 674      68617200 
- 675              	.LASF2:
- 676 005b 756E7369 		.ascii	"unsigned char\000"
- 676      676E6564 
- 676      20636861 
- 676      7200
- 677              	.LASF22:
- 678 0069 414D7578 		.ascii	"AMux_1_FastSelect\000"
- 678      5F315F46 
- 678      61737453 
- 678      656C6563 
- 678      7400
- 679              	.LASF8:
- 680 007b 6C6F6E67 		.ascii	"long unsigned int\000"
- 680      20756E73 
- 680      69676E65 
- 680      6420696E 
- 680      7400
- 681              	.LASF30:
- 682 008d 4D3A5C47 		.ascii	"M:\\Githubrepo\\Intern_hiwi\\April_BLE\\Final_proje"
- 682      69746875 
- 682      62726570 
- 682      6F5C496E 
- 682      7465726E 
- 683 00bc 63743031 		.ascii	"ct01_54Byte.cydsn\000"
- 683      5F353442 
- 683      7974652E 
- 683      63796473 
- 683      6E00
+ 669      7400
+ 670              	.LASF3:
+ 671 0060 73686F72 		.ascii	"short unsigned int\000"
+ 671      7420756E 
+ 671      7369676E 
+ 671      65642069 
+ 671      6E7400
+ 672              	.LASF11:
+ 673 0073 756E7369 		.ascii	"unsigned int\000"
+ 673      676E6564 
+ 673      20696E74 
+ 673      00
+ 674              	.LASF17:
+ 675 0080 666C6F61 		.ascii	"float\000"
+ 675      7400
+ 676              	.LASF1:
+ 677 0086 7369676E 		.ascii	"signed char\000"
+ 677      65642063 
+ 677      68617200 
+ 678              	.LASF2:
+ 679 0092 756E7369 		.ascii	"unsigned char\000"
+ 679      676E6564 
+ 679      20636861 
+ 679      7200
+ 680              	.LASF22:
+ 681 00a0 414D7578 		.ascii	"AMux_1_FastSelect\000"
+ 681      5F315F46 
+ 681      61737453 
+ 681      656C6563 
+ 681      7400
+ 682              	.LASF8:
+ 683 00b2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 683      20756E73 
+ 683      69676E65 
+ 683      6420696E 
+ 683      7400
  684              	.LASF19:
- 685 00ce 75696E74 		.ascii	"uint8\000"
+ 685 00c4 75696E74 		.ascii	"uint8\000"
  685      3800
  686              	.LASF7:
- 687 00d4 5F5F7569 		.ascii	"__uint32_t\000"
+ 687 00ca 5F5F7569 		.ascii	"__uint32_t\000"
  687      6E743332 
  687      5F7400
  688              	.LASF18:
- 689 00df 646F7562 		.ascii	"double\000"
+ 689 00d5 646F7562 		.ascii	"double\000"
  689      6C6500
  690              	.LASF20:
- 691 00e6 414D7578 		.ascii	"AMux_1_Start\000"
+ 691 00dc 414D7578 		.ascii	"AMux_1_Start\000"
  691      5F315F53 
  691      74617274 
  691      00
  692              	.LASF31:
- 693 00f3 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 693 00e9 49544D5F 		.ascii	"ITM_RxBuffer\000"
  693      52784275 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 16
-
-
  693      66666572 
  693      00
  694              	.LASF24:
- 695 0100 6368616E 		.ascii	"chan\000"
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 16
+
+
+ 695 00f6 6368616E 		.ascii	"chan\000"
  695      00
  696              	.LASF10:
- 697 0105 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 697 00fb 6C6F6E67 		.ascii	"long long unsigned int\000"
  697      206C6F6E 
  697      6720756E 
  697      7369676E 
  697      65642069 
  698              	.LASF12:
- 699 011c 75696E74 		.ascii	"uint8_t\000"
+ 699 0112 75696E74 		.ascii	"uint8_t\000"
  699      385F7400 
  700              	.LASF28:
- 701 0124 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 701 011a 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
  701      43313120 
  701      352E342E 
  701      31203230 
  701      31363036 
- 702 0157 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 702 014d 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
  702      20726576 
  702      6973696F 
  702      6E203233 
  702      37373135 
- 703 018a 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -Og -ffunction-s"
+ 703 0180 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -Og -ffunction-s"
  703      70202D6D 
  703      6670753D 
  703      66707634 
  703      2D73702D 
- 704 01bd 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 704 01b3 65637469 		.ascii	"ections -ffat-lto-objects\000"
  704      6F6E7320 
  704      2D666661 
  704      742D6C74 
  704      6F2D6F62 
  705              	.LASF13:
- 706 01d7 696E7433 		.ascii	"int32_t\000"
+ 706 01cd 696E7433 		.ascii	"int32_t\000"
  706      325F7400 
  707              	.LASF15:
- 708 01df 73697A65 		.ascii	"sizetype\000"
+ 708 01d5 73697A65 		.ascii	"sizetype\000"
  708      74797065 
  708      00
  709              	.LASF9:
- 710 01e8 6C6F6E67 		.ascii	"long long int\000"
+ 710 01de 6C6F6E67 		.ascii	"long long int\000"
  710      206C6F6E 
  710      6720696E 
  710      7400
  711              	.LASF16:
- 712 01f6 63686172 		.ascii	"char\000"
+ 712 01ec 63686172 		.ascii	"char\000"
  712      00
  713              	.LASF0:
- 714 01fb 73686F72 		.ascii	"short int\000"
+ 714 01f1 73686F72 		.ascii	"short int\000"
  714      7420696E 
  714      7400
  715              	.LASF27:
- 716 0205 414D7578 		.ascii	"AMux_1_Set\000"
+ 716 01fb 414D7578 		.ascii	"AMux_1_Set\000"
  716      5F315F53 
-ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\ccsdcagz.s 			page 17
-
-
  716      657400
  717              	.LASF14:
- 718 0210 75696E74 		.ascii	"uint32_t\000"
+ 718 0206 75696E74 		.ascii	"uint32_t\000"
+ARM GAS  C:\Users\43479\AppData\Local\Temp\ccODm46W.s 			page 17
+
+
  718      33325F74 
  718      00
  719              	.LASF6:
- 720 0219 6C6F6E67 		.ascii	"long int\000"
+ 720 020f 6C6F6E67 		.ascii	"long int\000"
  720      20696E74 
  720      00
  721              	.LASF21:
- 722 0222 414D7578 		.ascii	"AMux_1_Select\000"
+ 722 0218 414D7578 		.ascii	"AMux_1_Select\000"
  722      5F315F53 
  722      656C6563 
  722      7400
  723              	.LASF29:
- 724 0230 47656E65 		.ascii	"Generated_Source\\PSoC6\\AMux_1.c\000"
+ 724 0226 47656E65 		.ascii	"Generated_Source\\PSoC6\\AMux_1.c\000"
  724      72617465 
  724      645F536F 
  724      75726365 
  724      5C50536F 
  725              	.LASF25:
- 726 0250 414D7578 		.ascii	"AMux_1_lastChannel\000"
+ 726 0246 414D7578 		.ascii	"AMux_1_lastChannel\000"
  726      5F315F6C 
  726      61737443 
  726      68616E6E 
