@@ -1,0 +1,9 @@
+https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2015/08/06/_how-to_maximizet-p9Rc
+
+SPP Server:
+https://www.silabs.com/community/thunderboard/knowledge-base.entry.html/2016/04/10/spp-over-ble_bgscrip-1ExC
+https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2017/03/05/spp_client_exampleu-uKCx
+
+BGScript:
+https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2015/08/06/_how-to_run_a_bgsc-FM28https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2015/08/06/_reference_bgapib-Alq6
+https://ocdev.wordpress.com/2012/09/16/programming-the-ble112-using-bgscript/

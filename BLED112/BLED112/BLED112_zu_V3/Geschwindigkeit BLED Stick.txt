@@ -1,0 +1,31 @@
+Messung mit 10 Hz, 24 Sensoren, 115200 bps bei Hterm (74 Bytes pro Datensatz)
+22000 Bytes in 30 sec
+=> 733 Bytes/s
+=> praktisch 10 Hz erreicht
+
+Messung mit 15 Hz, 24 Sensoren, 115200 bps bei Hterm (74 Bytes pro Datensatz)
+32000 Bytes in 30 sec
+=> 1067 Bytes/s
+=> 14,4 Hz erreicht
+=> Ganz vereinzelt letzten Datensatz verschluckt
+
+Messung mit 20 Hz, 24 Sensoren, 115200 bps bei Hterm (74 Bytes pro Datensatz)
+37400 Bytes in 30 sec
+=> 1247 Bytes/s
+=> knapp 17 Hz erreicht
+=> Gelegentlich letzten Datensatz verschluckt
+
+Messung mit 30 Hz, 24 Sensoren, 115200 bps bei Hterm (74 Bytes pro Datensatz)
+51000 Bytes in 30 sec
+=> 1700 Bytes/s
+=> knapp 23 Hz erreicht
+=> Oft verschluckte Daten, daher kein Sinn
+
+
+Messung mit 20 Hz, 24 Sensoren, 256000 bps bei Hterm (74 Bytes pro Datensatz)
+38914 Bytes in 30 sec
+=> bps hat vsl keinen Einfluss
+
+Gegenprobe: Messung mit 20 Hz, 24 Sensoren, 9600 bps bei Hterm (74 Bytes pro Datensatz)
+39000 Bytes in 30 sec
+=> bestätigt

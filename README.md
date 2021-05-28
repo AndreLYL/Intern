@@ -1,7 +1,25 @@
 ## Intern and Hiwi
 This reposity is mainly used to store internship and HIWI-related code, notes, logs and other files. So the mainly works during my intern is to hardware and software development for a wearable device. The structure of my project is shown in figure in the below.
+### File structure
+The folder structure of the project is shown below:
 
-![](figure/structure.png)
+
+	Intern
+	|
+	|--BLED112: Code and data sheet for USB BLE dongle "BLED112"
+	|
+	|--debug software
+	|
+	|--GUI: the GUI project in python. Currently, it only support BLED112
+	|
+	|--figure
+	|
+	|--PSOC: The Programm in PSoC part
+
+
+### Architecture of SmartNIV 2.0 (Prototype)
+The Architecture of this project is shown in the followed pictures.
+![](figure/architecture.png)
 
 ### Hardware
 The Hardware of this project consists of three parts:

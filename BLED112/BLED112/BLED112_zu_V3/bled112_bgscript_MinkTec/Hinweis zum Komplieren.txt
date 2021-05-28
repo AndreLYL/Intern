@@ -1,0 +1,23 @@
+Einfach nur diesen Befehl ausführen:
+D:\Programme\Bluegiga\ble-1.9.0-150\bin\bgbuild.exe D:\Engineering\FlexTail\Hardware_Dongles_etc\BLED112\BLED112_zu_V3\bled112_bgscript_MinkTec\project.bgproj
+
+
+-> Übertragung auf Stick mit Bluegiga BLE Graphical User Interface Tool
+
+neues Modul:
+- > im Programm "Bluegiga Bluetooth Low Energy (COM5)" als Gerät auswählen und dann auf "Attach"
+-> Ggf. Commands -> Reset, falls attach nicht klappt
+-> Commands -> DFU
+- "Boot into DFU mode!
+-> out.hex laden
+-> Upload
+
+bereits programmiertes Modul:
+-> Vor der Programmierung ASCII "z" per USB/COM (hterm) übertragen, um in den DFU-Reboot-Modus zu gelangen
+-> Commands -> DFU
+-> out.hex laden
+-> Upload
+
+
+Probleme? ->
+https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2015/08/06/_how-to_update_the-saZT

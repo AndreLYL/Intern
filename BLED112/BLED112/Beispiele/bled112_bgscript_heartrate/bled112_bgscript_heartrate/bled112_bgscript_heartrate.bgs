@@ -1,0 +1,102 @@
+# ================================================================
+# BLED112-safe BGScript demo project with multiple DFU reboot methods
+# Imitates a heart-rate sensor as well. Fun!
+# Jeff Rowberg <jeff.rowberg@bluegiga.com>
+# ----------------------------------------------------------------
+#
+# CHANGELOG:
+#   2013-12-04 - Updated for variable name collision requirements
+#   2012-12-06 - Initial release
+#
+# ================================================================
+
+dim connected   # connection status flag (not used much in this demo but whatever)
+
+dim ret_result      # USB CDC RX data operation return code
+dim ret_data_size   # USB CDC RX data size
+dim ret_data(8)     # USB CDC RX data value
+
+dim fake_rate       # numerical heart rate value (0-255 for demo)
+dim measure_buf(2)  # characteristic value (2-byte array for demo)
+
+event system_boot(major, minor, patch, build, ll_version, protocol_version, hw)
+    # initialize fake heart rate to zero; we're just going to increment/loop it forever from 0-255
+    fake_rate = 0
+    
+    # build heart rate measurement characteristic, only two bytes in this demo (matches "length" attr. of value)
+    # detail: http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
+    measure_buf(0:1) = 0            # flags byte
+    measure_buf(1:1) = fake_rate    # measurement byte
+
+    # enable watermark event on UART endpoint (REQUIRED for USB CDC-based DFU trigger)
+    call system_endpoint_set_watermarks(3, 1, 0)
+   
+    # set advertisement interval to 20-30ms, and use all advertisement channels
+    # (note min/max parameters are in units of 625 uSec)
+    call gap_set_adv_parameters(32, 48, 7)
+
+    # put module into general discoverable/undirected connectable mode
+    call gap_set_mode(gap_general_discoverable, gap_undirected_connectable)
+
+    # configure timer for ~1 second intervals (BLED112 uses 32000 internal clock, not 32768 external)
+    call hardware_set_soft_timer(32000, 0, 0)
+end
+
+# catch connection event
+event connection_status(connection, flags, address, address_type, conn_interval, timeout, latency, bonding)
+    # make sure this is a "new connection established" event
+    if flags & $05 then
+        # set connection status to CONNECTED
+        connected = 1
+    end if
+end
+
+# catch disconnection event
+event connection_disconnected(handle, result)
+    # set connection status to DISCONNECTED
+    connected = 0
+    
+    # set advertisement interval to 20-30ms, and use all advertisement channels
+    # (note min/max parameters are in units of 625 uSec)
+    call gap_set_adv_parameters(32, 48, 7)
+
+    # put module into back into general discoverable/undirected connectable mode
+    call gap_set_mode(gap_general_discoverable, gap_undirected_connectable)
+end
+
+# catch timer tick, once per second
+event hardware_soft_timer(handle)
+    # increment fake heart rate counter
+    fake_rate = fake_rate + 1
+    
+    # update characteristic value container heart rate byte
+    measure_buf(1:1) = fake_rate
+    
+    # write heart rate measurement characteristic value
+    call attributes_write(c_heart_rate_measurement, 0, 2, measure_buf(0:2))
+    
+    # dongle will notify (push) new value if notifications are enabled at this point
+end
+
+# watch for new data from USB CDC
+# NOTE! This function or something similar MUST remain in the BGScript to
+# allow access to DFU mode over USB CDC with a special trigger character
+event system_endpoint_watermark_rx(endpoint, data_len)
+    call system_endpoint_rx(endpoint, data_len)(ret_result, ret_data_size, ret_data(0:ret_data_size))
+    if ret_data(0:1) = $30 then # ASCII '0' is 0x30
+        # reboot into DFU mode when 0x30 is received
+        call system_reset(1)
+    end if
+end
+
+# catch remote write of characteristic value
+# NOTE! This function or something similar MUST remain in the BGScript to
+# allow access to DFU mode by triggering from a characteristic value update
+event attributes_value(connection, reason, handle, offset, value_len, value_data)
+    if handle = c_dfu_reboot_trigger then
+        # remote client requested DFU reboot
+        # NOTE: this will reset on ANY written value. You can check for a specific
+        # byte or set of bytes in the "value_data" argument if desired.
+        call system_reset(1)
+    end if
+end

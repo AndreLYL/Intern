@@ -1,0 +1,483 @@
+# ================================================================
+# BLED112 SPP to USB converter for MinkTec sensor
+# ----------------------------------------------------------------
+#
+# using ideas from: https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2015/08/06/_bgscript_multisla-7oA2
+#
+#
+# CHANGELOG:
+#   2019-06-03: first design by MS
+#
+# ================================================================
+
+
+const MAX_CONNECTIONS = 8
+
+# States
+const STATE_FINDING_SERVICES = 0
+const STATE_FINDING_ATTRIBUTES = 1
+const STATE_LISTENING_MEASUREMENTS = 2
+
+dim state(8)                       		# current application state per slave
+dim att_handlesearch_start      		# "start" handle holder during search
+dim att_handlesearch_end        		# "end" handle holder during search
+dim att_handle_status_control(8)      	# remote handle
+dim att_handle_status_control_ccc(8)  	# remote handle for client characteristic configuration
+
+dim connections                     # keep track of how many connections there are
+dim connected(8)                    # keep track of connection status for each slot
+dim encrypted(8)                    # keep track of encryption status for each slot
+dim scanning
+dim connection_tx					# connection for TX data
+dim connection_status_vector		# 0b00000CBA = C: conn_interval = 6; B: encrypted ; A: subscribe to notifications
+
+dim pending_connection_handle       # handle for pending connection attempt
+dim conn_timeout                    # countdown timer for detecting failed connection attempts
+dim round_robin                     # index for which connection we are updating at any time
+
+#dim software_closed_timeout			# timeout for the case that the software is closed without shutting down the measurement
+#const software_closed_time = 35		# active software has to send at least every 30 s a command that it is still alive
+
+dim ad_field_length
+dim ad_field_type
+
+dim i
+dim j
+dim k
+dim ret_result
+dim temp_buf(4)
+dim ret_data_size   # USB CDC RX data size
+dim ret_data(8)     # USB CDC RX data value
+
+dim service_uuid(16)
+dim characteristic_uuid(16)
+dim mac_adress(6)
+
+dim connection_status_received
+
+
+
+
+event system_boot(major, minor, patch, build, ll_version, protocol_version, hw)
+    
+	# enable watermark event on UART endpoint (REQUIRED for USB CDC-based DFU trigger)
+    call system_endpoint_set_watermarks(system_endpoint_usb, 1, 0)
+	
+	# initialize UUIDs
+
+	# searched AMB2621 SPP service: 0x6E400001C35211E5953D0002A5D5C51B
+	# NOTE: LITTLE-ENDIAN BYTE ORDER
+	service_uuid(0:16) = "\x1b\xc5\xd5\xa5\x02\x00\x3d\x95\xe5\x11\x52\xc3\x01\x00\x40\x6e"
+	
+	# serached AMB2621 characteristic: 0x6E400002C35211E5953D0002A5D5C51B (TX characteristic)
+	# NOTE: LITTLE-ENDIAN BYTE ORDER
+	characteristic_uuid(0:16) = "\x1b\xc5\xd5\xa5\x02\x00\x3d\x95\xe5\x11\x52\xc3\x02\x00\x40\x6e"
+	
+	# MAC adress sensor #1: 00:18:da:0a:53:42
+	# MAC adress sensor #2: 00:18:da:0b:62:d4
+	# NOTE: LITTLE-ENDIAN BYTE ORDER	
+	# mac_adress(0:6) = "\x42\x53\x0a\xda\x18\x00" #sensor 1
+	# mac_adress(0:6) = "\xd4\x62\x0b\xda\x18\x00" #sensor 2
+	# mac_adress(0:6) = "\xd5\x62\x0b\xda\x18\x00" #sensor 3 (design V2)
+	# mac_adress(0:6) = "\xd6\x62\x0b\xda\x18\x00" #sensor 4 (design V2)
+	# mac_adress(0:6) = "\x6d\xe7\x0b\xda\x18\x00" #sensor 5 (design V2)
+	# mac_adress(0:6) = "\x6e\xe7\x0b\xda\x18\x00" #sensor 6 (design V2)
+	mac_adress(0:6) = "\x6f\xe7\x0b\xda\x18\x00" #sensor 7 (design V3)
+	
+	   
+	# initialize status	
+	#software_closed_timeout	= software_closed_time
+    connections = 0
+	connection_tx = 99
+	connection_status_received = 0
+	connection_status_vector = 0 # 0b00000CBA = C: conn_interval = 6; B: encrypted ; A: subscribe to notifications
+    conn_timeout = 0
+    pending_connection_handle = $ff
+    round_robin = 0
+    memset(connected(0), 0, MAX_CONNECTIONS)
+	
+	# bond mode
+	call sm_set_bondable_mode(1)
+   
+	# set mode
+	call sm_set_parameters(0, 7, 3) # mitm: 0 (0x00) min_key_size: 7 (0x07) io_capabilities: 3 (0x03)
+
+	# set scan parameters to 125ms/125ms interval/window, and use passive scanning
+    call gap_set_scan_parameters(200, 200, 0)
+end
+
+
+event gap_scan_response(rssi, packet_type, sender, address_type, bond, data_len, data_data)
+    # only check for main ad packets (packet_type = 0)
+    if packet_type = 0 then               
+
+        i = 0
+        while i < data_len
+            ad_field_length = data_data(i:1)
+            ad_field_type = data_data(i + 1:1)
+            if ad_field_type = $06 || ad_field_type = $07 then
+                # partial ($06) or complete ($07) list of 128-bit UUIDs
+
+                j = 0
+                while j < ad_field_length - 1
+
+                    if memcmp(data_data(i + j + 2), service_uuid(0), 16) && scanning = 1 then
+                        						
+						if memcmp(sender(0), mac_adress(0), 6) then #check MAC address
+							
+							# DEBUG
+							call system_endpoint_tx(system_endpoint_usb, 13, "FOUND SLAVE\r\n")
+
+							# found status/control service, so connect (stops scanning automatically)
+							call gap_connect_direct(sender(0:6), address_type, $40, $60, 100, 0)(ret_result, k)
+							
+							scanning = 0
+							pending_connection_handle = k
+
+							# initialize connection timeout detection countdown (~4 seconds)
+							conn_timeout = 4
+							
+							# exit gap_scan_response event handler immediately
+							return
+							
+						end if
+                    end if
+                    j = j + 16
+                end while
+            end if
+            i = i + ad_field_length + 1
+        end while
+    end if
+end
+
+
+# catch connection event
+# from blegui log:    ble_evt_connection_status connection: 0 (0x00) flags: 5 (0x05) address:00:18:da:0a:53:42 address_type: 0 (0x00) conn_interval: 6 (0x0006) timeout: 400 (0x0190) latency: 0 (0x0000) bonding: 255 (0xff)
+# shortly after that: ble_evt_connection_status connection: 0 (0x00) flags: 3 (0x03) address:00:18:da:0a:53:42 address_type: 0 (0x00) conn_interval: 6 (0x0006) timeout: 400 (0x0190) latency: 0 (0x0000) bonding: 0 (0x00)
+event connection_status(connection, flags, address, address_type, conn_interval, timeout, latency, bonding)
+    # DEBUG
+	call system_endpoint_tx(system_endpoint_usb, 19, "CONNECTION STATUS: ")
+	call system_endpoint_tx(system_endpoint_usb, 1, flags + $30)
+	#call system_endpoint_tx(system_endpoint_usb, 7, " ,INT: ")
+	#call system_endpoint_tx(system_endpoint_usb, 2, conn_interval)
+	call system_endpoint_tx(system_endpoint_usb, 2, "\r\n")      
+	
+	# check for "new connection established" update
+    if (flags & $05) = $05 && connection_status_received = 0 then
+	
+		# TODO/DEBUG : use and check variable "conn_status" in order to enter this function only once 
+		connection_status_received = 1
+		
+        # clear connection countdown timer so we don't trigger it
+        conn_timeout = 0
+        pending_connection_handle = $ff
+
+        # DEBUG
+        call system_endpoint_tx(system_endpoint_usb, 19, "CONNECTED TO SLAVE ")
+        call system_endpoint_tx(system_endpoint_usb, 1, connection + $30)
+        call system_endpoint_tx(system_endpoint_usb, 2, "\r\n")      
+		
+		# change state
+        state(connection:1) = STATE_FINDING_SERVICES
+        call system_endpoint_tx(system_endpoint_usb, 21, "Finding services...\r\n")
+
+		# start searching through service groups (UUID = 0x2800) to find service
+        call attclient_read_by_group_type(connection, $0001, $ffff, 2, "\x00\x28")
+		
+		# update status
+		connections = connections + 1
+		connected(connection:1) = 1		
+	
+		# following not used, because there is only one sensor used:
+		# # if we aren't at max connections, then resume scanning
+		# if connections < MAX_CONNECTIONS && scanning = 0 then
+			# # DEBUG
+			# call system_endpoint_tx(system_endpoint_usb, 10, "SCANNING\r\n")
+			
+			# # start discovery
+			# scanning = 1
+			# call gap_discover(gap_discover_generic)		
+		# end if	
+	end if
+	
+	# check for "encrypted" status update (i.e. paired)
+	if (flags & $02) = $02 then
+		
+		connection_status_vector = connection_status_vector | $02	# 0b00000CBA = C: conn_interval = 6; B: encrypted ; A: subscribe to notifications
+		
+		# Flag to PC
+		call system_endpoint_tx(system_endpoint_usb, 1, connection + $30)
+		# DEBUG
+		call system_endpoint_tx(system_endpoint_usb, 12, " ENCRYPTED\r\n")			
+		
+		# update status
+		encrypted(connection:1) = 1
+	end if		
+	
+	# fast connection interval negotiated
+	if conn_interval = $06 then 
+		connection_status_vector = connection_status_vector | $04	# 0b00000CBA = C: conn_interval = 6; B: encrypted ; A: subscribe to notifications
+	end if
+	
+	# If the connection is totally completed, then send ack
+	if connection_status_vector = 7 then 
+		call system_endpoint_tx(system_endpoint_usb, 1, $02) # command to program: sensor found, measurement may be startet
+	end if
+
+	
+end
+
+
+event attclient_group_found(connection, start_handle, end_handle, uuid_len, uuid_data)
+	# found a service group, so check to see if it's the expected service
+    if uuid_len = 16 &&  memcmp(uuid_data(0), service_uuid(0), 16) then
+        # found it! save the handle range
+        att_handlesearch_start = start_handle
+        att_handlesearch_end = end_handle
+        call system_endpoint_tx(system_endpoint_usb, 16, "Found service!\r\n")
+    end if
+end
+
+
+event attclient_find_information_found(connection, chrhandle, uuid_len, uuid_data)	
+	# found a descriptor, so check to see if it's the the TX or RX (0x2902)
+    if  uuid_len = 16 && memcmp(uuid_data(0), characteristic_uuid(0), 16) then
+        # found the measurement attribute, so save the handle
+        att_handle_status_control(connection:1) = chrhandle
+		# should be handle 13
+        call system_endpoint_tx(system_endpoint_usb, 28, "SPP data UUID found, handle ")
+		temp_buf(0:1) = (chrhandle/10) + 48
+		temp_buf(1:1) = chrhandle - ((chrhandle/10)*10) + 48
+		call system_endpoint_tx(system_endpoint_usb, 2, temp_buf(0:2)) # decimal number 
+		call system_endpoint_tx(system_endpoint_usb, 2, "\r\n ")
+		connection_tx = connection
+    end if
+	
+    if uuid_len = 2 && uuid_data(0:1) = $02 && uuid_data(1:1) = $29 && att_handle_status_control(connection:1) > $00 && att_handle_status_control_ccc(connection:1) = $00 then
+        # found client characteristic configuration for measurement attr, so save the handle
+        att_handle_status_control_ccc(connection:1) = chrhandle
+		# should be  handle 16
+        call system_endpoint_tx(system_endpoint_usb, 30, "SPP data config found, handle ")		
+		temp_buf(0:1) = (chrhandle/10) + 48
+		temp_buf(1:1) = chrhandle - ((chrhandle/10)*10) + 48
+		call system_endpoint_tx(system_endpoint_usb, 2, temp_buf(0:2)) # decimal number 
+		call system_endpoint_tx(system_endpoint_usb, 2, "\r\n ")
+    end if
+end
+
+
+event attclient_procedure_completed(connection, result, chrhandle)
+	# finished some attclient operation, so figure out what happened based on particular slave state
+    if state(connection:1) = STATE_FINDING_SERVICES then
+        if att_handlesearch_end > 0 then
+            # change state
+            state(connection:1) = STATE_FINDING_ATTRIBUTES
+            call system_endpoint_tx(system_endpoint_usb, 23, "Finding attributes...\r\n")
+
+            # found service, so now find the measurement + CCC handles
+            call attclient_find_information(connection, att_handlesearch_start, att_handlesearch_end)
+        else
+            # couldn't locate service
+            call system_endpoint_tx(system_endpoint_usb, 24, "Couldn't find service!\r\n")
+        end if
+    end if
+    if state(connection:1) = STATE_FINDING_ATTRIBUTES && chrhandle > att_handlesearch_start then
+        if att_handle_status_control_ccc(connection:1) > 0 then
+            # change state
+            state(connection:1) = STATE_LISTENING_MEASUREMENTS
+			
+			connection_status_vector =	connection_status_vector | $01	# 0b00000CBA = C: conn_interval = 6; B: encrypted ; A: subscribe to notifications
+			
+			# If the connection is totally completed, then send ack
+			if connection_status_vector = 7 then 
+				call system_endpoint_tx(system_endpoint_usb, 1, $02) # command to program: sensor found, measurement may be startet
+			end if
+		
+            call system_endpoint_tx(system_endpoint_usb, 28, "Subscribe to notifications\r\n")
+			call system_endpoint_tx(system_endpoint_usb, 13, "CONNECTIONS: ")
+			call system_endpoint_tx(system_endpoint_usb, 1, connections + $30)
+    
+			
+			# handle 16
+			
+			# MinkTec sensor sends data by notification:
+			# subscribe to notifications by writing 0x0001 to remote client characteristic configuration attribute
+			call attclient_attribute_write(connection, att_handle_status_control_ccc(connection:1), 2, $0001)
+			
+			# indications are not used:
+			# subscribe to indications by writing 0x0002 to remote client characteristic configuration attribute
+			# call attclient_attribute_write(connection, att_handle_status_control_ccc(connection:1), 2, $0002)							
+        else
+            # couldn't locate temperature measurement characteristic with UUID 0x2A1C, uh oh
+            # (or possibly the corresponding client characteristic configuration attribute)
+            call system_endpoint_tx(system_endpoint_usb, 31, "Couldn't find characteristic!\r\n")
+        end if					
+    end if
+end		
+
+
+# catch disconnection event
+event connection_disconnected(handle, result)
+    # Flag to PC
+	call system_endpoint_tx(system_endpoint_usb, 1, $05) # command to program: sensor successfully disconnect
+	# DEBUG
+    call system_endpoint_tx(system_endpoint_usb, 1, handle + $30)
+    call system_endpoint_tx(system_endpoint_usb, 15, " DISCONNECTED: ")
+    temp_buf(0:1) = ((result >> 12) & $f) + 48 + ((result >> 12) & $f)/10*7
+    temp_buf(1:1) = ((result >> 8) & $f) + 48 + ((result >> 8) & $f)/10*7
+    temp_buf(2:1) = ((result >> 4) & $f) + 48 + ((result >> 4) & $f)/10*7
+    temp_buf(3:1) = (result & $f) + 48 + (result & $f)/10*7
+    call system_endpoint_tx(system_endpoint_usb, 4, temp_buf(0:4))
+    call system_endpoint_tx(system_endpoint_usb, 2, "\r\n")
+    
+    # update status
+    connected(handle:1) = 0
+    encrypted(handle:1) = 0
+    connections = connections - 1
+	if connections = 0 then
+		connection_tx = 99
+		connection_status_received = 0
+	end if
+	att_handle_status_control(handle:1) = $00
+	att_handle_status_control_ccc(handle:1) = $00
+	
+	connection_status_vector = 0 # 0b00000CBA = C: conn_interval = 6; B: encrypted ; A: subscribe to notifications
+	
+    #if scanning = 0 then
+        # DEBUG
+        #call system_endpoint_tx(system_endpoint_usb, 10, "SCANNING\r\n")
+        
+        # start discovery
+        #scanning = 1
+        #call gap_discover(gap_discover_generic)
+    #end if
+end
+
+
+# catch timer tick (used to update the slave and detect connection attempt timeouts)
+event hardware_soft_timer(handle)
+    # check for connection attempt timeout timer
+    if conn_timeout > 0 then
+        conn_timeout = conn_timeout - 1
+        
+        # check for timeout condition (decremented to zero)
+        if conn_timeout = 0 && pending_connection_handle != $ff then
+            # Flag to PC
+            call system_endpoint_tx(system_endpoint_usb, 1, $03) # command to program: timout error, disconnet
+			# DEBUG
+			call system_endpoint_tx(system_endpoint_usb, 21, "TIMER: CONN TIMEOUT\r\n")		
+            
+            # end connection attempt
+            call connection_disconnect(pending_connection_handle)
+
+            if scanning = 0 then
+                # DEBUG
+                call system_endpoint_tx(system_endpoint_usb, 10, "SCANNING\r\n")
+                
+                # start discovery
+                scanning = 1
+                call gap_discover(gap_discover_generic)
+            end if
+        end if
+    end if
+	# is the software still alive? If not, disconnection
+	# if software_closed_timeout > 0 then
+		# software_closed_timeout = software_closed_timeout - 1
+		
+		# if software_closed_timeout = 0 then
+			# # Debug
+			# call system_endpoint_tx(system_endpoint_usb, 1, $03) # command to program: timout error, disconnet
+			# call system_endpoint_tx(system_endpoint_usb, 30, "SOFTWARE-TIMER: CONN TIMEOUT\r\n")
+					
+			# # end connection attempt
+            # call connection_disconnect(att_handle_status_control(connections:1))
+		# end if
+	# end if
+end
+
+
+# catch indicated/notificated data from the slave
+event attclient_attribute_value(connection, handle, type, value_len, value_data)
+	# forward data from sensor to USB
+	
+	#if condition would be nice, but does not work because:
+	# this handle = 15
+	# att_handle_status_control(connection:1) = 13
+	# att_handle_status_control_ccc(connection:1) = 16
+	
+	#if handle = att_handle_status_control(connection:1) then    
+		call system_endpoint_tx(system_endpoint_usb, value_len, value_data(0:value_len))
+	#end if
+end
+
+
+# catch remote write of characteristic value
+# NOTE! This function or something similar MUST remain in the BGScript to
+# allow access to DFU mode by triggering from a characteristic value update
+event attributes_value(connection, reason, handle, offset, value_len, value_data)
+	call system_endpoint_tx(system_endpoint_usb, 17, "attribute_value\r\n")
+	call system_endpoint_tx(system_endpoint_usb, 7, "length:")
+	call system_endpoint_tx(system_endpoint_usb, 1, value_len + $30)
+	call system_endpoint_tx(system_endpoint_usb, 2, "\r\n")
+    if handle = c_dfu_reboot_trigger then
+        # remote client requested DFU reboot
+        # NOTE: this will reset on ANY written value. You can check for a specific
+        # byte or set of bytes in the "value_data" argument if desired.
+        call system_reset(1)
+    end if
+end
+
+
+# watch for new data from USB CDC
+# NOTE! This function or something similar MUST remain in the BGScript to
+# allow access to DFU mode over USB CDC with a special trigger character
+event system_endpoint_watermark_rx(endpoint, data_len)
+    call system_endpoint_rx(endpoint, data_len)(ret_result, ret_data_size, ret_data(0:ret_data_size))
+	#
+	# DO NOT DELETE THE FOLLOWING PART (SYSTEM RESET)!!!
+	#
+    if ret_data(0:1) = $7A then # ASCII 'z' is 0x7A
+        # reboot into DFU mode when 0x30 is received
+        call system_reset(1)
+	end if
+	
+	if ret_data(0:1) = $53 then # ASCII 'S' is 0x53 (S = START)
+	
+		if connections > 0 then # There is already a sensor connected
+			# Sensor found
+			call system_endpoint_tx(system_endpoint_usb, 1, $02) # command to program: sensor found, measurement may be startet
+			# DEBUG
+			call system_endpoint_tx(system_endpoint_usb, 26, "SENSOR ALREADY CONNECTED\r\n")
+		else
+			# start discovery of the FlexTail sensor
+			scanning = 1
+			call system_endpoint_tx(system_endpoint_usb, 15, "SEARCH SENSOR\r\n")
+			# software_closed_timeout = software_closed_time
+			call gap_discover(gap_discover_generic)		
+			# start 1-second repeating timer (used for round-robin data pushes and connection timeout detection)
+			call hardware_set_soft_timer(32768, 0, 0)
+		end if
+	end if	
+	
+	# if ret_data(0:1) = $52 then # ASCII 'R' is 0x52 (R = RESET)
+		# # Refresh disconnetion timer
+		# software_closed_timeout = software_closed_time
+	# end if
+	
+	if ret_data(0:1) = $45 then # ASCII 'E' is 0x45 (E = END)
+		# Flag to PC
+		call system_endpoint_tx(system_endpoint_usb, 1, $04) # command to program: try to disconnect from BLED112
+		# DEBUG
+		call system_endpoint_tx(system_endpoint_usb, 34, "ATTEMPT TO DISCONNECT BY BLED112\r\n")
+				
+		# end connection attempt
+		call connection_disconnect(att_handle_status_control(connections:1))
+	end if
+	
+	if ret_data(0:1) = $01 then # 0x01 is start byte of cmd/data packet
+		# forward data from USB to sensor
+		if connection_tx < 99 then
+			call attclient_write_command(connection_tx, att_handle_status_control(connection_tx:1), ret_data_size, ret_data(0:ret_data_size))(connection_tx, ret_result)
+		end if
+	end if
+end

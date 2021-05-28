@@ -1,0 +1,10 @@
+BT Adresse Handy:
+BC:E6:3F:CC:DC:FD  (WLAN: FE am Ende)
+
+Einstellung: Discoverable: Generic
+Connectable: Direct/undirect ändern??
+-> Handy kann Modul finden und lesen
+
+
+BT Modul updaten:
+https://www.silabs.com/community/wireless/bluetooth/knowledge-base.entry.html/2015/08/06/_how-to_update_the-saZT

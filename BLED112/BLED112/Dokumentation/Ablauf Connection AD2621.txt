@@ -1,0 +1,63 @@
+2019.06.02 21:16:29.628 ble_cmd_sm_set_bondable_mode bondable: 1 (0x01)
+2019.06.02 21:16:29.630 TX: 0001050101
+
+2019.06.02 21:16:29.631 ble_cmd_sm_set_parameters mitm: 0 (0x00) min_key_size: 7 (0x07) io_capabilities: 3 (0x03)
+2019.06.02 21:16:29.634 TX: 00030503000703
+
+2019.06.02 21:16:29.636 ble_rsp_sm_set_bondable_mode 
+2019.06.02 21:16:29.637 RX: 00000501
+
+2019.06.02 21:16:29.638 ble_rsp_sm_set_parameters 
+2019.06.02 21:16:29.639 RX: 00000503
+
+2019.06.02 21:16:34.249 ble_cmd_gap_connect_direct address: 42 53 0a da 18 00 addr_type: 0 (0x00) conn_interval_min: 6 (0x0006) conn_interval_max: 22 (0x0016) timeout: 400 (0x0190) latency: 0 (0x0000)
+2019.06.02 21:16:34.253 TX: 000f060342530ada1800000600160090010000
+
+2019.06.02 21:16:34.257 ble_rsp_gap_connect_direct result:0x0000 ['No Error'] connection_handle: 0 (0x00)
+2019.06.02 21:16:34.260 RX: 00030603000000
+
+2019.06.02 21:16:34.277 ble_evt_connection_status connection: 0 (0x00) flags: 5 (0x05) address:00:18:da:0a:53:42 address_type: 0 (0x00) conn_interval: 6 (0x0006) timeout: 400 (0x0190) latency: 0 (0x0000) bonding: 255 (0xff)
+2019.06.02 21:16:34.281 RX: 80100300000542530ada180000060090010000ff
+
+2019.06.02 21:16:34.489 ble_evt_connection_status connection: 0 (0x00) flags: 3 (0x03) address:00:18:da:0a:53:42 address_type: 0 (0x00) conn_interval: 6 (0x0006) timeout: 400 (0x0190) latency: 0 (0x0000) bonding: 0 (0x00)
+2019.06.02 21:16:34.499 RX: 80100300000342530ada18000006009001000000
+
+2019.06.02 21:16:34.521 ble_evt_sm_bond_status bond: 0 (0x00) keysize: 16 (0x10) mitm: 0 (0x00) keys: 91 (0x5b)
+2019.06.02 21:16:34.526 RX: 800405040010005b
+
+2019.06.02 21:18:21.764 ble_cmd_attclient_read_by_type connection: 0 (0x00) start: 1 (0x0001) end: 65535 (0xffff) uuid: 03 28
+2019.06.02 21:18:21.767 TX: 00080402000100ffff020328
+
+2019.06.02 21:18:21.771 ble_rsp_attclient_read_by_type connection: 0 (0x00) result:0x0000 ['No Error']
+2019.06.02 21:18:21.774 RX: 00030402000000
+
+2019.06.02 21:18:21.786 ble_evt_attclient_attribute_value connection: 0 (0x00) atthandle: 2 (0x0002) type: 3 (0x03) value:020300002a
+2019.06.02 21:18:21.789 RX: 800a04050002000305020300002a
+
+2019.06.02 21:18:21.791 ble_evt_attclient_attribute_value connection: 0 (0x00) atthandle: 4 (0x0004) type: 3 (0x03) value:020500012a
+2019.06.02 21:18:21.792 RX: 800a04050004000305020500012a
+
+2019.06.02 21:18:21.794 ble_evt_attclient_attribute_value connection: 0 (0x00) atthandle: 6 (0x0006) type: 3 (0x03) value:020700042a
+2019.06.02 21:18:21.796 RX: 800a04050006000305020700042a
+
+2019.06.02 21:18:21.805 ble_evt_attclient_attribute_value connection: 0 (0x00) atthandle: 8 (0x0008) type: 3 (0x03) value:020900a62a
+2019.06.02 21:18:21.808 RX: 800a04050008000305020900a62a
+
+2019.06.02 21:18:21.818 ble_evt_attclient_attribute_value connection: 0 (0x00) atthandle: 12 (0x000c) type: 3 (0x03) value:0c0d001bc5d5a502003d95e51152c30200406e
+2019.06.02 21:18:21.820 RX: 80180405000c0003130c0d001bc5d5a502003d95e51152c30200406e
+
+2019.06.02 21:18:21.831 ble_evt_attclient_attribute_value connection: 0 (0x00) atthandle: 14 (0x000e) type: 3 (0x03) value:100f001bc5d5a502003d95e51152c30300406e
+2019.06.02 21:18:21.835 RX: 80180405000e000313100f001bc5d5a502003d95e51152c30300406e
+
+2019.06.02 21:18:21.845 ble_evt_attclient_procedure_completed connection: 0 (0x00) result:0x0000 ['No Error'] chrhandle: 15 (0x000f)
+2019.06.02 21:18:21.850 RX: 800504010000000f00
+
+2019.06.02 21:18:26.899 ble_cmd_connection_disconnect connection: 0 (0x00)
+2019.06.02 21:18:26.900 TX: 0001030000
+
+2019.06.02 21:18:26.904 ble_rsp_connection_disconnect connection: 0 (0x00) result:0x0000 ['No Error']
+2019.06.02 21:18:26.907 RX: 00030300000000
+
+2019.06.02 21:18:26.909 ble_evt_connection_disconnected connection: 0 (0x00) reason:0x0216 ['Local device terminated the connection.']
+2019.06.02 21:18:26.911 RX: 80030304001602
+

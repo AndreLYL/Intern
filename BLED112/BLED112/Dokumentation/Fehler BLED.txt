@@ -1,0 +1,3 @@
+Fehlerbehandlung:
+Fehler 0x0213 (von Fehler 0x0305 (pairing not supported))
+-> In BLE GUI auf "Tools" -> "Security Manager"-> Häckchen bei "Bondable" 
