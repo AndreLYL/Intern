@@ -40,6 +40,14 @@ The Hardware of this project consists of three parts:
 
 
 ### How to use the LED Matrix?
-In order to enable the LED Matrix, we needs to configure the `LED_MATRIX_ENABLE` in host_main.c file as `ENABLE`。
+In order to enable the LED Matrix, we needs to configure the `LED_MATRIX_ENABLE` in host_main.c file as `ENABLE`.
 ![](figure/LED_Configuration.png)
+
+
+### Data splitting
+The following diagram shows how 36 float type data can be sent through the BLED112 Bluetooth dongle with a MTU size 20.
+
+![](figure/package.png)
+
+
 
